@@ -1,10 +1,10 @@
 # Flex-Cabbage
 Flex Cabbage - A system for easy and flexible Cabbage effect and instrument development
 
-##About
+## About
 
-##Requirements
+## Requirements
 
-##Installing
+## Installing
 
-##Getting Started
+## Getting Started
