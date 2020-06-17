@@ -1,5 +1,7 @@
 # Flex-Cabbage
-Flex Cabbage - A system for easy and flexible Cabbage effect and instrument development
+### *by tgrey*
+
+A system for easy and flexible development of rich Cabbage effects and instruments
 
 ## About
 
