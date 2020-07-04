@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flexpan</namespace>
+<name>FlexPan</name>
+<cabbagecode>
+$CONTAINER bounds(0, 0, 50, 50)
+{
+  $PAN_KNOB pos(0, 0), size(50, 50), range(-100, 100, 0, 1, 0.01), channel("pan-val"), identchannel("pan-val-c"), text("---"), textcolour(0,0,0,0), popuppostfix(" %")
+  $BUTTON pos(6,36), size(38,12), channel("pan-mode"), identchannel("pan-mode-c"), text("---"), latched(0), popuptext("Change Pan Mode")
+}
+</cabbagecode>
+<csoundcode>
+
+; #include "includes/standards.inc.csd"
+#include "plants/flexfx/pan.inc.csd"
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+

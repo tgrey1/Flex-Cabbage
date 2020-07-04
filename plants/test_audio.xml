@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>test_audio</namespace>
+<name>TestButtons</name>
+<cabbagecode>
+$CONTAINER bounds(0, 0, 140, 20), identchannel("testaudio_box"), visible(0)
+{
+  $HY_BUTTON pos(0, 3), size(20, 16), channel("testaudio_L"), text("L","ON"), latched("0"), value(0), popuptext("Test Noise: Left")
+  $HR_BUTTON pos(20, 3), size(40, 16), channel("testaudio_Mono"), text("Mono","ON"), latched("1"), value(0), popuptext("Test Wav: Mono")
+  $HY_BUTTON pos(60, 3), size(20, 16), channel("testaudio_C"), text("C","ON"), latched("0"), value(0), popuptext("Test Noise: Center")
+  $HR_BUTTON pos(80, 3), size(40, 16), channel("testaudio_Stereo"), text("Stereo","ON"), latched("1"), value(0), popuptext("Test Wav: Stereo")
+  $HY_BUTTON pos(120, 3), size(20, 16), channel("testaudio_R"), text("R","ON"), latched("0"), value(0), popuptext("Test Noise: Right")
+}
+</cabbagecode>
+<csoundcode>
+
+; Code is here, but is getting auto-loaded in standardards.inc.csd to allow config loading ahead of time
+; #include "includes/udo/testaudio.udo.csd"
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+

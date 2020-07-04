@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>test_midi</namespace>
+<name>TestButtons</name>
+<cabbagecode>
+$CONTAINER bounds(0, 0, 148, 20), identchannel("testmidi_box"), visible(0)
+{
+  $HR_BUTTON pos(0,0), size(40, 18), channel("testmidi_on"), text("OFF","ON"), latched("1"), value(0), popuptext("Generate MIDI Notes")
+  $ENV_KNOB pos(42,-6), size(30,30), range(.1,10,1,1,.01), channel("testmidi_rate"), popupprefix("Note rate: "), popuppostfix("Hz")
+  $ENV_KNOB pos(64,-6), size(30,30), range(1,100,50,1,1), channel("testmidi_duty"), popupprefix("Duty cycle: "), popuppostfix(" %")
+  $EFF_KNOB pos(86,-6), size(30,30), range(0,12,8,1,1), channel("testmidi_octave"), popupprefix("PCH Octave Num: ")
+  $EFF_KNOB pos(108,-6), size(30,30), range(0,12,0,1,1) channel("testmidi_note"), popupprefix("PCH Note Num: ")
+}
+</cabbagecode>
+<csoundcode>
+
+#include "includes/standards.inc.csd"
+
+alwayson "TestMidiAutoMon"
+
+instr TestMidiAutoMon
+  #ifdef TEST_MIDI
+  iInstrNum = 1
+
+  chnset "visible(1)", "testmidi_box"
+
+  kTest chnget "testmidi_on"
+  kRate chnget "testmidi_rate"
+  kDuty chnget "testmidi_duty"
+  kDuty *= .01
+  kOctave chnget "testmidi_octave"
+  kNote chnget "testmidi_note"
+  kPch = kOctave+(kNote*.01)
+  kFreq cpspch kPch
+
+  kLen divz 1, kRate, 1
+  kLen *= kDuty
+
+  if(kTest==1) then
+    if metro(kRate)==1 then
+      scoreline sprintfk("i\"%s\" 0 %f %f 1","Synth",kLen,kFreq), k(1)
+    endif
+  endif
+  #endif
+endin
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+

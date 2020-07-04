@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>collapse</namespace>
+<name>StereoCollapse</name>
+<cabbagecode>
+$CONTAINER bounds(0, 0, 100, 18)
+{
+  $HG_BUTTON pos(0, 2), size(20, 14), channel("mono-st"), radiogroup("Collapse"),value(1), text("St", "St"), popuptext("Stereo Input")
+  $HG_BUTTON pos(20, 2), size(22, 14), channel("mono-inv"), radiogroup("Collapse"), text("Inv", "Inv"), popuptext("Inverted Stereo Input")
+  $HR_BUTTON pos(42, 2), size(20, 14), channel("mono-lr"), radiogroup("Collapse"), text("LR", "LR"), popuptext("Mono Input: LR+LR")
+  $HR_BUTTON pos(61, 2), size(19, 14), channel("mono-l"), radiogroup("Collapse"), text("L", "L"), popuptext("Mono Input: L+L")
+  $HR_BUTTON pos(80, 2), size(19, 14), channel("mono-r"), radiogroup("Collapse"), text("R", "R"), popuptext("Mono Input: R+R")
+}
+</cabbagecode>
+<csoundcode>
+
+#include "includes/udo/collapse.udo.csd"
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
