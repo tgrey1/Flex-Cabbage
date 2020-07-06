@@ -18,7 +18,7 @@ This can also be the good basis for a new instrument.
 ***************/
 
 <Cabbage>
-form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml", "plants/debug.xml", "plants/nofx.xml"), $ROOT
+form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml"), $ROOT
 
   $GROUPBOX bounds(10, 10, 360, 80), text("In / Out"), plant("io") {
     TestButtons bounds(10,2,126,18), namespace("test_midi")
