@@ -108,6 +108,41 @@ opcode FlexBaseFreq,a,a
   xout aFreq*gkPchBend
 endop
 
+#ifndef SYNTH_OUT_INSTR
+  #define SYNTH_OUT_INSTR #FlexSynthOut#
+#endif
+
+#include "plants/flexfx/pan.inc.csd"
+
+gkModAmp init 1
+
+#ifndef SYNTH_FXOUT_INSTR
+alwayson "$SYNTH_OUT_INSTR"
+
+instr $SYNTH_OUT_INSTR
+  aSigL chnget "SynthLeft"
+  aSigR chnget "SynthRight"
+  chnclear "SynthLeft"
+  chnclear "SynthRight"
+
+  kGainDb = ampdb(chnget:k("gain"))
+
+  ; apply Pan and gain
+  aSigL, aSigR FlexPan aSigL, aSigR
+  aSigL *= kGainDb
+  aSigR *= kGainDb
+
+  ; apply VCA LFO from synth controls
+  aSigL *= a(gkModAmp)
+  aSigR *= a(gkModAmp)
+
+  ; clip signal and LED
+  aSigL, aSigR FlexClip aSigL, aSigR, "outOL-"
+
+  outs aSigL, aSigR
+endin
+#endif
+
 instr FlexSynthAutoMon
   ; init to .5, so prior to data wheel is "centered"
   kMidiBend init .5
