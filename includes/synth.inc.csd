@@ -18,7 +18,7 @@ This is the synth file with specialzed functions for synths
 ***************/
 
 ; This tells FlexFX to use the synth out instrument accumulator
-#define USE_SYNTH_OUT #1#
+#define USE_SYNTH_OUT ##
 
 ; Make sure standards are already included
 #include "standards.inc.csd"

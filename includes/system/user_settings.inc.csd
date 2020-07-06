@@ -1,6 +1,6 @@
 ; safety check, doesn't allow double include!
 #ifndef FLEX_INCL_SETTINGS
-#define FLEX_INCL_SETTINGS ##
+#define FLEX_INCL_SETTINGS ## ; COMMENT LINE TO UNSET VARIABLE
 /***************
  ***************
 
@@ -23,7 +23,7 @@ ALL user editable data is in here... take a look around
 
 ; set debug for testing
 ; automatically disabled in an exported plugin
-#define DEBUG #1#
+#define DEBUG ## ; COMMENT LINE TO UNSET VARIABLE
 
 
 ; This is the channel MIDI data will be read from
@@ -34,11 +34,11 @@ ALL user editable data is in here... take a look around
 
 
 ; if defined, offer use of balance2 instead of balance in multifilt filters
-#define USE_BALANCE2 ##
+#define USE_BALANCE2 ## ; COMMENT LINE TO UNSET VARIABLE
 
 ; if defined, metronomes for UI_TICK and INSTR_TICK will be global variables
 ; if not defined, each metronome will be independently calculated
-#define USE_GLOBAL_METRO ##
+#define USE_GLOBAL_METRO ## ; COMMENT LINE TO UNSET VARIABLE
 
 ; value substituted when an exponential value reaches 0
 #define EXPN_MIN #.00001#
@@ -58,10 +58,10 @@ ALL user editable data is in here... take a look around
 ; #define CLEAR_OVERAGE #3.5#
 
 ; show buttons for test audio, always overriden to 1 if DEBUG==1
-#define TEST_AUDIO #COMMENT_LINE_TO_UNSET#
+#define TEST_AUDIO ## ; COMMENT LINE TO UNSET VARIABLE
 
 ; show buttons for test midi, always overriden to 1 if DEBUG==1
-#define TEST_MIDI #COMMENT_LINE_TO_UNSET#
+#define TEST_MIDI ## ; COMMENT LINE TO UNSET VARIABLE
 
 ; which file gets played in a mono test
 ; if none is defined, white noise at -3db will be generated
@@ -80,7 +80,7 @@ ALL user editable data is in here... take a look around
 ; useful for testing with test buttons generated audio without headphones
 ; automatically disabled in an exported plugin
 ; This automatically gets disabled when exported, so hosts can always pass audio.
-#define DISABLE_AUDIO_INPUT ## ; COMMENT_LINE_TO_UNSET
+#define DISABLE_AUDIO_INPUT ## ; COMMENT LINE TO UNSET VARIABLE
 
 ; default sample rate, usually 44100
 ; leave undefined to allow cabbage override of SR

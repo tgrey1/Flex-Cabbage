@@ -94,10 +94,10 @@ user_settings.inc.csd *MUST* be included first, one way or another
 ; automatically turn on test_audio if debugging
 #ifdef DEBUG
 	#ifndef TEST_AUDIO
-		#define TEST_AUDIO #1#
+		#define TEST_AUDIO ##
 	#endif
 	#ifndef TEST_MIDI
-		#define TEST_MIDI #1#
+		#define TEST_MIDI ##
 	#endif
 #endif
 
