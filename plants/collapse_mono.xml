@@ -12,7 +12,7 @@ $CONTAINER bounds(0, 0, 100, 18)
 </cabbagecode>
 <csoundcode>
 
-#include "includes/udo/collapse.udo.csd"
+; #include "includes/system/udo/collapse.udo.csd"
 
 </csoundcode>
 <help>

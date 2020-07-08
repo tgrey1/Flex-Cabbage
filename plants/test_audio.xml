@@ -15,7 +15,7 @@ $CONTAINER bounds(0, 0, 140, 20), identchannel("testaudio_box"), visible(0)
 <csoundcode>
 
 ; Code is here, but is getting auto-loaded in standardards.inc.csd to allow config loading ahead of time
-; #include "includes/udo/testaudio.udo.csd"
+; #include "includes/system/udo/testaudio.udo.csd"
 
 </csoundcode>
 <help>
