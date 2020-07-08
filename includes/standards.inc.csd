@@ -25,14 +25,14 @@ files automatically and contains general GUI UDOs used throughout.
 #include "system/midi.work.csd"
 
 ; commonly used and available UDOs
-#include "udo/arrays.udo.csd"
-#include "udo/chans.udo.csd"
-#include "udo/audio.udo.csd"
+#include "system/udo/arrays.udo.csd"
+#include "system/udo/chans.udo.csd"
+#include "system/udo/audio.udo.csd"
 
 ; todo: part these out appropriately to effects and isntr
-#include "udo/testaudio.udo.csd"
-#include "udo/collapse.udo.csd"
-#include "udo/clip.udo.csd"
+#include "system/udo/testaudio.udo.csd"
+#include "system/udo/collapse.udo.csd"
+#include "system/udo/clip.udo.csd"
 
 ; should this stuff get copied to both effect and synth.inc.csd?
 ; leaves standards for places like includes and xml files etc
