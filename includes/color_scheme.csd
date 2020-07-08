@@ -51,7 +51,7 @@ Look at the default color config file for documentation
 #define BLANK_VSLIDER vslider colour(180,180,180,255), trackercolour(0,0,0,0), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
 #define HSLIDER hslider colour(180,180,180,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
 #define BLANK_HSLIDER hslider colour(180,180,180,255), trackercolour(0,0,0,0), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
-
+#define ENCODER encoder colour(100,100,100,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,120,255)
 #define VRANGE vrange colour(180,180,180,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255)
 #define HRANGE hrange colour(180,180,180,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255)
 
