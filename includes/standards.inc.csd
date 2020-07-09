@@ -68,22 +68,6 @@ opcode OverSamp,a,S
   xout a(kIn)
 endop
 
-opcode DebugOut,0,S
-  SMsg xin
-  #ifdef $DEBUG
-  chnset sprintfk("visible(1) text(%s)",SMsg), "debug"
-  #endif
-endop
-
-opcode DebugOut,0,SS
-  SMsg, SChanPrefix xin
-  #ifdef $DEBUG
-  chnset sprintfk("visible(1) text(%s)",SMsg), strcat(SChanPrefix,"debug")
-  #endif
-endop
-
-
-
 ; pass in a channel group for file buttons, and optional table to write to
 ; if not given tables, gentmp?
 ; output ftL and ftR numbers
