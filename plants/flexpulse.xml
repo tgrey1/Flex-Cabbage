@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flexpulse</namespace>
+<name>FlexPulse</name>
+<cabbagecode>
+$CONTAINER bounds(0, 0, 155, 50)
+{
+  $HG_BUTTON pos(0, 5), size(50, 14), channel("pulse-on"), text("Uni"), popuptext("Unison Pulses")
+  $HG_BUTTON pos(0, 26), size(50, 14), channel("alt-on"), text("Alt"), popuptext("Alternating Pulses")
+  $ENV_KNOB pos(55,0), size(50,50), range(0,100,15,1,.01), channel("pulse-width"), text("Duty %"), popupprefix("Duty: "), popuppostfix(" %")
+  $ENV_KNOB pos(105,0), size(50,50), range(.125,10,.5,1,.01), channel("pulse-cps"), text("Rate"), popupprefix("Rate: "), popuppostfix(" Hz")
+}
+</cabbagecode>
+<csoundcode>
+
+#include "includes/udo/shape.inc.csd"
+
+; Gets it's own value so it doesn't mess with settings
+; This is a problem!
+#ifndef PULSE_DECLICK_ENV
+  #define PULSE_DECLICK_ENV #.001#
+#endif
+
+; generates two krate pulse envs based off chan names for inputs
+; pulse (on, off), pulse width %, table number
+; pulses will be offset from each other by a half table
+; rate is of each env, not the time between them!
+; width is halved, guaranteeing alternation in envs
+opcode FlexPulse,aa,S
+  SChanPrefix xin
+
+  kPulse chnget strcat(SChanPrefix,"pulse-on")
+  kAltPulse chnget strcat(SChanPrefix,"alt-on") 
+  kWidth chnget strcat(SChanPrefix,"pulse-width")
+  kCPS chnget strcat(SChanPrefix,"pulse-cps")
+
+  if(changed(kPulse)==1 && kPulse==1) then
+    chnset k(0), strcat(SChanPrefix,"alt-on")
+  elseif(changed(kAltPulse)==1 && kAltPulse==1) then
+    chnset k(0), strcat(SChanPrefix,"pulse-on")
+  endif
+
+  ; this draws a pulse, and halves the width if alternating outputs
+  iTable DrawPulse kAltPulse==1 ? kWidth*.5 : kWidth
+
+  if(kPulse==1) then
+    kEnvL poscil 1, kCPS, iTable
+    kEnvR = kEnvL
+  elseif(kAltPulse==1) then
+    kEnvL poscil 1, kCPS*.5, iTable
+    kEnvR poscil 1, kCPS*.5, iTable,.5
+  else
+    kEnvL=1
+    kEnvR=1
+  endif
+
+  ; DeClick
+  kEnvL port kEnvL, $PULSE_DECLICK_ENV
+  aEnvL interp kEnvL
+  kEnvR port kEnvR, $PULSE_DECLICK_ENV
+  aEnvR interp kEnvR
+
+  xout aEnvL, aEnvR
+endop
+
+opcode FlexPulse,kk,S
+  SChanPrefix xin
+
+  kPulse chnget strcat(SChanPrefix,"pulse-on")
+  kAltPulse chnget strcat(SChanPrefix,"alt-on")  
+  kWidth chnget strcat(SChanPrefix,"pulse-width")
+  kCPS chnget strcat(SChanPrefix,"pulse-cps")
+
+  if(changed(kPulse)==1 && kPulse==1) then
+    chnset k(0), strcat(SChanPrefix,"alt-on")
+  elseif(changed(kAltPulse)==1 && kAltPulse==1) then
+    chnset k(0), strcat(SChanPrefix,"pulse-on")
+  endif
+
+  ; this draws a pulse, and halves the width if alternating outputs
+  iTable DrawPulse kAltPulse==1 ? kWidth*.5 : kWidth
+
+  if(kPulse==1) then
+    kEnvL poscil 1, kCPS, iTable
+    kEnvR = kEnvL
+  elseif(kAltPulse==1) then
+    kEnvL poscil 1, kCPS*.5, iTable
+    kEnvR poscil 1, kCPS*.5, iTable,.5
+  else
+    kEnvL=1
+    kEnvR=1
+  endif
+
+  ; DeClick
+  kEnvL port kEnvL, $PULSE_DECLICK_ENV
+  kEnvR port kEnvR, $PULSE_DECLICK_ENV
+
+  xout kEnvL, kEnvR
+endop
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
