@@ -154,6 +154,18 @@ opcode RevLinkChans,0,SSk
   endif
 endop
 
+; link two binary channels in a radio fashion, but channels can still be off.
+opcode ChanOR,0,SS
+  SChanName1, SChanName2 xin
 
+  kChan1 chnget SChanName1
+  kChan2 chnget SChanName2
+
+  if(changed(kChan1)==1 && kChan1==1) then
+    chnset k(0), SChanName2
+  elseif(changed(kChan2)==1 && kChan2==1) then
+    chnset k(0), SChanName1
+  endif
+endop
 
 #endif
