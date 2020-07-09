@@ -173,33 +173,33 @@ endop
 ; if it ever does... hope so, nice opcode!
 opcode OldInitTable,0,ij
   iFTNum, iShape xin
-  iTmp ftgen iFTNum, 0, $SHAPE_SIZE, 10, 1
-  ; iTmp ftgen iFTNum, 0, $SHAPE_SIZE, 7, 0, $SHAPE_SIZE, 0
+  iTmp ftgen iFTNum, 0, $TABLE_SIZE, 10, 1
+  ; iTmp ftgen iFTNum, 0, $TABLE_SIZE, 7, 0, $TABLE_SIZE, 0
 endop
 
 
-; Opcode to init tables to the default $SHAPE_SIZE for safe overwriting later
+; Opcode to init tables to the default $TABLE_SIZE for safe overwriting later
 opcode InitTable,i,io
   iFTNum, iSize xin
 
-  iSize = (iSize==0) ? $SHAPE_SIZE : iSize
+  iSize = (iSize==0) ? $TABLE_SIZE : iSize
   iTmp ftgen iFTNum, 0, iSize, 10, 1
-  ; iTmp ftgen iFTNum, 0, $SHAPE_SIZE, 7, 0, $SHAPE_SIZE, 0
+  ; iTmp ftgen iFTNum, 0, $TABLE_SIZE, 7, 0, $TABLE_SIZE, 0
   xout iTmp  
 endop
 
 opcode InitTable,0,io
   iFTNum, iSize xin
 
-  iSize = (iSize==0) ? $SHAPE_SIZE : iSize
+  iSize = (iSize==0) ? $TABLE_SIZE : iSize
   iTmp ftgen iFTNum, 0, iSize, 10, 1
-  ; iTmp ftgen iFTNum, 0, $SHAPE_SIZE, 7, 0, $SHAPE_SIZE, 0
+  ; iTmp ftgen iFTNum, 0, $TABLE_SIZE, 7, 0, $TABLE_SIZE, 0
 endop
 
 ; Opcode to init array tables
 opcode InitTables,0,i[]o
   iFTArray[], iSize xin
-  iSize = (iSize==0) ? $SHAPE_SIZE : iSize
+  iSize = (iSize==0) ? $TABLE_SIZE : iSize
 
   iIndex=0
   iLen = lenarray(iFTArray)

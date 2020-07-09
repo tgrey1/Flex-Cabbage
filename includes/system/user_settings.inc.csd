@@ -156,8 +156,8 @@ ALL user editable data is in here... take a look around
 ; it has to match the table size set in all isntruments orc sections.
 ; bad things happen if you overwrite a table with a table of a new size!
 ; Originally set to 8192
-#define SHAPE_SIZE #8193#
-;#define SHAPE_SIZE #32768#
+#define TABLE_SIZE #8193#
+;#define TABLE_SIZE #32768#
 
 ; This is a lower quality size used for visual representations
 #define GRAPH_SIZE #513#
