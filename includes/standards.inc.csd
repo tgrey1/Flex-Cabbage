@@ -193,23 +193,6 @@ opcode OldInitTables,0,i[]
   od
 endop
 
-; opcode OnZero,k,S
-
-; endop
-
-; opcode OnZero,a,S
-
-; endop
-
-; opcode OnOne,k,S
-
-; endop
-
-; opcode OnOne,a,S
-
-; endop
-
-
 
 ; TODO: report bug, if this code appears *after* version with output, it fails
 opcode SnapBackPort,0,iiS
