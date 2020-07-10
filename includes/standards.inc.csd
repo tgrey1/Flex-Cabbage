@@ -119,17 +119,6 @@ opcode TextSwap,0,SSSk
     endif
 endop
 
-; opcode to read bypass chan, alter widget, and show shader
-; opcode BypassGui,0,0
-;   kBypass chnget "bypass"
-;   if metro($UI_TICKS)==1 then
-;     if (changed(kBypass)==1) then
-;       chnset strcpyk((kBypass==1) ? "visible(1)" : "visible(0)"), "bypass-tint"
-;     endif
-;   endif
-; endop
-
-
 ; opcode to change visiblility of a chan based on another chan's status
 opcode VisPop,0,SS
   SIdentChanName, SBoolChanName xin
