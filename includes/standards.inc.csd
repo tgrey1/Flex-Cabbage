@@ -58,7 +58,6 @@ alwayson "Effect"
 ; these will be reset in synth.inc.csd
 massign 0, 0
 
-
 ; Read in a channel at oversampled krate
 ; Alternate method for a-rate channels without having to pre-declare
 opcode OverSamp,a,S
@@ -67,20 +66,6 @@ opcode OverSamp,a,S
   kIn chnget SChanName
   xout a(kIn)
 endop
-
-; pass in a channel group for file buttons, and optional table to write to
-; if not given tables, gentmp?
-; output ftL and ftR numbers
-opcode file_button_mon,0,0
-  ; file button group includes button, normalize, skiptime
-  ; model channel reads after filt groups
-endop
-
-; TODO: fix this duplicate, why is it here?
-; overload without ft outputs for the times not needed
-; opcode file_button_mon,0,0
-
-; endop
 
 ; a manual update
 opcode UpdateLabel,0,kS
