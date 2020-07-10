@@ -18,7 +18,7 @@ This can also be the good basis for a new instrument.
 ***************/
 
 <Cabbage>
-form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml", "plants/debug.xml"), $ROOT
+form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml"), $ROOT
 
   $GROUPBOX bounds(10, 10, 360, 80), text("In / Out"), plant("io") {
     FlexClip bounds(10,5,25,10), channel("inOL-"), namespace("flexclip")
@@ -33,9 +33,6 @@ form caption("Example") size(380,294), pluginID("test"), import("includes/color_
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
 TestButtons bounds(56,12,126,18), namespace("test_audio")
 $GREEN_CCB bounds(20, 35, 90, 25), channel("bypass"), text("Bypass","Bypassed")
-
-Debug bounds(0,274,400,10), namespace("debug")
-
 
 </Cabbage>
 <CsoundSynthesizer>

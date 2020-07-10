@@ -32,9 +32,6 @@ form caption("Example") size(380,294), pluginID("test"), import("includes/color_
     $KEYBOARD bounds(10,85,340,95)
   }
 
-Debug bounds(0,274,400,10), namespace("debug")
-
-
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>

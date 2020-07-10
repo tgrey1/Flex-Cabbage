@@ -19,7 +19,7 @@ This can also be the good basis for a new instrument.
 
 <Cabbage>
 form caption("Advanced Example") size(1047,484), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml","plants/flexadsr.xml","plants/flexsynthctl.xml", "plants/flexfx.xml"), $ROOT
-; form caption("Advanced Example") size(1047,484), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml", "plants/debug.xml","plants/flexadsr.xml", "plants/flexfx.xml"), $ROOT
+; form caption("Advanced Example") size(1047,484), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml","plants/flexadsr.xml", "plants/flexfx.xml"), $ROOT
 
   $GROUPBOX bounds(10,10,180,464) text("Pitch/Mod Wheel") {
     FlexSynthCtl bounds(0,0,180,464), namespace("flexsynthctl")
@@ -45,9 +45,6 @@ TestButtons bounds(10,2,126,18), namespace("test_midi")
   }
 
   $KEYBOARD bounds(194,394,609,80)
-
-Debug bounds(0,274,400,10), namespace("debug")
-
 
 </Cabbage>
 <CsoundSynthesizer>
