@@ -20,14 +20,14 @@ This can also be the good basis for a new instrument.
 <Cabbage>
 form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml"), $ROOT
 
-  $GROUPBOX bounds(10, 10, 360, 80), text("In / Out"), plant("io") {
     FlexClip bounds(10,5,25,10), channel("inOL-"), namespace("flexclip")
     FlexClip bounds(325,5,25,10), channel("outOL-"), namespace("flexclip")
+  $GROUPBOX bounds(10, 10, 360, 80), text("In / Out") {
     StereoCollapse bounds(8,55,100,18), namespace("collapse")
     $GAIN_KNOB $GAIN_RANGE bounds(254, 25, 50, 50), channel("gain"), text("Gain"), popupprefix("Gain: "), popuppostfix(" dB")
   }
 
-  $GROUPBOX bounds(10, 94, 360, 190), text("GUI"), plant("controls") {
+  $GROUPBOX bounds(10, 94, 360, 190), text("GUI") {
 
   }
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)

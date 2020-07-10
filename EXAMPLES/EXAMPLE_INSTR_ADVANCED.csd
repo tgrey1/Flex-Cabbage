@@ -24,7 +24,7 @@ form caption("Advanced Example") size(1047,484), pluginID("test"), import("inclu
   $GROUPBOX bounds(10,10,180,464) text("Pitch/Mod Wheel") {
     FlexSynthCtl bounds(0,0,180,464), namespace("flexsynthctl")
   }
-  $GROUPBOX bounds(194, 10, 609, 80), text("In / Out"), plant("io") {
+  $GROUPBOX bounds(194, 10, 609, 80), text("In / Out") {
 TestButtons bounds(10,2,126,18), namespace("test_midi")
 
     FlexClip bounds(325,5,25,10), channel("outOL-"), namespace("flexclip")
@@ -33,10 +33,10 @@ TestButtons bounds(10,2,126,18), namespace("test_midi")
     FlexPan bounds(304,25,50,50), namespace("flexpan")
   }
 
-  $GROUPBOX bounds(194, 94, 360, 296), text("GUI"), plant("controls") {
+  $GROUPBOX bounds(194, 94, 360, 296), text("GUI") {
   }
 
-  $GROUPBOX bounds(558, 94, 245, 296), text("Envelope Ctrl"), plant("env") {
+  $GROUPBOX bounds(558, 94, 245, 296), text("Envelope Ctrl") {
     ADSR bounds(10,30,225,256), channel("MainEnv"), namespace("ADSR")
   },
 
