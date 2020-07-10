@@ -23,12 +23,12 @@ This can also be the good basis for a new instrument.
 
 form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml"), $ROOT
 
-    FlexClip bounds(10,5,25,10), channel("inOL-"), namespace("flexclip")
-    FlexClip bounds(325,5,25,10), channel("outOL-"), namespace("flexclip")
   $GROUPBOX bounds(10, 10, 360, 80), text("In / Out") {  
+    FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
+    FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
     StereoCollapse bounds(8,55,100,18), namespace("collapse")
-    $GAIN_KNOB $GAIN_RANGE bounds(254, 25, 50, 50), channel("gain"), text("Gain"), popupprefix("Gain: "), popuppostfix(" dB")
-    FlexPan bounds(304,25,50,50), namespace("flexpan")
+    $GAIN_KNOB bounds(254, 25, 50, 50), $MAIN_GAIN
+    FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
   }
 
   $GROUPBOX bounds(10, 94, 360, 190), text("GUI") {
