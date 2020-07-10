@@ -37,7 +37,7 @@ endop
 
 opcode FlexEffectOuts,0,aa
   aSigL, aSigR xin
-  kGainDb = ampdb(chnget:k("gain"))
+  kGainDb = ampdb(chnget:k("MainGain"))
   aDryL chnget "DryLeft"
   aDryR chnget "DryRight"
   chnclear "DryLeft"
@@ -52,7 +52,7 @@ opcode FlexEffectOuts,0,aa
 
   aSigL *= kGainDb
   aSigR *= kGainDb
-  aSigL, aSigR FlexPan aSigL, aSigR
+  aSigL, aSigR FlexPan aSigL, aSigR, "MainPan"
   aSigL, aSigR FlexClip aSigL, aSigR, "outOL-"
   aOutL, aOutR Bypass aDryL, aDryR, aSigL, aSigR
   outs aOutL, aOutR

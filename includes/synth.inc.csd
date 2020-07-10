@@ -55,7 +55,7 @@ alwayson "FlexSynthAutoMon"
 opcode FlexBaseAmp,i,i
   iAmp xin
 
-  iAmp = $VELCURVE(.01*chnget("velcurve")'iAmp)
+  iAmp = $VELCURVE(.01*chnget("MainVelCurve")'iAmp)
 
   ; kAmp = iAmp * gkModAmp
 
@@ -125,10 +125,10 @@ instr $SYNTH_OUT_INSTR
   chnclear "SynthLeft"
   chnclear "SynthRight"
 
-  kGainDb = ampdb(chnget:k("gain"))
+  kGainDb = ampdb(chnget:k("MainGain"))
 
   ; apply Pan and gain
-  aSigL, aSigR FlexPan aSigL, aSigR
+  aSigL, aSigR FlexPan aSigL, aSigR, "MainPan"
   aSigL *= kGainDb
   aSigR *= kGainDb
 

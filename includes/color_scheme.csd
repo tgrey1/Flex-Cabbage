@@ -27,6 +27,19 @@ Look at the default color config file for documentation
 ***************
 ***************/
 
+; These macros allow the common global controls to be accessed without having to remember channel name or having to reset up the range or popup styles
+#define MAIN_GAIN range(-90,90,0,1,.01), channel("MainGain"), text("Gain") popupprefix("Main Gain:\n"), popuppostfix(" dB")
+#define MAIN_VEL channel("MainVelCurve"), range(-100, 100, 25, 1, 0.01), text("Vel"), popupprefix("Velocity Offset:\n"), popuppostfix(" %")
+#define MAIN_PAN channel("MainPan")
+#define IN_OL channel("inOL-")
+#define OUT_OL channel("outOL-")
+#define DRYWET text("Dry/Wet"), popupprefix("Dry/Wet:\n"), popuppostfix(" %")
+#define DRY text("Dry"), popupprefix("Dry:\n"), popuppostfix(" dB")
+#define WET text("Wet"), popupprefix("Wet:\n"), popuppostfix(" dB")
+#define SEND text("Send"), popupprefix("Send:\n"), popuppostfix(" dB")
+#define MAIN_BYPASS channel(""),
+
+#define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popuptext("Toggle the filter reset control panel"), identchannel("show-c")
 
 #define GROUPBOX groupbox colour(60,60,60,255), fontcolour(180,180,180,255)
 #define BYPASSED_GROUPBOX groupbox colour(40,40,40,255), fontcolour(120,120,120,255)
