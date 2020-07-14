@@ -30,6 +30,12 @@ This is the effect file with specialzed functions for effects
 ; TODO: move FlexPan code into global udo so it always works
 #include "../plants/flexfx/pan.inc.csd"
 
+
+alwayson "Init"
+alwayson "Gui"
+alwayson "Effect"
+
+
 opcode FlexEffectOut,0,a
   aSig xin
   ; TODO: make mono copy eventually
@@ -37,6 +43,13 @@ endop
 
 opcode FlexEffectOuts,0,aa
   aSigL, aSigR xin
+
+  ; Midi control macros only expand if midi is enabled
+  ; Having them here has them run for *ALL* instruments that include synth.inc.csd
+  $GAIN_MIDI($MIDICC_GAIN'"MainGain")
+  $PAN_MIDI($MIDICC_PAN'"MainPan")
+  $DRYWET_MIDI($MIDICC_DRYWET'"MainDryWet")
+
   kGainDb = ampdb(chnget:k("MainGain"))
   aDryL chnget "DryLeft"
   aDryR chnget "DryRight"

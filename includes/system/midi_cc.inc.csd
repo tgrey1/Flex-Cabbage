@@ -4,7 +4,7 @@
 /***************
  ***************
 
-midi_settings.inc.csd
+midi_cc.inc.csd
   by tgrey
 
 Included with Flex Cabbage:
@@ -13,6 +13,8 @@ https://github.com/tgrey1/Flex-Cabbage
 This is the midi cc# definitions file, it typically gets included automatically
 
 ALL user editable data about MIDI cc#s is in here... take a look around
+Any CC# can be changed, but everything defined here *MUST* exist.  Commenting
+or deleting anything here will break things!
 
 ***************
 ***************/
@@ -48,14 +50,16 @@ ALL user editable data about MIDI cc#s is in here... take a look around
 ; FlexADSR MIDI CCs:
 #define MIDICC_FLEXADSR_A #73#
 #define MIDICC_FLEXADSR_D #75#
-#define MIDICC_FLEXADSR_S #70#
+#define MIDICC_FLEXADSR_S_LEV #70#
 #define MIDICC_FLEXADSR_R #72#
-#define MIDICC_FLEXADSR_A_MODE #85#
-#define MIDICC_FLEXADSR_D_MODE #86#
-#define MIDICC_FLEXADSR_R_MODE #87#
-#define MIDICC_FLEXADSR_H #89#
-#define MIDICC_FLEXADSR_MODE #5# ; ???? TODO: this doesn't exist yet anywhere... probably needs to
-#define MIDICC_FLEXADSR_SCALE #90#
+#define MIDICC_FLEXADSR_A_SHAPE #85#
+#define MIDICC_FLEXADSR_D_SHAPE #86#
+#define MIDICC_FLEXADSR_S_LEN #90#
+#define MIDICC_FLEXADSR_R_SHAPE #87#
+
+; TODO: Both of these aren't implemented yet.
+#define MIDICC_FLEXADSR_MODE #5#
+#define MIDICC_FLEXADSR_TYPE ##
 
 ; FlexShaper MIDI CCs:
 #define MIDICC_FLEXSHAPER_1 #20#
