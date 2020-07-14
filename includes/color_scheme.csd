@@ -33,6 +33,7 @@ Look at the default color config file for documentation
 #define MAIN_PAN channel("MainPan")
 #define IN_OL channel("inOL-")
 #define OUT_OL channel("outOL-")
+#define MAIN_DRYWET channel("MainDryWet"), text("Dry/Wet"), popupprefix("Dry/Wet:\n"), popuppostfix(" %")
 #define DRYWET text("Dry/Wet"), popupprefix("Dry/Wet:\n"), popuppostfix(" %")
 #define DRY text("Dry"), popupprefix("Dry:\n"), popuppostfix(" dB")
 #define WET text("Wet"), popupprefix("Wet:\n"), popuppostfix(" dB")

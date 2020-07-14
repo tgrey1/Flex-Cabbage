@@ -23,9 +23,9 @@ This is the synth file with specialzed functions for synths
 ; Make sure standards are already included
 #include "standards.inc.csd"
 
-#ifndef MIDI_INPUT_CHAN
-  #define MIDI_INPUT_CHAN #1#
-#endif
+alwayson "Init"
+alwayson "Gui"
+alwayson "Effect"
 
 ; send the configured midi channel to the instr named "Synth"
 massign $MIDI_INPUT_CHAN, "Synth"
@@ -144,6 +144,12 @@ endin
 #endif
 
 instr FlexSynthAutoMon
+  ; Midi control macros only expand if midi is enabled
+  ; Having them here has them run for *ALL* instruments that include synth.inc.csd
+  $GAIN_MIDI($MIDICC_GAIN'"MainGain")
+  $PAN_MIDI($MIDICC_PAN'"MainPan")
+  $VEL_MIDI($MIDICC_VELCURVE'"MainVelCurve")
+
   ; init to .5, so prior to data wheel is "centered"
   kMidiBend init .5
   kMidiMod init 0

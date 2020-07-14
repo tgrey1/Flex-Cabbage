@@ -19,10 +19,7 @@ files automatically and contains general GUI UDOs used throughout.
 ***************/
 
 ; this is the order files are included:
-#include "system/user_settings.inc.csd"
-#include "system/midi_cc.inc.csd"
-#include "system/defines.inc.csd"
-#include "system/midi.work.csd"
+#include "settings.inc.csd"
 
 ; commonly used and available UDOs
 #include "system/udo/arrays.udo.csd"
@@ -34,15 +31,6 @@ files automatically and contains general GUI UDOs used throughout.
 #include "system/udo/collapse.udo.csd"
 #include "system/udo/clip.udo.csd"
 
-; should this stuff get copied to both effect and synth.inc.csd?
-; leaves standards for places like includes and xml files etc
-#ifdef RENDER_QUAL
-  #undef DEFAULT_KSMPS
-  #define DEFAULT_KSMPS #1#
-  #undef UI_TICKS
-  #define UI_TICKS #1#
-#endif
-
 #ifdef DEFAULT_SR
   sr = $DEFAULT_SR
 #endif
@@ -50,13 +38,6 @@ ksmps = $DEFAULT_KSMPS
 nchnls = 2
 0dbfs=$DEFAULT_0DBFS
 
-alwayson "Init"
-alwayson "Gui"
-alwayson "Effect"
-
-; disable all automatic midi sends
-; these will be reset in synth.inc.csd
-massign 0, 0
 
 ; Read in a channel at oversampled krate
 ; Alternate method for a-rate channels without having to pre-declare
