@@ -13,14 +13,12 @@
 ; used for looping through modes, should match highest pan mode
 #define MAX_PAN_MODE #3#
 
+#include "includes/settings.inc.csd"
+
 ; just in case this is deleted/commented from user settings
 #ifndef DEFAULT_PAN_MODE
   #define DEFAULT_PAN_MODE #$FLEXPAN_MODE_BYPASS#
 #endif
-
-; TODO: fix this so it can be deleted!
-; only needed for some macros etc.  test with FMMisc?
-#include "includes/standards.inc.csd"
 
 ; overloaded version for mono inputs
 opcode FlexPan,aa,aS

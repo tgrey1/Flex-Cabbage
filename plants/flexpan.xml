@@ -10,10 +10,7 @@ $CONTAINER bounds(0, 0, 50, 50)
 }
 </cabbagecode>
 <csoundcode>
-
-; #include "includes/standards.inc.csd"
 #include "plants/flexfx/pan.inc.csd"
-
 </csoundcode>
 <help>
 	This is temporary text... where does this get used?

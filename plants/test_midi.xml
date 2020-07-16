@@ -14,7 +14,7 @@ $CONTAINER bounds(0, 0, 148, 20), identchannel("testmidi_box"), visible(0)
 </cabbagecode>
 <csoundcode>
 
-#include "includes/standards.inc.csd"
+#include "includes/settings.inc.csd"
 
 alwayson "TestMidiAutoMon"
 

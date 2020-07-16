@@ -13,7 +13,8 @@ $CONTAINER bounds(0, 0, 155, 50)
 </cabbagecode>
 <csoundcode>
 
-#include "includes/udo/shape.inc.csd"
+; UDO included for DrawPulse
+#include "includes/udo/pulse.udo.csd"
 
 ; Gets it's own value so it doesn't mess with settings
 ; This is a problem!
