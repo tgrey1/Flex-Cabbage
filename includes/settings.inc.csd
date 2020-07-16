@@ -269,6 +269,10 @@ user or default settings already declared.
 		#define HRTF_LEFT  #"includes/data/hrtf-44100-left.dat"#
 		#define HRTF_RIGHT #"includes/data/hrtf-44100-right.dat"#
 
+		; based on $TABLE_SIZE set in settings.inc.csd
+		#define TABLE_HALF_SIZE #$TABLE_SIZE*.5#
+		#define TABLE_QUARTER_SIZE #$TABLE_SIZE*.25#
+		#define TABLE_THIRD_SIZE #$TABLE_SIZE*.33#
 
 		; These are used to create tables to display, not for audio tables
 		#define GRAPH_HALF_SIZE #$GRAPH_SIZE*.5#
