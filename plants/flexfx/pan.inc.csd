@@ -60,8 +60,6 @@ opcode FlexPan,aa,aaS
     chnset sprintfk("text(%s)",SMsg), strcat(SChanPrefix,"pan-mode-c")
   endif
 
-  $PAN_MIDI(10'"pan-val")
-
   if (kMode==$FLEXPAN_MODE_BYPASS) then
     aOutL = aSigL
     aOutR = aSigR
@@ -194,9 +192,6 @@ opcode FlexPanMon,0,S
     chnset sprintfk("text(%s)",SMsg), strcat(SChanPrefix,"pan-mode-c")
     chnset kMode, strcat(SChanPrefix,"pan-currentmode")
   endif
-
-  $PAN_MIDI(10'"pan-val")
-
 endop
 
 #endif
