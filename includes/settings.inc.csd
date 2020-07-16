@@ -222,7 +222,7 @@ effect if the user hasn't already set them.
 		#endif
 
 		#ifndef MIDI_INPUT_CHAN
-		  #define MIDI_INPUT_CHAN #1#
+			#define MIDI_INPUT_CHAN #1#
 		#endif
 
 		#ifndef UI_TICKS
