@@ -274,13 +274,12 @@ user or default settings already declared.
 		#ifdef USE_GLOBAL_METRO
 			; global metronome instrument
 			; once running, genrates a tick for UI updates and INSTR updates
+			alwayson "Global_UI_Tick"
 			instr Global_UI_Tick
 				gkUI_TICK metro $UI_TICKS
 				gkINSTR_TICK metro $INSTR_TICKS
 			endin
-
-			; autolaunch global metronome instrument
-			event_i "i", "Global_UI_Tick", 0, -1
+			; define to make use of gk values from metronome instrument
 			#define ON_UI_TICK # (gkUI_TICK==1) #
 			#define ON_INSTR_TICK # (gkINSTR_TICK==1) #
 		#else
