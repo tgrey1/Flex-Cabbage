@@ -217,6 +217,9 @@ effect if the user hasn't already set them.
 
 ***************
 ***************/
+		#ifndef DEFAULT_SR
+			#define DEFAULT_SR #44100#
+		#endif
 
 		#ifndef MIDI_INPUT_CHAN
 		  #define MIDI_INPUT_CHAN #1#
@@ -224,6 +227,14 @@ effect if the user hasn't already set them.
 
 		#ifndef UI_TICKS
 			#define UI_TICKS #20#
+		#endif
+
+		#ifndef TABLE_SIZE
+			#define TABLE_SIZE #8193#
+		#endif
+
+		#ifndef SHAPE_FTNUM_OFFSET
+			#define SHAPE_FTNUM_OFFSET #500#
 		#endif
 
 		#define NYQUIST #sr*.5#

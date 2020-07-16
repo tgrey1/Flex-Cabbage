@@ -31,9 +31,7 @@ files automatically and contains general GUI UDOs used throughout.
 #include "system/udo/collapse.udo.csd"
 #include "system/udo/clip.udo.csd"
 
-#ifdef DEFAULT_SR
-  sr = $DEFAULT_SR
-#endif
+sr = $DEFAULT_SR
 ksmps = $DEFAULT_KSMPS
 nchnls = 2
 0dbfs=$DEFAULT_0DBFS
