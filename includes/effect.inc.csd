@@ -23,6 +23,16 @@ This is the effect file with specialzed functions for effects
 ;
 ;
 
+; commonly used and available UDOs
+#include "system/udo/arrays.udo.csd"
+#include "system/udo/chans.udo.csd"
+#include "system/udo/audio.udo.csd"
+
+; todo: part these out appropriately to effects and isntr
+#include "system/udo/testaudio.udo.csd"
+#include "system/udo/collapse.udo.csd"
+#include "system/udo/clip.udo.csd"
+
 ; Make sure standards are already included
 #include "standards.inc.csd"
 

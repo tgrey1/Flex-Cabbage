@@ -18,6 +18,8 @@ These are UDOs related to dealing with clipping audio
 ***************
 ***************/
 
+#include "includes/settings.inc.csd"
+
 ; This sets the default clip type if nothing has been set by the time this is included
 ; clip opcode notes:
 ;   selects the clipping method. The default is 0. The methods are:

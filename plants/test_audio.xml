@@ -14,6 +14,8 @@ $CONTAINER bounds(0, 0, 140, 20), identchannel("testaudio_box"), visible(0)
 </cabbagecode>
 <csoundcode>
 
+#include "includes/settings.inc.csd"
+
 ; Code is here, but is getting auto-loaded in standardards.inc.csd to allow config loading ahead of time
 ; #include "includes/system/udo/testaudio.udo.csd"
 

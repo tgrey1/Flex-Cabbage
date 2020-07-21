@@ -28,6 +28,7 @@ caution making changes beyond that!
 #define FILE_INSTR #FlexFileInstr#
 #define DELCLEAR_INSTR #FlexDelClearInstr#
 #define SYNTH_OUT_INSTR #FlexSynthOut#
+#define SHAPER_INSTR #FlexShaperInstr#
 
 ; TODO pick a better ihp val ;)
 ; RMSHP used during flexclip

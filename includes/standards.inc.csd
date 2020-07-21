@@ -22,14 +22,14 @@ files automatically and contains general GUI UDOs used throughout.
 #include "settings.inc.csd"
 
 ; commonly used and available UDOs
-#include "system/udo/arrays.udo.csd"
-#include "system/udo/chans.udo.csd"
-#include "system/udo/audio.udo.csd"
+; #include "system/udo/arrays.udo.csd"
+; #include "system/udo/chans.udo.csd"
+; #include "system/udo/audio.udo.csd"
 
 ; todo: part these out appropriately to effects and isntr
-#include "system/udo/testaudio.udo.csd"
-#include "system/udo/collapse.udo.csd"
-#include "system/udo/clip.udo.csd"
+; #include "system/udo/testaudio.udo.csd"
+; #include "system/udo/collapse.udo.csd"
+; #include "system/udo/clip.udo.csd"
 
 sr = $DEFAULT_SR
 ksmps = $DEFAULT_KSMPS
