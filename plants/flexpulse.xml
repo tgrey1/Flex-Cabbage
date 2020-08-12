@@ -7,8 +7,8 @@ $CONTAINER bounds(0, 0, 155, 50)
 {
   $HG_BUTTON pos(0, 5), size(50, 14), channel("pulse-on"), text("Uni"), popuptext("Unison Pulses")
   $HG_BUTTON pos(0, 26), size(50, 14), channel("alt-on"), text("Alt"), popuptext("Alternating Pulses")
-  $ENV_KNOB pos(55,0), size(50,50), range(0,100,15,1,.01), channel("pulse-width"), text("Duty %"), popupprefix("Duty: "), popuppostfix(" %")
-  $ENV_KNOB pos(105,0), size(50,50), range(.125,10,.5,1,.01), channel("pulse-cps"), text("Rate"), popupprefix("Rate: "), popuppostfix(" Hz")
+  $ENV_KNOB pos(55,0), size(50,50), range(0,100,15,1,.01), channel("pulse-width"), text("Duty %"), prefix("Duty: "), postfix(" %")
+  $ENV_KNOB pos(105,0), size(50,50), range(.125,10,.5,1,.01), channel("pulse-cps"), text("Rate"), prefix("Rate: "), postfix(" Hz")
 }
 </cabbagecode>
 <csoundcode>

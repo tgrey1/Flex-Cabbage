@@ -6,10 +6,10 @@
 $CONTAINER bounds(0, 0, 148, 20), identchannel("testmidi_box"), visible(0)
 {
   $HR_BUTTON pos(0,0), size(40, 18), channel("testmidi_on"), text("OFF","ON"), latched("1"), value(0), popuptext("Generate MIDI Notes")
-  $ENV_KNOB pos(42,-6), size(30,30), range(.1,10,1,1,.01), channel("testmidi_rate"), popupprefix("Note rate: "), popuppostfix("Hz")
-  $ENV_KNOB pos(64,-6), size(30,30), range(1,100,50,1,1), channel("testmidi_duty"), popupprefix("Duty cycle: "), popuppostfix(" %")
-  $EFF_KNOB pos(86,-6), size(30,30), range(0,12,8,1,1), channel("testmidi_octave"), popupprefix("PCH Octave Num: ")
-  $EFF_KNOB pos(108,-6), size(30,30), range(0,12,0,1,1) channel("testmidi_note"), popupprefix("PCH Note Num: ")
+  $ENV_KNOB pos(42,-6), size(30,30), range(.1,10,1,1,.01), channel("testmidi_rate"), prefix("Note rate: "), postfix("Hz")
+  $ENV_KNOB pos(64,-6), size(30,30), range(1,100,50,1,1), channel("testmidi_duty"), prefix("Duty cycle: "), postfix(" %")
+  $EFF_KNOB pos(86,-6), size(30,30), range(0,12,8,1,1), channel("testmidi_octave"), prefix("PCH Octave Num: ")
+  $EFF_KNOB pos(108,-6), size(30,30), range(0,12,0,1,1) channel("testmidi_note"), prefix("PCH Note Num: ")
 }
 </cabbagecode>
 <csoundcode>
