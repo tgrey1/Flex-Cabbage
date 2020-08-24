@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>midimon</namespace>
+<name>MidiMon</name>
+<cabbagecode>
+$CONTAINER bounds(0, 0, 35, 10)
+{
+	$TEXT pos(0, 0), size(25, 10), text("MIDI"), align("left")
+	$R_LED_OFF pos(25, 0), size(10, 3)
+	$R_LED_ON pos(25, 0), size(10, 3), visible(0), identchannel("MidiMonPCH-c")
+	$Y_LED_OFF pos(25, 3), size(10, 3)
+	$Y_LED_ON pos(25, 3), size(10, 3), visible(0), identchannel("MidiMonCC-c")
+	$G_LED_OFF pos(25, 6), size(10, 4)
+	$G_LED_ON pos(25, 6), size(10, 4), visible(0), identchannel("MidiMonNote-c")
+}
+</cabbagecode>
+<csoundcode>
+
+#include "includes/settings.inc.csd"
+#include "includes/system/udo/ledtrig.udo.csd"
+
+opcode MidiMon,0,Si
+	SChanPrefix, iChan xin
+
+	kMidiStatus, kMidiChan, kMidiData1, kMidiData2 midiin
+
+	if (changed(kMidiStatus)==1 && kMidiStatus!=0) then
+		kPchTrig = (kMidiStatus==$MIDISTATUS_PCHBEND) ? 1 : 0
+		kCCTrig = (kMidiStatus==$MIDISTATUS_CC) ? 1 : 0
+		kNoteTrig = (kMidiStatus==$MIDISTATUS_NOTEON || kMidiStatus==$MIDISTATUS_NOTEOFF) ? 1 : 0
+	else
+		kPchTrig = 0
+		kCCTrig = 0
+		kNoteTrig = 0
+	endif
+
+	LEDTrig kPchTrig, strcat(SChanPrefix,"MidiMonPCH-c")
+	LEDTrig kCCTrig, strcat(SChanPrefix,"MidiMonCC-c")
+	LEDTrig kNoteTrig, strcat(SChanPrefix,"MidiMonNote-c")
+endop
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
