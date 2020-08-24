@@ -105,8 +105,11 @@ Look at the default color config file for documentation
 
 #define R_LED_OFF image colour(40,10,10,255), corners(2)
 #define R_LED_ON image colour(255,0,0,255), corners(2)
-#define G_LED_OFF image colour(40,10,40,255), corners(2)
-#define G_LED_ON image colour(150,0,255,255), corners(2)
+#define G_LED_OFF image colour(10,40,10,255), corners(2)
+#define G_LED_ON image colour(50,255,50,255), corners(2)
+#define Y_LED_OFF image colour(40,40,0,255), corners(2)
+#define Y_LED_ON image colour(220,220,120,255), corners(2)
+
 
 #define KEYBOARD keyboard keydowncolour("100,0,200,195"), mouseoverkeycolour("100,0,200,195"), whitenotecolour("255,255,255,255"), blacknotecolour("0,0,0,255"), arrowcolour("60,60,60,255"), arrowbackgroundcolour("180,180,180,255"), value(36)
 
