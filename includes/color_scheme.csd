@@ -39,7 +39,6 @@ Look at the default color config file for documentation
 #define WET text("Wet"), popupprefix("Wet:\n"), popuppostfix(" dB")
 #define SEND text("Send"), popupprefix("Send:\n"), popuppostfix(" dB")
 #define MAIN_BYPASS channel(""),
-
 #define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popuptext("Toggle the filter reset control panel"), identchannel("show-c")
 
 #define GROUPBOX groupbox colour(60,60,60,255), fontcolour(180,180,180,255)
@@ -55,12 +54,22 @@ Look at the default color config file for documentation
 #define TEXTBOX texteditor colour(70,70,70,255), outlinecolour(250,80,80,255), fontcolour(180,180,180,255)
 #define INVIS_NUM nslider bounds(1,1,1,1), active(0), visible(0), colour(255,0,0,255)
 
+; new knobs to replace old
+#define RED_KNOB colour(100,100,100,255), trackercolour(255,80,80,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,80,80,255)
+#define YELLOW_KNOB colour(100,100,100,255), trackercolour(255,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,120,255)
+#define GREEN_KNOB colour(100,100,100,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,120,255)
+#define BLUE_KNOB colour(100,100,100,255), trackercolour(0,150,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(0,150,255,255)
+#define CYAN_KNOB colour(100,100,100,255), trackercolour(120,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,255,255)
+#define WHITE_KNOB colour(100,100,100,255), trackercolour(255,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,255,255)
+
+; old knobs to be replaced
 #define GAIN_KNOB rslider colour(100,100,100,255), trackercolour(255,80,80,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,80,80,255)
 #define DW_KNOB rslider colour(100,100,100,255), trackercolour(0,150,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(0,150,255,255)
 #define ENV_KNOB rslider colour(100,100,100,255), trackercolour(120,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,255,255)
 #define PAN_KNOB rslider colour(100,100,100,255), trackercolour(255,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,255,255)
 #define EFF_KNOB rslider colour(100,100,100,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,120,255)
 #define FILT_KNOB rslider colour(100,100,100,255), trackercolour(255,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,120,255)
+
 #define VSLIDER vslider colour(180,180,180,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
 #define BLANK_VSLIDER vslider colour(180,180,180,255), trackercolour(0,0,0,0), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
 #define HSLIDER hslider colour(180,180,180,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
