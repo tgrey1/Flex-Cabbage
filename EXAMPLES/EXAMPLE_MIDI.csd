@@ -24,7 +24,7 @@ form caption("Example") size(380,294), pluginID("test"), import("includes/color_
     FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
     FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
     StereoCollapse bounds(8,55,100,18), namespace("collapse")
-    $GAIN_KNOB bounds(254, 25, 50, 50) $MAIN_GAIN
+    rslider $RED_KNOB bounds(254, 25, 50, 50) $MAIN_GAIN
   }
 
   $GROUPBOX bounds(10, 94, 360, 190), text("GUI") {

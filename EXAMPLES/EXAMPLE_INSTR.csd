@@ -23,8 +23,8 @@ form caption("Example") size(380,294), pluginID("test"), import("includes/color_
   $GROUPBOX bounds(10, 10, 360, 80), text("In / Out") {
     TestButtons bounds(10,2,126,18), namespace("test_midi")
     FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-    $GAIN_KNOB bounds(200, 25, 50, 50), $MAIN_VEL
-    $GAIN_KNOB bounds(254, 25, 50, 50), $MAIN_GAIN
+    rslider $RED_KNOB bounds(200, 25, 50, 50), $MAIN_VEL
+    rslider $RED_KNOB bounds(254, 25, 50, 50), $MAIN_GAIN
     FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
   }
 
