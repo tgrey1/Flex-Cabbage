@@ -19,6 +19,7 @@ These are UDOs related to dealing with clipping audio
 ***************/
 
 #include "includes/settings.inc.csd"
+#include "includes/system/udo/ledtrig.udo.csd"
 
 ; This sets the default clip type if nothing has been set by the time this is included
 ; clip opcode notes:
@@ -47,11 +48,12 @@ opcode FlexClip,a,aS
   kClip rms aSig, $RMSHP
   kClip = (kClip>=iClipLev) ? 1 : 0
   aSig clip aSig, $CLIP_TYPE, iClipLev
-  if $ON_UI_TICK then
-    if (changed(kClip)==1) then
-      chnset sprintfk("visible(%d)",kClip), strcat(SChanPrefix,"clip-c")
-    endif
-  endif
+  ; if $ON_UI_TICK then
+  ;   if (changed(kClip)==1) then
+  ;     chnset sprintfk("visible(%d)",kClip), strcat(SChanPrefix,"clip-c")
+  ;   endif
+  ; endif
+  LEDTrig kClip,strcat(SChanPrefix,"clip-c")
   xout aSig
 endop
 
@@ -65,11 +67,13 @@ opcode FlexClip,aa,aaS
   kClip = (kClipL>=iClipLev || kClipR>=iClipLev) ? 1 : 0
   aSigL clip aSigL, $CLIP_TYPE, iClipLev
   aSigR clip aSigR, $CLIP_TYPE, iClipLev
-  if $ON_UI_TICK then
-    if (changed(kClip)==1) then
-      chnset sprintfk("visible(%d)",kClip), strcat(SChanPrefix,"clip-c")
-    endif
-  endif
+  ; if $ON_UI_TICK then
+  ;   if (changed(kClip)==1) then
+  ;     chnset sprintfk("visible(%d)",kClip), strcat(SChanPrefix,"clip-c")
+  ;   endif
+  ; endif
+  LEDTrig kClip,strcat(SChanPrefix,"clip-c")
+
   xout aSigL, aSigR
 endop
 
