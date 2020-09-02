@@ -20,7 +20,7 @@ This can also be the good basis for a new instrument.
 <Cabbage>
 form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml"), $ROOT
 
-  $GROUPBOX bounds(10, 10, 360, 80), text("In / Out") {
+  groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {
     TestButtons bounds(10,2,126,18), namespace("test_midi")
     FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
     rslider $RED_KNOB bounds(200, 25, 50, 50), $MAIN_VEL
@@ -28,8 +28,8 @@ form caption("Example") size(380,294), pluginID("test"), import("includes/color_
     FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
   }
 
-  $GROUPBOX bounds(10, 94, 360, 190), text("GUI") {
-    $KEYBOARD bounds(10,85,340,95)
+  groupbox $BOX bounds(10, 94, 360, 190), text("GUI") {
+    keyboard $KBD bounds(10,85,340,95)
   }
 
 </Cabbage>

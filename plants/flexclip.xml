@@ -3,11 +3,11 @@
 <namespace>flexclip</namespace>
 <name>FlexClip</name>
 <cabbagecode>
-$CONTAINER bounds(0, 0, 25, 10)
+image $INVIS bounds(0, 0, 25, 10)
 {
-	$TEXT pos(0, 0), size(15, 10), text("OL"), align("left")
-	$R_LED_OFF pos(15, 0), size(10, 10)
-	$R_LED_ON pos(15, 0), size(10, 10), visible(0), identchannel("clip-c")
+	label $TEXT pos(0, 0), size(15, 10), text("OL"), align("left")
+	image $R_LED_OFF pos(15, 0), size(10, 10)
+	image $R_LED_ON pos(15, 0), size(10, 10), visible(0), identchannel("clip-c")
 }
 </cabbagecode>
 <csoundcode>

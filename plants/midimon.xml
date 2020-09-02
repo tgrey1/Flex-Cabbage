@@ -3,15 +3,15 @@
 <namespace>midimon</namespace>
 <name>MidiMon</name>
 <cabbagecode>
-$CONTAINER bounds(0, 0, 35, 10)
+image $INVIS bounds(0, 0, 35, 10)
 {
-	$TEXT pos(0, 0), size(25, 10), text("MIDI"), align("left")
-	$R_LED_OFF pos(25, 0), size(10, 3)
-	$R_LED_ON pos(25, 0), size(10, 3), visible(0), identchannel("MidiMonPCH-c")
-	$Y_LED_OFF pos(25, 3), size(10, 3)
-	$Y_LED_ON pos(25, 3), size(10, 3), visible(0), identchannel("MidiMonCC-c")
-	$G_LED_OFF pos(25, 6), size(10, 4)
-	$G_LED_ON pos(25, 6), size(10, 4), visible(0), identchannel("MidiMonNote-c")
+	label $TEXT pos(0, 0), size(25, 10), text("MIDI"), align("left")
+	image $R_LED_OFF pos(25, 0), size(10, 3)
+	image $R_LED_ON pos(25, 0), size(10, 3), visible(0), identchannel("MidiMonPCH-c")
+	image $Y_LED_OFF pos(25, 3), size(10, 3)
+	image $Y_LED_ON pos(25, 3), size(10, 3), visible(0), identchannel("MidiMonCC-c")
+	image $G_LED_OFF pos(25, 6), size(10, 4)
+	image $G_LED_ON pos(25, 6), size(10, 4), visible(0), identchannel("MidiMonNote-c")
 }
 </cabbagecode>
 <csoundcode>

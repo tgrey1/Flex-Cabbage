@@ -3,11 +3,11 @@
 <namespace>collapse</namespace>
 <name>StereoCollapse</name>
 <cabbagecode>
-$CONTAINER bounds(0, 0, 100, 18)
+image $INVIS bounds(0, 0, 100, 18)
 {
-  $HR_BUTTON pos(42, 2), size(20, 14), channel("mono-lr"), radiogroup(101), value(1), text("LR", "LR"), popuptext("Mono Input: LR+LR")
-  $HR_BUTTON pos(61, 2), size(19, 14), channel("mono-l"), radiogroup(101), text("L", "L"), popuptext("Mono Input: L+L")
-  $HR_BUTTON pos(80, 2), size(19, 14), channel("mono-r"), radiogroup(101), text("R", "R"), popuptext("Mono Input: R+R")
+  button $HR_BTN pos(42, 2), size(20, 14), channel("mono-lr"), radiogroup(101), value(1), text("LR", "LR"), popuptext("Mono Input: LR+LR")
+  button $HR_BTN pos(61, 2), size(19, 14), channel("mono-l"), radiogroup(101), text("L", "L"), popuptext("Mono Input: L+L")
+  button $HR_BTN pos(80, 2), size(19, 14), channel("mono-r"), radiogroup(101), text("R", "R"), popuptext("Mono Input: R+R")
 }
 </cabbagecode>
 <csoundcode>
