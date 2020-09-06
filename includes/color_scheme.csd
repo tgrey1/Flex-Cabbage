@@ -42,6 +42,16 @@ Look at the default color config file for documentation
 #define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popuptext("Toggle the filter reset control panel"), identchannel("show-c")
 #define GAIN_RANGE range(-90, 90, 0, 1, 0.01)
 
+; meant for use with image widgets to create invisible containers for other widgets
+#define INVIS colour(0,0,0,0), mouseinteraction(0)
+
+; SHADER and BYPASS_SHADER style
+; SHADER and BYPASS_SHADER keep image widget calls, so they "disappear" if the color file hasn't defined them
+#define SHADER image colour(5,0,20,200), visible(0)
+; mouseinteraction(0) allows control of widgets underneath when bypass is enabled!
+#define BYPASS_SHADER image colour(5,0,20,200), visible(0), mouseinteraction(0), identchannel("bypass-shader"), pos(0,0)
+
+
 ; This defines the color for the main window
 #define ROOT colour(30,20,40,255)
 
@@ -56,8 +66,6 @@ Look at the default color config file for documentation
 #define POPUP_BOX colour(60,60,60,200), fontcolour(180,180,180,255), mouseinteraction(0)
 #define WARN_BOX colour(40,0,0,220), fontcolour(255,140,140,255), mouseinteraction(0)
 #define PANEL colour(80,80,80,255), corners(5)
-; meant for use with image widgets to create invisible containers for other widgets
-#define INVIS colour(0,0,0,0), mouseinteraction(0)
 
 ; knob styles
 #define RED_KNOB colour(100,100,100,255), trackercolour(255,80,80,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,80,80,255)
@@ -130,12 +138,6 @@ Look at the default color config file for documentation
 ; does not set a color, use with TEXT, HEADER, or almost any other widget!
 #define HIGHLIGHT fontcolour(180,160,255,255), fontstyle("bold")
 #define REINIT_TEXT  fontcolour(255,0,0,255), textcolour(255,0,0,255)
-
-; SHADER and BYPASS_SHADER style
-; SHADER and BYPASS_SHADER keep image widget calls, so they "disappear" if the color file hasn't defined them
-#define SHADER image colour(5,0,20,200), visible(0)
-; mouseinteraction(0) allows control of widgets underneath when bypass is enabled!
-#define BYPASS_SHADER image colour(5,0,20,200), visible(0), mouseinteraction(0), identchannel("bypass-shader"), pos(0,0)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 
