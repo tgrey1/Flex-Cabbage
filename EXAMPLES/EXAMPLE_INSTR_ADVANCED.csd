@@ -58,11 +58,6 @@ form caption("Advanced Example") size(1047,484), pluginID("test"), import("inclu
 ; That will prevent additional instruments from accidentally getting triggered by activity on other channels
 #include "includes/synth.inc.csd"
 
-; Initialize a table to "graph size" for use in ADSR display
-; graph size is far smaller than shape size
-; to save cycles on tables getting displayed only
-InitTable 1, $GRAPH_SIZE
-
 instr Synth,1
   ; FlexBaseAmp applies a simple linear velocity "curve" for global control
   ; These work even in abscence of widgets, as long as synth.inc.csd is included
