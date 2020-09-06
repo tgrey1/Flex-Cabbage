@@ -180,5 +180,39 @@ opcode TableMod,0,iii
   loop_lt iIndex, 1, iLen, loop_start
 endop
 
+; TODO: this can probably get replaced by ftset once that opcode makes it to main?
+; if it ever does... hope so, nice opcode!
+
+; Opcode to init tables to the default $TABLE_SIZE for safe overwriting later
+opcode InitTable,i,io
+  iFTNum, iSize xin
+
+  iSize = (iSize==0) ? $TABLE_SIZE : iSize
+  iTmp ftgen iFTNum, 0, iSize, 10, 1
+  ; iTmp ftgen iFTNum, 0, $TABLE_SIZE, 7, 0, $TABLE_SIZE, 0
+  xout iTmp  
+endop
+
+opcode InitTable,0,io
+  iFTNum, iSize xin
+
+  iSize = (iSize==0) ? $TABLE_SIZE : iSize
+  iTmp ftgen iFTNum, 0, iSize, 10, 1
+  ; iTmp ftgen iFTNum, 0, $TABLE_SIZE, 7, 0, $TABLE_SIZE, 0
+endop
+
+; Opcode to init array tables
+opcode InitTables,0,i[]o
+  iFTArray[], iSize xin
+  iSize = (iSize==0) ? $TABLE_SIZE : iSize
+
+  iIndex=0
+  iLen = lenarray(iFTArray)
+  while (iIndex < iLen) do
+    InitTable iFTArray[iIndex], iSize
+    iIndex+=1
+  od
+endop
+
 #endif
 
