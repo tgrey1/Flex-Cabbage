@@ -69,6 +69,7 @@ instr Effect
   aDryL, aDryR FlexEffectIns
   aDryL, aDryR MonoCollapse aDryL, aDryR
 
+  aDryL, aDryR Bypass aDryL, aDryR
   aSigL, aSigR DelaySamp aDryL, aDryR, kSamples
 
   ; Pick whether L and or R channels are it out out
