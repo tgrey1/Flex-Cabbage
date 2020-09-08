@@ -118,7 +118,7 @@ default being set elsewhere.
 		; useful for testing with test buttons generated audio without headphones
 		; automatically disabled in an exported plugin
 		; This automatically gets disabled when exported, so hosts can always pass audio.
-		#define DISABLE_AUDIO_INPUT ## ; COMMENT LINE TO UNSET VARIABLE
+		; #define DISABLE_AUDIO_INPUT ## ; COMMENT LINE TO UNSET VARIABLE
 
 		; default sample rate, usually 44100
 		; leave undefined to allow cabbage override of SR
