@@ -41,8 +41,8 @@ groupbox $BOX bounds(10, 94, 210, 526), text("Pan Handling") {
   rslider $RED_KNOB $GAIN_RANGE bounds(115, 100, 80, 100), channel("right-gain"), text("R Gain"), popupprefix("Right Gain:\n"), popuppostfix(" dB"), valuetextbox(1)
   button $HG_BTN bounds(10, 210, 190, 22), channel("link-gain"), text("Link Gain","Linked Gain"), popuptext("Link Gain")
 
-  rslider $WHITE_KNOB bounds(15, 240, 80, 100), channel("left-pan"), range(-100, 100, -100), text("L Pan"), popupprefix("Left Pan:\n"), popuppostfix(" %"), valuetextbox(1)
-  rslider $WHITE_KNOB bounds(115, 240, 80, 100), channel("right-pan"), range(-100, 100, 100), text("R Pan"), popupprefix("Right Pan:\n"), popuppostfix(" %"), valuetextbox(1)
+  rslider $WHITE_KNOB bounds(15, 240, 80, 100), channel("left-pan"), range(-100, 100, -100, 1, .01), text("L Pan"), popupprefix("Left Pan:\n"), popuppostfix(" %"), valuetextbox(1)
+  rslider $WHITE_KNOB bounds(115, 240, 80, 100), channel("right-pan"), range(-100, 100, 100, 1, .01), text("R Pan"), popupprefix("Right Pan:\n"), popuppostfix(" %"), valuetextbox(1)
   button $HG_BTN bounds(10, 350, 190, 22), channel("link-pan"), text("Crosslink Pan","Crosslinked Pan"), popuptext("Crosslink Pan") value(1)
 
   rslider $GREEN_KNOB $GAIN_RANGE bounds(15, 380, 80, 100), channel("mid-gain"), text("Mid"), popupprefix("Left Pan:\n"), popuppostfix(" dB"), valuetextbox(1)
