@@ -37,6 +37,7 @@ image $INVIS pos(0,0), size(224,256)
 <csoundcode>
 
 #include "includes/settings.inc.csd"
+#include "includes/udo/shape.inc.csd"
 
 ; These defines are mostly to help make the code easily readable
 
