@@ -37,7 +37,7 @@ form caption("Advanced Example") size(1047,484), pluginID("test"), import("inclu
   }
 
   groupbox $BOX bounds(558, 94, 245, 296), text("Envelope Ctrl") {
-    ADSR bounds(10,30,225,256), channel("MainEnv"), namespace("ADSR")
+    FlexADSR bounds(10,30,225,256), channel("MainEnv"), namespace("flexadsr")
   },
 
   groupbox $BOX bounds(807,10,230,464), text(" FX:") {

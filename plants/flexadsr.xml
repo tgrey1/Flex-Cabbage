@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flexadsr</namespace>
+<name>FlexADSR</name>
+<cabbagecode>
+image $INVIS pos(0,0), size(224,256)
+{
+  image pos(0,0), size(224,105), colour(0,0,0,255)
+  gentable $GRAPH pos(5, 5), size(214, 100), tablenumber(1), amprange(0, 1), identchannel("graph"), visible(1)
+  label $GRAPH_TEXT pos(8,83), size(215,11), fontcolour(255,0,0,100), text("-- uninitialized --"), align("left"), identchannel("lentext")
+  label $GRAPH_TEXT pos(8, 93), size(215, 11), text("-- uninitialized --"), align("left"), identchannel("text")
+
+    image $INVIS bounds(0,150,175,106), identchannel("fullcontrols")
+    {
+      rslider $CYAN_KNOB pos(56, 10), size(50, 50), channel("Dec"), range(.01, 100, 35, .5, 0.01), text("Decay"), popupprefix("Decay Length:\n"), popuppostfix(" % of Scale")
+      rslider $CYAN_KNOB pos(118, 60), size(50, 50), channel("Sus"), range(0, 100, 50, .5, 0.01), text("S-Lev"), popupprefix("Sustain Level:\n"), popuppostfix(" %")
+      rslider $CYAN_KNOB pos(56, 60), size(50, 50), channel("DecShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Decay Shape:\n")      
+    }
+
+    button $HG_BTN pos(0,115), size(84,16), channel("EnvADSR"), text("ADSR"), radiogroup("EnvTypeRadiogroup"), popuptext("ADSR Shape envelope"), value(1)
+    button $HG_BTN pos(84,115), size(84,16), channel("EnvAD"), text("AD"), radiogroup("EnvTypeRadiogroup"), popuptext("AD Shape envelope")
+
+    button $HG_BTN pos(0,135), size(56,16), channel("EnvHold"), text("Hold"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold (infinite)"), value(1)
+    button $HY_BTN pos(56,135), size(56,16), channel("EnvMax"), text("Max"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold until max length")
+    button $HR_BTN pos(112,135), size(56,16), channel("EnvTrig"), text("Trig"), radiogroup("EnvModeRadiogroup"), popuptext("Trigger (one shot) length")
+
+    rslider $CYAN_KNOB pos(174, 110), size(50, 50), channel("Scale"), range(.1, 10, 1, 1, .1), text("Scale"), popupprefix("Segment Scale:\n"), popuppostfix(" Sec")
+
+    rslider $CYAN_KNOB pos(0, 160), size(50, 50), channel("Att"), range(.01, 100, .01, .5, 0.01), text("Attack"), popupprefix("Attack Length:\n"), popuppostfix(" % of Scale")
+    rslider $CYAN_KNOB pos(174, 160), size(50, 50), channel("Rel"), range(.01, 100, 10, .5, 0.01), text("Release"), popupprefix("Release Length:\n"), popuppostfix(" % of Scale")
+
+    rslider $CYAN_KNOB pos(0, 210), size(50, 50), channel("AttShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Attack Shape:\n")
+    rslider $CYAN_KNOB pos(118, 160), size(50, 50), channel("SusLen"), range(0, 100, 100, 1, 0.01), text("S-Len"), popupprefix("Sustain Length:\n"), popuppostfix(" % of Scale"), identchannel("SusLenCC")
+    rslider $CYAN_KNOB pos(174, 210), size(50, 50), channel("RelShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Release Shape:\n")
+}
+</cabbagecode>
+<csoundcode>
+
+#include "includes/settings.inc.csd"
+
+; These defines are mostly to help make the code easily readable
+
+; Name of instrument to trigger for drawing shapes
+; Has to be a unique string, not numeric
+#ifndef FLEXADSR_INSTR
+  #define FLEXADSR_INSTR #FlexAdsrInstr#
+#endif
+
+; Envelope Shape
+#define FLEXADSR_TYPE_ADSR #1#
+#define FLEXADSR_TYPE_AD #2#
+; Envelope Modes
+#define FLEXADSR_MODE_HOLD #1#
+#define FLEXADSR_MODE_MAX #2#
+#define FLEXADSR_MODE_TRIG #3#
+
+; TODO: this opcode is a *relic* that can be cleaned up and made more efficient
+; Updates the text items on the graph.
+opcode FlexADSRText,0,Sk
+  SChanPrefix, kTrigger xin
+  if(kTrigger!=0) then
+    reinit FlexADSRTextReinit
+  endif
+
+  FlexADSRTextReinit:
+  iMode chnget strcat(SChanPrefix,"EnvAD")
+  iMode = (iMode==1) ? $FLEXADSR_TYPE_AD : $FLEXADSR_TYPE_ADSR
+  iType1 chnget strcat(SChanPrefix,"EnvHold")
+  iType2 chnget strcat(SChanPrefix,"EnvMax")
+  iType = (iType1==1) ? $FLEXADSR_MODE_HOLD : (iType2==1) ? $FLEXADSR_MODE_MAX : $FLEXADSR_MODE_TRIG
+
+    iScale chnget strcat(SChanPrefix,"Scale")
+
+    iAttLen = .01*chnget:i(strcat(SChanPrefix,"Att"))*iScale
+    iDecLen = .01*chnget:i(strcat(SChanPrefix,"Dec"))*iScale
+    iRelLen = .01*chnget:i(strcat(SChanPrefix,"Rel"))*iScale
+    ; SusLen changes to 1 (100%) when mode is $FLEXADSR_MODE_HOLD
+    iSusLen = ((iType!=$FLEXADSR_MODE_HOLD) ? .01*chnget:i(strcat(SChanPrefix,"SusLen")) : 1)*iScale
+
+    if(iType==$FLEXADSR_MODE_HOLD) then
+      SSusMsg="S: ----"
+    else
+      SSusMsg=sprintf("S: %2.2fs", iSusLen)
+    endif
+
+    if(iMode==$FLEXADSR_TYPE_ADSR) then
+      Smsg1 = sprintf("text(A: %2.3fs  D: %2.3fs  %s  R: %2.3fs)",iAttLen,iDecLen,SSusMsg,iRelLen)
+      if(iType==$FLEXADSR_MODE_HOLD) then
+        Smsg2 = "text(Midi Hold)"
+      elseif(iType==$FLEXADSR_MODE_MAX) then
+        Smsg2 = sprintf("text(Max Len: %2.3fs)",iAttLen+iDecLen+iSusLen+iRelLen)
+      else
+        Smsg2 = sprintf("text(Trigger: %2.3fs)",iAttLen+iDecLen+iSusLen+iRelLen)
+      endif
+    else
+      Smsg1 = sprintf("text(A: %2.3fs  %s  R: %2.2fs)",iAttLen,SSusMsg,iRelLen)
+      if(iType==$FLEXADSR_MODE_HOLD) then
+        Smsg2 = "text(Midi Hold)"
+      elseif(iType==$FLEXADSR_MODE_MAX) then
+        Smsg2 = sprintf("text(Max Len: %2.3fs)",iAttLen+iSusLen+iRelLen)
+      else
+        Smsg2 = sprintf("text(Trigger: %2.3fs)",iAttLen+iSusLen+iRelLen)
+      endif
+    endif
+
+    chnset Smsg1, strcat(SChanPrefix,"text")
+    chnset Smsg2, strcat(SChanPrefix,"lentext")
+    rireturn
+endop
+
+
+
+; UDO listens for val changes and forces a redraw using FLEXADSR_INSTR
+; THIS SHOULD BE CALLED FROM AN ALWAYS ON INSTRUMENT, not from the midi instr
+; iTable needs to exist ahead of time, and be the same length as $TABLE_SIZE
+; scale is irrelevant to drawing the table, so not included here!
+opcode FlexADSR_Mon,0,Si
+  SChanPrefix, iTable xin
+
+  InitTable iTable, $GRAPH_SIZE
+  if $ON_INSTR_TICK then
+    kAttLen chnget strcat(SChanPrefix,"Att")
+    kDecLen chnget strcat(SChanPrefix,"Dec")
+    kSusLev chnget strcat(SChanPrefix,"Sus")
+    kSusLen chnget strcat(SChanPrefix,"SusLen")
+    kRelLen chnget strcat(SChanPrefix,"Rel")
+    kAttShape chnget strcat(SChanPrefix,"AttShape")
+    kDecShape chnget strcat(SChanPrefix,"DecShape")
+    kRelShape chnget strcat(SChanPrefix,"RelShape")
+    ; scale is only needed to trigger update on text labels
+    kScale = .01*chnget:k(strcat(SChanPrefix,"Scale"))
+
+    ; Not really needed since only two options.
+    ; kMode1 chnget strcat(SChanPrefix,"EnvADSR")
+    kMode chnget strcat(SChanPrefix,"EnvAD")
+
+    kType1 chnget strcat(SChanPrefix,"EnvHold")
+    kType2 chnget strcat(SChanPrefix,"EnvMax")
+
+    ; If there were more than two mode options, this would be different.
+    kMode = (kMode==1) ? $FLEXADSR_TYPE_AD : $FLEXADSR_TYPE_ADSR
+    ; More like this!
+    kType = (kType1==1) ? $FLEXADSR_MODE_HOLD : (kType2==1) ? $FLEXADSR_MODE_MAX : $FLEXADSR_MODE_TRIG
+
+
+    ; TODO: This is *SO* ugly and inefficientl.  read with midiin instead?
+    #ifdef FLEXADSR_USEMIDI
+      iAttLen chnget strcat(SChanPrefix,"Att")
+      iDecLen chnget strcat(SChanPrefix,"Dec")
+      iSusLev chnget strcat(SChanPrefix,"Sus")
+      iRelLen chnget strcat(SChanPrefix,"Rel")
+      iSusLen chnget strcat(SChanPrefix,"SusLen")
+
+      iAttShape chnget strcat(SChanPrefix,"AttShape")
+      iDecShape chnget strcat(SChanPrefix,"DecShape")
+      iRelShape chnget strcat(SChanPrefix,"RelShape")
+
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_A, iAttLen/100
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_D, iDecLen/100
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_S_LEV, iSusLev/100
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_R, iRelLen/100
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_S_LEN, iSusLen/100
+
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_A_SHAPE, (iAttShape+10)/20
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_D_SHAPE, (iDecShape+10)/20
+      initc7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_R_SHAPE, (iRelShape+10)/20
+
+      ; TODO URGENT is 0, 100 right, or should this be 0, 1?  easy check with a midi controller!
+      kMidiA ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_A, 0, 100
+      kMidiD ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_D, 0, 100
+      kMidiS ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_S_LEV, 0, 100
+      kMidiR ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_R, 0, 100
+      kMidiSLen ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_S_LEN, 0, 100
+
+      kMidiAShape ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_A_SHAPE, -10, 10
+      kMidiDShape ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_D_SHAPE, -10, 10
+      kMidiRShape ctrl7 $MIDI_INPUT_CHAN, $MIDICC_FLEXADSR_R_SHAPE, -10, 10
+
+      if(changed(kMidiA)==1) then
+        chnset kMidiA, strcat(SChanPrefix,"Att")
+      endif
+      if(changed(kMidiD)==1) then
+        chnset kMidiD, strcat(SChanPrefix,"Dec")
+      endif
+      if(changed(kMidiS)==1) then
+        chnset kMidiS, strcat(SChanPrefix,"Sus")
+      endif
+      if(changed(kMidiSLen)==1) then
+        chnset kMidiSLen, strcat(SChanPrefix,"SusLen")
+      endif
+      if(changed(kMidiR)==1) then
+        chnset kMidiR, strcat(SChanPrefix,"Rel")
+      endif
+      if(changed(kMidiAShape)==1) then
+        chnset kMidiAShape, strcat(SChanPrefix,"AttShape")
+      endif
+      if(changed(kMidiDShape)==1) then
+        chnset kMidiDShape, strcat(SChanPrefix,"DecShape")
+      endif
+      if(changed(kMidiRShape)==1) then
+        chnset kMidiRShape, strcat(SChanPrefix,"RelShape")
+      endif
+    #endif
+
+    kMostChanged = changed(kAttLen,kDecLen,kSusLev,kSusLen,kRelLen,kAttShape,kDecShape,kRelShape,kType,kMode)
+    kScaleChanged = changed(kScale)
+    if(kMostChanged==1) then
+      if(changed(kType)==1 || changed(kMode)==1) then
+        ; activate "length" control for all modes except midi
+        chnset (kType==$FLEXADSR_MODE_MAX || kType==$FLEXADSR_MODE_TRIG) ? "visible(1)" : "visible(0)", strcat(SChanPrefix, "SusLenCC")
+        chnset (kMode=$FLEXADSR_TYPE_ADSR) ? "visible(1)" : "visible(0)", strcat(SChanPrefix, "fullcontrols")
+      endif
+
+      ; Trigger instrument that draws a new waveform and send an update to the text widget
+      scoreline sprintfk("i\"%s\" 0 .01 \"%s\" %d", "$FLEXADSR_INSTR", SChanPrefix,iTable), k(1)
+    endif
+    FlexADSRText SChanPrefix, kScaleChanged | kMostChanged  
+  endif
+endop
+
+; This gets called from an instrument with a string channel prefix
+; which determins the group of widgets to read
+; UDO returns an a-rate env multiplier for all modes and types 
+opcode FlexADSR,a,S
+  SChanPrefix xin
+
+  ; scaling by seconds
+  iScale chnget strcat(SChanPrefix,"Scale")
+
+  ; percentages
+  iAttLen = .01*chnget:i(strcat(SChanPrefix,"Att"))*iScale
+  iDecLen = .01*chnget:i(strcat(SChanPrefix,"Dec"))*iScale
+  iSusLen = .01*chnget:i(strcat(SChanPrefix,"SusLen"))*iScale
+  iRelLen = .01*chnget:i(strcat(SChanPrefix,"Rel"))*iScale
+  iSusLev = .01*chnget:i(strcat(SChanPrefix,"Sus"))
+
+  Stmp sprintf "\n\niAtt: %f\niRel: %f\n\n", iAttLen, iRelLen
+  ; print iAttLen
+  ; print iRelLen
+  prints Stmp
+
+  ; segment shapes
+  iAttShape chnget strcat(SChanPrefix,"AttShape")
+  iDecShape chnget strcat(SChanPrefix,"DecShape")
+  iRelShape chnget strcat(SChanPrefix,"RelShape")
+
+  ; figure out mode/type
+  iMode chnget strcat(SChanPrefix,"EnvAD")
+  iMode = (iMode==1) ? $FLEXADSR_TYPE_AD : $FLEXADSR_TYPE_ADSR
+  iType1 chnget strcat(SChanPrefix,"EnvHold")
+  iType2 chnget strcat(SChanPrefix,"EnvMax")
+  iType = (iType1==1) ? $FLEXADSR_MODE_HOLD : (iType2==1) ? $FLEXADSR_MODE_MAX : $FLEXADSR_MODE_TRIG
+
+  iHold = 1
+  if(iMode==$FLEXADSR_TYPE_ADSR) && (iType!=$FLEXADSR_MODE_HOLD) then
+    iHold = iAttLen+iDecLen+iRelLen
+  elseif(iMode==$FLEXADSR_TYPE_AD) && (iType!=$FLEXADSR_MODE_HOLD) then
+    iHold = iAttLen+iSusLen+iRelLen
+  endif
+
+  ; TODO: HACKY STUFF HAPPENS HERE!!!
+  ; needs to be fixed, a lot was cobbled together as workaround for problems in 6.14, should be better now!
+  ; print iHold
+
+  ; Make sure trigger modes last the complete time!
+  if(iType==$FLEXADSR_MODE_TRIG) then
+    xtratim iHold
+  endif
+  ; timer for cutoff
+  kDur line 0, iHold, 1
+
+  if (iType==$FLEXADSR_MODE_HOLD || kDur<=1) kgoto SkipTurnoff
+    turnoff
+  SkipTurnoff:
+
+  iSusLev limit iSusLev, $EXPN_MIN, 1
+  
+  if(iMode==$FLEXADSR_TYPE_ADSR) then
+    if(iType==$FLEXADSR_MODE_TRIG) then
+      aEnv transeg $EXPN_MIN, iAttLen, iAttShape, 1, iDecLen, iDecShape, iSusLev, iRelLen, iRelShape, $EXPN_MIN 
+    else
+      aEnv transegr $EXPN_MIN, iAttLen, iAttShape, 1, iDecLen, iDecShape, iSusLev, iRelLen, iRelShape, $EXPN_MIN 
+    endif
+  else
+    if(iType==$FLEXADSR_MODE_TRIG) then
+      aEnv transeg $EXPN_MIN, iAttLen, iAttShape, 1, iSusLen, 0, 1, iRelLen, iRelShape, $EXPN_MIN
+    else
+      aEnv transegr $EXPN_MIN, iAttLen, iAttShape, 1, iSusLen, 0, 1, iRelLen, iRelShape, $EXPN_MIN
+    endif
+  endif
+
+  xout aEnv
+endop
+
+; instr $FLEXADSR_INSTR redraws waveforms based on pfields & channels
+; this instrument is triggered when FlexADSR_Mon sees changes in important values!
+; Remember, this shape table being drawn is only for visual purposes
+; actual envelopes and other UI changes are handled elsewhere!
+instr $FLEXADSR_INSTR
+  SChanPrefix = p4
+  iTable = p5
+
+  ; iType chnget strcat(SChanPrefix,"EnvType")
+  iMode chnget strcat(SChanPrefix,"EnvAD")
+  iMode = (iMode==1) ? $FLEXADSR_TYPE_AD : $FLEXADSR_TYPE_ADSR
+  iType1 chnget strcat(SChanPrefix,"EnvHold")
+  iType2 chnget strcat(SChanPrefix,"EnvMax")
+  iType = (iType1==1) ? $FLEXADSR_MODE_HOLD : (iType2==1) ? $FLEXADSR_MODE_MAX : $FLEXADSR_MODE_TRIG
+
+  iAttLen = .01*chnget:i(strcat(SChanPrefix,"Att"))
+  iDecLen = .01*chnget:i(strcat(SChanPrefix,"Dec"))
+  iSusLev = .01*chnget:i(strcat(SChanPrefix,"Sus"))
+  iSusLen = .01*chnget:i(strcat(SChanPrefix,"SusLen"))
+  iRelLen = .01*chnget:i(strcat(SChanPrefix,"Rel"))
+
+  iAttShape chnget strcat(SChanPrefix,"AttShape")
+  iDecShape chnget strcat(SChanPrefix,"DecShape")
+  iRelShape chnget strcat(SChanPrefix,"RelShape")
+
+  if(iMode==$FLEXADSR_TYPE_ADSR) then
+      ; round down, then limit to 1-QUARTER_SIZE
+      iAttLen limit floor($GRAPH_QUARTER_SIZE*iAttLen), 1, $GRAPH_QUARTER_SIZE
+      iDecLen limit floor($GRAPH_QUARTER_SIZE*iDecLen), 1, $GRAPH_QUARTER_SIZE
+      iRelLen limit floor($GRAPH_QUARTER_SIZE*iRelLen), 1, $GRAPH_QUARTER_SIZE
+      if(iType==$FLEXADSR_MODE_HOLD) then
+        iSusLen limit floor($GRAPH_SIZE-(iAttLen+iDecLen+iRelLen)), 1, $GRAPH_SIZE
+      else
+        iSusLen limit floor($GRAPH_QUARTER_SIZE*iSusLen), 1, $GRAPH_QUARTER_SIZE ;     $GRAPH_SIZE-(iAttLen+iDecLen+iRelLen)
+      endif
+      iExtra limit floor($GRAPH_SIZE-(iAttLen+iDecLen+iSusLen+iRelLen)), 1, $GRAPH_QUARTER_SIZE
+      iSusLev = iSusLev==0 ? $EXPN_MIN : iSusLev
+      iFileTable ftgentmp iTable, 0, $GRAPH_SIZE, 16, $EXPN_MIN, iAttLen, iAttShape, 1, iDecLen, iDecShape, iSusLev, iSusLen, 0, iSusLev, iRelLen, iRelShape, $EXPN_MIN, iExtra, 0
+  else
+      ; round down, then limit to 1-THIRD_SIZE
+      iAttLen limit floor($GRAPH_THIRD_SIZE*iAttLen), 1, $GRAPH_THIRD_SIZE
+      iRelLen limit floor($GRAPH_THIRD_SIZE*iRelLen), 1, $GRAPH_THIRD_SIZE
+      if(iType==$FLEXADSR_MODE_HOLD) then
+        iSusLen limit floor($GRAPH_SIZE - (iAttLen+iRelLen)), 1, $GRAPH_SIZE
+      else
+        iSusLen limit floor($GRAPH_THIRD_SIZE*iSusLen), 1, $GRAPH_THIRD_SIZE
+      endif
+      iExtra limit floor($GRAPH_SIZE-(iAttLen+iRelLen+iSusLen)), 1, $GRAPH_SIZE
+
+      iFileTable ftgentmp iTable, 0, $GRAPH_SIZE, 16, $EXPN_MIN, iAttLen, iAttShape, 1, iSusLen, 0, 1, iRelLen, iRelShape, $EXPN_MIN, iExtra, 0
+  endif
+
+  ; this bumps the graph, forcing an update
+  chnset sprintfk("tablenumber(%d)",iTable), strcat(SChanPrefix,"graph")
+endin
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
