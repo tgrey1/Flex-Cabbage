@@ -36,53 +36,53 @@ groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c")
 <csoundcode>
 #include "includes/settings.inc.csd"
 
-; Needed for InitTable
+; Needed for InitTable, TableNorm, TableLimit, TableMod, TableCopy, TableUniToBi
 #include "includes/udo/shape.inc.csd"
 ; Needed for InArray
 #include "includes/system/udo/arrays.udo.csd"
 
 ; Name of instrument to trigger for drawing shapes
 ; Has to be a unique string, not numeric, no quotes
-#ifndef SHAPER_INSTR
-  #define SHAPER_INSTR #FlexShaperInstr#
+#ifndef FLEXSHAPER_INSTR
+  #define FLEXSHAPER_INSTR #FlexShaperInstr#
 #endif
 
 ; Text arrays used to set widget labels in FlexShaperSetSliders
-#define T_ERR #fillarray("err", "err", "err", "err", "err", "err", "err", "err")#
-#define T_808 #fillarray("Harm1", "Harm2", "Harm3", "Harm4", "Harm5", "Harm6", "Harm7", "Harm8")#
-#define T_808EXT #fillarray("Hrm1", "Hrm2", "Hrm4", "Hrm8", "Hrm16", "Hrm32", "Hrm64", "H-128")#
-#define T_SINE #fillarray("Harm1", "Harm2", "Harm3", "Harm4", "Harm5", "Harm6", "Harm7", "Harm8")#
-#define T_1SEG #fillarray("--", "--", "--", "Val 1", "Val 2", "--", "--", "--")#
-#define T_2SEG #fillarray("--", "--", "Val 1", "Seg 1", "Val 2", "Val 3", "--", "--")#
-#define T_3SEG #fillarray("--", "Val 1", "Seg 1", "Val 2", "Seg 2", "Val 3", "Val 4", "--")#
-#define T_SINEEXT #fillarray("Hrm1", "Hrm2", "Hrm4", "Hrm8", "Hrm16", "Hrm32", "Hrm64", "H-128")#
-#define T_G13POLY #fillarray("F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7")#
-#define T_EVEN #fillarray("Harm2", "Harm4", "Harm6", "Harm8", "Hrm10", "Hrm12", "Hrm14", "Hrm16")#
-#define T_ODD #fillarray("Harm1", "Harm3", "Harm5", "Harm7", "Harm9", "Hrm11", "Hrm13", "Hrm15")#
-#define T_PULSE #fillarray("--", "--", "--", "Width", "Drop", "--", "--", "--")#
-#define T_NOISE #fillarray("--", "--", "--", "Poles", "--", "--", "--", "--")#
-#define T_MORPH #fillarray("--", "--", "--", "Morph", "--", "--", "--", "--")#
+#define SHAPER_LBL_ERR #fillarray("err", "err", "err", "err", "err", "err", "err", "err")#
+#define SHAPER_LBL_808 #fillarray("Harm1", "Harm2", "Harm3", "Harm4", "Harm5", "Harm6", "Harm7", "Harm8")#
+#define SHAPER_LBL_808EXT #fillarray("Hrm1", "Hrm2", "Hrm4", "Hrm8", "Hrm16", "Hrm32", "Hrm64", "H-128")#
+#define SHAPER_LBL_SINE #fillarray("Harm1", "Harm2", "Harm3", "Harm4", "Harm5", "Harm6", "Harm7", "Harm8")#
+#define SHAPER_LBL_1SEG #fillarray("--", "--", "--", "Val 1", "Val 2", "--", "--", "--")#
+#define SHAPER_LBL_2SEG #fillarray("--", "--", "Val 1", "Seg 1", "Val 2", "Val 3", "--", "--")#
+#define SHAPER_LBL_3SEG #fillarray("--", "Val 1", "Seg 1", "Val 2", "Seg 2", "Val 3", "Val 4", "--")#
+#define SHAPER_LBL_SINEEXT #fillarray("Hrm1", "Hrm2", "Hrm4", "Hrm8", "Hrm16", "Hrm32", "Hrm64", "H-128")#
+#define SHAPER_LBL_G13POLY #fillarray("F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7")#
+#define SHAPER_LBL_EVEN #fillarray("Harm2", "Harm4", "Harm6", "Harm8", "Hrm10", "Hrm12", "Hrm14", "Hrm16")#
+#define SHAPER_LBL_ODD #fillarray("Harm1", "Harm3", "Harm5", "Harm7", "Harm9", "Hrm11", "Hrm13", "Hrm15")#
+#define SHAPER_LBL_PULSE #fillarray("--", "--", "--", "Width", "Drop", "--", "--", "--")#
+#define SHAPER_LBL_NOISE #fillarray("--", "--", "--", "Poles", "--", "--", "--", "--")#
+#define SHAPER_LBL_MORPH #fillarray("--", "--", "--", "Morph", "--", "--", "--", "--")#
 
 ; values arrays used to set widget values in FlexShaperSetSliders
 ; anything set to -99 won't display
-#define V_ERR #-99, -99, -99, -99, -99, -99, -99, -99#
-#define V_808 #.8, 1#
-#define V_808EXT #.8, 1#
-#define V_SINE #1#
-#define V_SINEEXT #1#
-#define V_TRIANGLE #-99, 0, 0, 1, 0, -1, 0, -99#
-#define V_SQUARE #-99, 1, 1, 1, -1, -1, -1, -99#
-#define V_SAW #-99, 0, 1, 1, -1, -1, 0, -99#
-#define V_RSAW #-99, 0, 1, -1, -1 ,1, 0, -99#
-#define V_LINE #-99, -99, -99, -1, 1, -99, -99, -99#
-#define V_PYRAMID #-99, -99, -1, 0, 1, -1, -99, -99#
-#define V_G13POLY #.2, .2, 0, 1, 0, .6, 0, .2#
-#define V_G14POLY #.2, .2, 0, 1, 0, .6, 0, .2#
-#define V_EVEN #1, .8, .75, .5, .25, .125, .0125#
-#define V_ODD #1, .8, .75, .5, .25, .125, .0125#
-#define V_PULSE #-99, -99, -99, 0, 0, -99, -99, -99#
-#define V_NOISE #-99, -99, -99, 1, -99, -99, -99, -99#
-#define V_MORPH #-99, -99, -99, 1, -99, -99, -99, -99#
+#define SHAPER_VAL_ERR #-99, -99, -99, -99, -99, -99, -99, -99#
+#define SHAPER_VAL_808 #.8, 1#
+#define SHAPER_VAL_808EXT #.8, 1#
+#define SHAPER_VAL_SINE #1#
+#define SHAPER_VAL_SINEEXT #1#
+#define SHAPER_VAL_TRIANGLE #-99, 0, 0, 1, 0, -1, 0, -99#
+#define SHAPER_VAL_SQUARE #-99, 1, 1, 1, -1, -1, -1, -99#
+#define SHAPER_VAL_SAW #-99, 0, 1, 1, -1, -1, 0, -99#
+#define SHAPER_VAL_RSAW #-99, 0, 1, -1, -1 ,1, 0, -99#
+#define SHAPER_VAL_LINE #-99, -99, -99, -1, 1, -99, -99, -99#
+#define SHAPER_VAL_PYRAMID #-99, -99, -1, 0, 1, -1, -99, -99#
+#define SHAPER_VAL_G13POLY #.2, .2, 0, 1, 0, .6, 0, .2#
+#define SHAPER_VAL_G14POLY #.2, .2, 0, 1, 0, .6, 0, .2#
+#define SHAPER_VAL_EVEN #1, .8, .75, .5, .25, .125, .0125#
+#define SHAPER_VAL_ODD #1, .8, .75, .5, .25, .125, .0125#
+#define SHAPER_VAL_PULSE #-99, -99, -99, 0, 0, -99, -99, -99#
+#define SHAPER_VAL_NOISE #-99, -99, -99, 1, -99, -99, -99, -99#
+#define SHAPER_VAL_MORPH #-99, -99, -99, 1, -99, -99, -99, -99#
 
 
 ; opcode to set slider text and vals all at once, vals defailts to 0, -99 hides silder
@@ -179,7 +179,6 @@ opcode FlexShaperMon,0,SSi[]o
 
   kTmp = iShapeMenu[kShape]
   kShape = kTmp
-  ; printk2 kPop
   ; prints "CALLED 2 INPUT\n"
   ; printk2 kShape
 
@@ -217,8 +216,7 @@ opcode FlexShaperMon,0,SSi[]o
   ; limit updating rate
   if metro($INSTR_TICKS)==1 then
     if changed(kShape, kVal1, kVal2, kVal3, kVal4, kVal5, kVal6, kVal7, kVal8, kNorm, kScale, kPostScale, kMod, kModMode, kMin, kMax, kReset, kMorphShape1, kMorphShape2)==1 then
-      ; scoreline sprintfk("i\"Shaper\" 0 .01 %d %d \"%s\"", kShape, iTable, SChanPrefix), k(1)
-      scoreline sprintfk("i\"%s\" 0 .001 %d %d \"%s\"", "$SHAPER_INSTR", kShape, iTable, SChanPrefix), k(1)
+      scoreline sprintfk("i\"%s\" 0 .001 %d %d \"%s\"", "$FLEXSHAPER_INSTR", kShape, iTable, SChanPrefix), k(1)
 
 ; TODO investigate getting rid of instr here and just using UDO like:
 ;      DrawTable i(kShape), iTable, SChanPrefix
@@ -249,7 +247,7 @@ opcode FlexShaperMon,0,SSi[]o
     chnset sprintfk("visible(%d)",kNorm==0 || kModMode==1 ? 0 : 1), strcat(SChanPrefix,"mod-c")
   endif
 
-  ; handle GUI stuff
+  ; hide GUI popup if either kDone changes to 1 or kPop changes to 0
   if (changed(kDone)==1 && kDone==1) || (changed(kPop)==1 && kPop==0) then
     chnset k(0), strcat(SChanPrefix,"pop")
     chnset k(0), strcat(SChanPrefix,"done")
@@ -262,8 +260,6 @@ endop
 opcode DrawTable,0,iiS
  iShape,iTable,SChanPrefix xin
 
-;  chnset sprintfk("text(test %s)",SChanPrefix), "debug"
-;    chnset sprintfk("text(blah %d)", 666), "debug"
   iVal1 chnget strcat(SChanPrefix,"val1")
   iVal2 chnget strcat(SChanPrefix,"val2")
   iVal3 chnget strcat(SChanPrefix,"val3")
@@ -276,7 +272,6 @@ opcode DrawTable,0,iiS
   iMorphShape1 chnget strcat(SChanPrefix,"morphshape1")
   iMorphShape2 chnget strcat(SChanPrefix,"morphshape2")
 
-;  iShape chnget strcat(SChanPrefix,"-shape")
   iNorm = (chnget(strcat(SChanPrefix,"normalize"))*2)-1
   iScale chnget strcat(SChanPrefix,"prescale")
   iPostScale chnget strcat(SChanPrefix,"postscale")
@@ -310,9 +305,9 @@ if changed(iShape)==1 then
     chnset "visible(0)", strcat(SChanPrefix,"morph2-c")
   endif
 
- ; if(InArray(iShape,gigen10shapes)>=1) then
- ;  print iShape
- ; endif
+ if(InArray(iShape,gigen10shapes)>=1) then
+  print iShape
+ endif
 ; TODO why doesn't this work?!?  CSOUND BUG?!?!? document
 
   if(iGen10>=1) then
@@ -392,11 +387,6 @@ elseif (i3Seg>=1) then
     ;     iCnt += 1
     ; od
 
-; STEP 3: make sure elseif matches defined name set in step 2.
-; STEP 3: add custom ftgen statement here loading over table 1. table length must be 8192 or things may break
-; STEP 3: table should have min/max values of -1 and 1, values exceeding will be limited
-;  elseif (iShape==$W_YOURSHAPE) then
-;    iFileTable ftgen 1, 0, 8192, 10, 1
   elseif (iShape==$W_MORPH) then
     iMorph = $BI_TO_UNI(iVal4)
     iMorph += (iMorphShape2*2)-1
@@ -433,41 +423,41 @@ elseif (i3Seg>=1) then
     chnset k(1), strcat(SChanPrefix,"normalize")
 
     if (iShape==$W_808) then
-      FlexShaperSetSliders SChanPrefix, $T_808, $V_808
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_808, $SHAPER_VAL_808
     elseif (iShape==$W_808EXT) then
-      FlexShaperSetSliders SChanPrefix, $T_808EXT, $V_808EXT
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_808EXT, $SHAPER_VAL_808EXT
     elseif (iShape==$W_SINE) then
-      FlexShaperSetSliders SChanPrefix, $T_SINE, $V_SINE
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_SINE, $SHAPER_VAL_SINE
     elseif (iShape==$W_SINEEXT) then
-      FlexShaperSetSliders SChanPrefix, $T_SINEEXT, $V_SINEEXT
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_SINEEXT, $SHAPER_VAL_SINEEXT
     elseif (iShape==$W_TRIANGLE) then
-      FlexShaperSetSliders SChanPrefix, $T_3SEG, $V_TRIANGLE
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_3SEG, $SHAPER_VAL_TRIANGLE
     elseif (iShape==$W_SQUARE) then
-      FlexShaperSetSliders SChanPrefix, $T_3SEG, $V_SQUARE
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_3SEG, $SHAPER_VAL_SQUARE
     elseif (iShape==$W_SAW) then
-      FlexShaperSetSliders SChanPrefix, $T_3SEG, $V_SAW
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_3SEG, $SHAPER_VAL_SAW
     elseif (iShape==$W_RSAW) then
-      FlexShaperSetSliders SChanPrefix, $T_3SEG, $V_RSAW
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_3SEG, $SHAPER_VAL_RSAW
     elseif (iShape==$W_LINE) then
-      FlexShaperSetSliders SChanPrefix, $T_1SEG, $V_LINE
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_1SEG, $SHAPER_VAL_LINE
     elseif (iShape==$W_PYRAMID) then
-      FlexShaperSetSliders SChanPrefix, $T_2SEG, $V_PYRAMID
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_2SEG, $SHAPER_VAL_PYRAMID
     elseif (iShape==$W_G13POLY) then
-      FlexShaperSetSliders SChanPrefix, $T_G13POLY, $V_G13POLY
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_G13POLY, $SHAPER_VAL_G13POLY
     elseif (iShape==$W_G14POLY) then
-      FlexShaperSetSliders SChanPrefix, $T_G13POLY, $V_G14POLY
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_G13POLY, $SHAPER_VAL_G14POLY
     elseif (iShape==$W_EVEN) then
-      FlexShaperSetSliders SChanPrefix, $T_EVEN, $V_EVEN
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_EVEN, $SHAPER_VAL_EVEN
     elseif (iShape==$W_ODD) then
-      FlexShaperSetSliders SChanPrefix, $T_ODD, $V_ODD
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_ODD, $SHAPER_VAL_ODD
     elseif (iShape==$W_PULSE) then
-      FlexShaperSetSliders SChanPrefix, $T_PULSE, $V_PULSE
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_PULSE, $SHAPER_VAL_PULSE
     elseif (iShape==$W_NOISE) then
-      FlexShaperSetSliders SChanPrefix, $T_NOISE, $V_NOISE
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_NOISE, $SHAPER_VAL_NOISE
     elseif (iShape==$W_MORPH) then
-      FlexShaperSetSliders SChanPrefix, $T_MORPH, $V_MORPH
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_MORPH, $SHAPER_VAL_MORPH
     else
-      FlexShaperSetSliders SChanPrefix, $T_ERR, $V_ERR
+      FlexShaperSetSliders SChanPrefix, $SHAPER_LBL_ERR, $SHAPER_VAL_ERR
     endif
 	chnset iShape, strcat(SChanPrefix,"lastshape")
   endif
@@ -481,7 +471,7 @@ endop
 
 
 ; redraws waveforms based on pfields & channels, sets visible sliders for them, and updates graph
-instr $SHAPER_INSTR
+instr $FLEXSHAPER_INSTR
   ; have to copy this or opcode call doesn't work, can't typecast a string!
   SVar = p6
 ;  chnset sprintfk("text(blah %d %s %d)", p5, SVar,p6), "debug"
