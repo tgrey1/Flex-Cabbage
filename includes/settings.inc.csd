@@ -166,13 +166,15 @@ default being set elsewhere.
 		; Choose default pan mode
 		; if none are define, bypass will be assumed
 			; constructive acts as a stereo balancing
-			; #define DEFAULT_PAN_MODE #$PAN_CON#
+			; #define DEFAULT_PAN_MODE #$FLEXPAN_MODE_CON#
 			; subtractive mode acts as a traditional pan knob
-			; #define DEFAULT_PAN_MODE #$PAN_SUB#
+			; #define DEFAULT_PAN_MODE #$FLEXPAN_MODE_SUB#
 			; width mode acts as a variable stereo/mono collapse
-			; #define DEFAULT_PAN_MODE #$PAN_WIDTH#
+			; #define DEFAULT_PAN_MODE #$FLEXPAN_MODE_WIDTH#
+			; mid/side mode acts as a balance between center and side audio
+			; #define DEFAULT_PAN_MODE #$FLEXPAN_MODE_MIDSIDE#
 			; bypass mode means panning does nothing
-			; #define DEFAULT_PAN_MODE #$PAN_BYPASS#
+			; #define DEFAULT_PAN_MODE #$FLEXPAN_MODE_BYPASS#
 
 		; Default BPM only used when host mode and the host provides
 		; no BPM

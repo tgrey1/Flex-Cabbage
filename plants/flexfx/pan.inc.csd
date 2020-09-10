@@ -8,12 +8,14 @@
 #define FLEXPAN_MODE_SUB #0#
 #define FLEXPAN_MODE_CON #1#
 #define FLEXPAN_MODE_WIDTH #2#
-#define FLEXPAN_MODE_BYPASS #3#
+#define FLEXPAN_MODE_BYPASS #4#
+#define FLEXPAN_MODE_MIDSIDE #3#
 
 ; used for looping through modes, should match highest pan mode
-#define MAX_PAN_MODE #3#
+#define MAX_PAN_MODE #4#
 
 #include "includes/settings.inc.csd"
+#include "includes/udo/stereoms.udo.csd"
 
 ; just in case this is deleted/commented from user settings
 #ifndef DEFAULT_PAN_MODE
@@ -54,6 +56,8 @@ opcode FlexPan,aa,aaS
       SMsg strcpyk "Pan"
     elseif(kMode==$FLEXPAN_MODE_WIDTH) then
       SMsg strcpyk "Width"
+    elseif(kMode==$FLEXPAN_MODE_MIDSIDE) then
+      SMsg strcpyk "MidSide"
     endif
     chnset sprintfk("text(%s)",SMsg), strcat(SChanPrefix,"pan-mode-c")
   endif
@@ -84,6 +88,16 @@ opcode FlexPan,aa,aaS
 
     aOutL = aleftL+arightL
     aOutR = aleftR+arightR
+  elseif (kMode==$FLEXPAN_MODE_MIDSIDE) then
+    aMid,aSide stereoMS aSigL, aSigR
+
+    kMid limit kPan, -1, 0
+    kSide limit kPan, 0, 1
+
+    aMid *= (1-kSide)
+    aSide *= (1-abs(kMid))
+
+    aOutL, aOutR stereoMS aMid, aSide
   else ; fall through to $FLEXPAN_MODE_CON
 
 ; TODO work these back in and grep out other pan/bal macros elsewhere
