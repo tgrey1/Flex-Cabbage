@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flexsynthctl</namespace>
+<name>FlexSynthCtl</name>
+<cabbagecode>
+image $INVIS pos(0, 0), size(180, 464)
+{
+  image $INVIS bounds(0, 30, 210, 95)
+  {  
+    label $HEADER pos(10,0), size(160,14), text("Global Tuning")
+    rslider $GREEN_KNOB pos(-5, 12), size(80, 80), range(-3, 3, 0, 1, 1), channel("octaves"), text("Octaves"), popupprefix("Tuning Octaves: "), popuppostfix(" Oct"), valuetextbox(1)
+    rslider $GREEN_KNOB pos(50, 12), size(80, 80), range(-12, 12, 0, 1, 1), channel("semitones"), text("Semitones"), popupprefix("Tune Coarse: "), popuppostfix(" semitones"), valuetextbox(1)
+    rslider $GREEN_KNOB pos(105, 12), size(80, 80), range(-100, 100, 0, 1, 1), channel("cents"), text("Cents"), popupprefix("Tune Fine: "), popuppostfix(" cents"), valuetextbox(1)
+  }
+
+  image $INVIS bounds(0,130,210,200)
+  {
+    label $HEADER pos(10,0), size(160,14), text("Global LFO Assign")
+
+    ; IMPORTANT NOTE!!!
+    ; Many of the defaults following will get set via chnsets in synth.inc.csd!!!
+    ; This allows default behavior even without widgets.
+    vslider $SLIDER pos(0,20), size(40,180), range(0,100,50,1,.01), channel("DCO"), popupprefix(" DCO:\n"), popuppostfix(" %")
+    vslider $SLIDER pos(35,20), size(40,180), range(0,100,50,1,.01), channel("VCA"), popupprefix(" VCA:\n"), popuppostfix(" %")
+    vslider $SLIDER pos(70,20), size(40,180), range(0,100,50,1,.01), channel("AUX"), popupprefix(" AUX:\n"), popuppostfix(" %")
+    
+    label $TEXT pos(105,74), size(80,12), text("Shape:")
+    combobox $COMBO pos(110,89), size(60,14), channel("LFOShape"), items("Sine","Triangle", "Square (uni-pole)", "Square (bi-polar)", "Saw (up)", "Saw (down)")
+    rslider $CYAN_KNOB pos(105,110), size(80,80), range(.01,20,5,1,.01), channel("LFORate"), valuetextbox(1), text("Rate"), popupprefix("LFO Rate: "), popuppostfix(" Hz")
+  }
+
+  image $INVIS bounds(0,332,210,51)
+  {
+    label $TEXT pos(0,0), size(40,12), text("DCO"), fontstyle("normal")
+    label $TEXT pos(35,0), size(40,12), text("VCA"), fontstyle("normal")
+    label $TEXT pos(70,0), size(40,12), text("AUX"), fontstyle("normal")
+    label $TEXT pos(105,0), size(80,12), text("LFO"), fontstyle("normal")
+
+    label $HEADER pos(10,16), size(160,14), text("Mod Wheel Assign")
+
+    button $HG_BTN pos(5,36), size(30,15), channel("ModDCO"), text("Man","Mod"), popuptext("ModWheel / Manual") value(1)
+    button $HG_BTN pos(40,36), size(30,15), channel("ModVCA"), text("Man","Mod"), popuptext("ModWheel / Manual") value(1)
+    button $HG_BTN pos(75,36), size(30,15), channel("ModAUX"), text("Man","Mod"), popuptext("ModWheel / Manual") value(1)
+    button $HG_BTN pos(130,36), size(30,15), channel("ModLFO"), text("Man","Mod"), popuptext("ModWheel / Manual")
+  }
+
+  image $INVIS bounds(0, 394, 210, 64)
+  {  
+    label $HEADER pos(10,0), size(160,14), text("Pitch Wheel Amount")
+    nslider $NSLIDER pos(10,20), size(75,24), range(1,36,12,1,1), channel("BendDownAmt"), fontsize(22)
+    nslider $NSLIDER pos(95,20), size(75,24), range(1,36,12,1,1), channel("BendUpAmt"), fontsize(22)
+    label $TEXT pos(10,50), size(75,14), text("Down")
+    label $TEXT pos(95,50), size(75,14), text("Up")
+  }
+}
+</cabbagecode>
+<csoundcode>
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
