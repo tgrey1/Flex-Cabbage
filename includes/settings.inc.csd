@@ -140,6 +140,12 @@ default being set elsewhere.
 		; NOT SUPPORTED YET
 		#define DEFAULT_0DBFS #1#
 
+		; whether or not to use animations when making windows appear (slides and fades)
+		#define USE_ANIMATION ##
+
+		; time slides and fades will occur over if USE_ANIMATION is defined
+		#define ANIMATION_TIME #.4#
+
 		; times per second to update UI elements, 10-20 is decent
 		; default is 20
 		; THIS ELEMENT GETS MODIFIED WITH RENDER_QUAL TO BE LOWER
