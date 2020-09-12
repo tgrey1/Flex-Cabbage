@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flextrem</namespace>
+<name>FlexTrem</name>
+<cabbagecode>
+image $INVIS bounds(0, 0, 120, 55)
+{  
+	rslider $GREEN_KNOB pos(-5, 5), size(50, 50), range(0, 5, 0, 1, .01), channel("trem_attack"), text("Attack"), popupprefix("Tremolo Attack Time:\n"), popuppostfix(" Sec")
+	rslider $GREEN_KNOB pos(35, 5), size(50, 50), range(0, 100, 0, 1, .01), channel("trem_depth"), text("Depth"), popupprefix("Tremolo Depth:\n"), popuppostfix("%")
+	rslider $GREEN_KNOB pos(75, 5), size(50, 50), range(.1, 10, 2, 1, .01), channel("trem_freq"), text("Freq"), popupprefix("Tremolo Frequency:\n"), popuppostfix(" Hz")
+}
+</cabbagecode>
+<csoundcode>
+
+; Only needed for $EXPN_MIN
+#include "includes/settings.inc.csd"
+
+opcode FlexTrem,k,Sj
+	SChanName, iShape xin
+
+	iAttack chnget "trem_attack"
+	iAttack max iAttack, $EXPN_MIN
+	kDepth = .01*chnget:k("trem_depth")
+	iFreq chnget "trem_freq"
+
+	kAttEnv linseg 0, iAttack, 1, 1, 1
+	kFreq linseg $EXPN_MIN, iAttack*.5, iFreq, 1, iFreq
+	kOsc oscil .5, kFreq, iShape
+	kEnv = (1-(.5*kDepth))+(kOsc*kDepth*kAttEnv)
+
+	xout kEnv
+endop
+
+opcode FlexTrem,a,Sj
+	SChanName, iShape xin
+
+	iAttack chnget "trem_attack"
+	iAttack max iAttack, $EXPN_MIN
+	kDepth = .01*chnget:k("trem_depth")
+	iFreq chnget "trem_freq"
+
+	kAttEnv linseg 0, iAttack, 1, 1, 1
+	kFreq linseg $EXPN_MIN, iAttack*.5, iFreq, 1, iFreq
+	aOsc oscil .5, kFreq, iShape
+
+	aEnv = (1-(.5*kDepth))+(aOsc*kDepth*kAttEnv)
+
+	xout aEnv
+endop
+
+; Overloaded version with no args calls version with SChanName = ""
+opcode FlexTrem,a,0
+	aSig FlexTrem ""
+	xout aSig
+endop
+
+</csoundcode>
+<help>
+  This is temporary text... where does this get used?
+</help>
+</plant>
