@@ -27,6 +27,7 @@ This is the effect file with specialzed functions for effects
 #include "system/udo/arrays.udo.csd"
 #include "system/udo/chans.udo.csd"
 #include "system/udo/audio.udo.csd"
+#include "system/gui.inc.csd"
 
 ; todo: part these out appropriately to effects and isntr
 #include "system/udo/testaudio.udo.csd"
@@ -67,14 +68,11 @@ opcode FlexEffectOuts,0,aa
   chnclear "DryRight"
 
   kBypass chnget "bypass"
-  if $ON_UI_TICK then
-    if (changed(kBypass)==1) then
-      chnset strcpyk((kBypass==1) ? "visible(1)" : "visible(0)"), "bypass-shader"
-    endif
-  endif
+  FadeUI "bypass-shader", kBypass
 
   aSigL *= kGainDb
   aSigR *= kGainDb
+
   aSigL, aSigR FlexPan aSigL, aSigR, "MainPan"
   aSigL, aSigR FlexClip aSigL, aSigR, "outOL-"
   aOutL, aOutR Bypass aDryL, aDryR, aSigL, aSigR
