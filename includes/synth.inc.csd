@@ -31,6 +31,9 @@ This is the synth file with specialzed functions for synths
 ; Make sure standards are already included
 #include "standards.inc.csd"
 
+#include "includes/system/udo/ledtrig.udo.csd"
+
+
 alwayson "Init"
 alwayson "Gui"
 alwayson "Effect"
@@ -124,6 +127,7 @@ endop
 
 gkModAmp init 1
 
+; if the FX output hasn't been included yet, do default output here
 #ifndef SYNTH_FXOUT_INSTR
 alwayson "$SYNTH_OUT_INSTR"
 
@@ -164,6 +168,27 @@ instr FlexSynthAutoMon
 
   ; read in midi data
   kMidiStatus, kMidiChan, kMidiData1, kMidiData2 midiin
+
+  ; This block is stolen from MidiMon
+  ;
+  ;
+  if (changed(kMidiStatus)==1 && kMidiStatus!=0) then
+    kPchTrig = (kMidiStatus==$MIDISTATUS_PCHBEND) ? 1 : 0
+    kCCTrig = (kMidiStatus==$MIDISTATUS_CC) ? 1 : 0
+    kNoteTrig = (kMidiStatus==$MIDISTATUS_NOTEON || kMidiStatus==$MIDISTATUS_NOTEOFF) ? 1 : 0
+  else
+    kPchTrig = 0
+    kCCTrig = 0
+    kNoteTrig = 0
+  endif
+
+  SChanPrefix=""
+  LEDTrig kPchTrig, strcat(SChanPrefix,"MidiMonPCH-c")
+  LEDTrig kCCTrig, strcat(SChanPrefix,"MidiMonCC-c")
+  LEDTrig kNoteTrig, strcat(SChanPrefix,"MidiMonNote-c")
+  ;
+  ;
+  ; End of MidiMon block
 
   if (kMidiStatus==$MIDISTATUS_PCHBEND) then
     ; combine MSB and LSB to create 14bit value, then scale to 0/1
@@ -209,11 +234,10 @@ instr FlexSynthAutoMon
   kModVCA chnget "ModVCA"
   kModAUX chnget "ModAUX"
   kModLFO chnget "ModLFO"
-  printk2 kDCO
+
   kLFORate chnget "LFORate"
   kLFOShape chnget "LFOShape"
 
-  ; printk2 kModLFO
   kLFORate = (kLFORate*kMidiMod*kModLFO)+(kLFORate*(1-kModLFO))
   kLFORate = max(.01, kLFORate)
 
@@ -224,9 +248,7 @@ instr FlexSynthAutoMon
   ReinitLFO:
     iLFOShape chnget "LFOShape"
     iLFOShape = iLFOShape>0 ? iLFOShape-1 : 0
-    print iLFOShape
     kLFO lfo .5, kLFORate, iLFOShape
-    ; aLFO lfo .5 kLFORate, iLFOShape
     rireturn
 
   ; grab DCO first so it scales to +/- .5
@@ -244,13 +266,7 @@ instr FlexSynthAutoMon
   kTuneCombo = cent(kTuneCents+(kTuneSemitones*100)+(kTuneOctaves*1200))
   gkPchBend = kModDCO*kBend*kTuneCombo
 
-  ; gkPchBend = kBend*(1-(kLFO*kDCO*kMidiMod))
-  ; gkModAmp = 1-(kLFO*kVCA*kMidiMod)
-  ; gkModAux = 1-(kLFO*kAUX*kMidiMod)
   gkModWheel = kMidiMod
-
-  ; printk .1, gkModAux
-  ; printk .1, kLFORate
 endin
 
 #endif
