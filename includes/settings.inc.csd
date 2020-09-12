@@ -24,7 +24,7 @@ caution making changes beyond that!
 ; They can be named anything, but need to be unique
 ; These are just overriding the default values set for each
 #define SEG_INSTR #FlexSegInstr#
-#define ADSR_INSTR #FlexAdsrInstr#
+#define FLEXADSR_INSTR #FlexAdsrInstr#
 #define FILE_INSTR #FlexFileInstr#
 #define DELCLEAR_INSTR #FlexDelClearInstr#
 #define SYNTH_OUT_INSTR #FlexSynthOut#
