@@ -40,7 +40,7 @@ checkbox $GREEN_CC bounds(20, 35, 90, 25), channel("bypass"), text("Bypass","Byp
 -n -d
 </CsOptions>
 <CsInstruments>
-#include "includes/standards.inc.csd"
+#include "includes/effect.inc.csd"
 
 instr Midi
 endin
