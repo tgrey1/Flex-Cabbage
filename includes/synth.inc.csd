@@ -24,6 +24,7 @@ This is the synth file with specialzed functions for synths
 #include "system/udo/arrays.udo.csd"
 #include "system/udo/chans.udo.csd"
 #include "system/udo/audio.udo.csd"
+#include "system/gui.inc.csd"
 
 ; todo: part these out appropriately to effects and isntr
 #include "system/udo/clip.udo.csd"

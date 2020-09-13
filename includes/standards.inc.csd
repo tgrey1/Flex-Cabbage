@@ -12,25 +12,13 @@ https://github.com/tgrey1/Flex-Cabbage
 
 THERE ARE NO USER EDITABLE CONFIGS OR DATA IN THIS FILE
 
-This is the standard include file, it includes all other generic
-files automatically and contains general GUI UDOs used throughout.
+This is the standard header file.
+All it does is set sr/kr/ksmps/0dbfs using existing settings
 
 ***************
 ***************/
 
-; this is the order files are included:
 #include "settings.inc.csd"
-#include "system/gui.inc.csd"
-
-; commonly used and available UDOs
-; #include "system/udo/arrays.udo.csd"
-; #include "system/udo/chans.udo.csd"
-; #include "system/udo/audio.udo.csd"
-
-; todo: part these out appropriately to effects and isntr
-; #include "system/udo/testaudio.udo.csd"
-; #include "system/udo/collapse.udo.csd"
-; #include "system/udo/clip.udo.csd"
 
 sr = $DEFAULT_SR
 ksmps = $DEFAULT_KSMPS
