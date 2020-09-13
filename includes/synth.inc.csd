@@ -21,19 +21,18 @@ This is the synth file with specialzed functions for synths
 #define USE_SYNTH_OUT ##
 
 ; commonly used and available UDOs
-#include "system/udo/arrays.udo.csd"
-#include "system/udo/chans.udo.csd"
-#include "system/udo/audio.udo.csd"
-#include "system/gui.inc.csd"
+#include "includes/system/udo/arrays.udo.csd"
+#include "includes/system/udo/chans.udo.csd"
+#include "includes/system/udo/audio.udo.csd"
 
 ; todo: part these out appropriately to effects and isntr
-#include "system/udo/clip.udo.csd"
+#include "includes/system/udo/clip.udo.csd"
 
 ; Make sure standards are already included
-#include "standards.inc.csd"
+#include "includes/standards.inc.csd"
 
+#include "includes/system/gui.inc.csd"
 #include "includes/system/udo/ledtrig.udo.csd"
-
 
 alwayson "Init"
 alwayson "Gui"

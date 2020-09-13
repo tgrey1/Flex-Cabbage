@@ -18,7 +18,7 @@ All it does is set sr/kr/ksmps/0dbfs using existing settings
 ***************
 ***************/
 
-#include "settings.inc.csd"
+#include "includes/settings.inc.csd"
 
 sr = $DEFAULT_SR
 ksmps = $DEFAULT_KSMPS
@@ -26,4 +26,3 @@ nchnls = 2
 0dbfs=$DEFAULT_0DBFS
 
 #endif
-

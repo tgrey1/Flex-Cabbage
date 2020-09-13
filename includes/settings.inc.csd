@@ -270,8 +270,8 @@ user or default settings already declared.
 		; these will be reset in synth.inc.csd
 		massign 0, 0
 
-		#include "system/midi_cc.inc.csd"
-		#include "system/midi.work.csd"
+		#include "includes/system/midi_cc.inc.csd"
+		#include "includes/system/midi.work.csd"
 
 		; used for HRTF opcodes...
 		; TODO: make this based on sample rate somehow?
