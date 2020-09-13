@@ -19,10 +19,16 @@ very little code and effort having to be put into the common core functionality 
 
 ## Requirements
 
-Cabbage 2 (current beta builds as of \~July 2020): https://forum.cabbageaudio.com/t/latest-beta-packages-available-here-updated-links/
+Cabbage 2.4.0 or greater.
+	I will regularly test against this official release, but some functionality may depend on beta builds.
+	Cabbage 2.4 Official: https://github.com/rorywalsh/cabbage/releases/tag/v2.4.0
+	Beta build instructions: https://forum.cabbageaudio.com/t/latest-beta-packages-available-here-updated-links/
 
 Csound 6.15: https://github.com/csound/csound
 
 ## Installing
+	Download zip and unpack or clone repository
 
 ## Getting Started
+	(Windows only): Copy "includes" and "plants" directories into "Effects", "Instruments", and optionally "Examples"
+	This is a temporary workaround for lack of symlinks in Windows.
