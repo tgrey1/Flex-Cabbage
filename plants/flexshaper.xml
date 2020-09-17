@@ -40,6 +40,8 @@ groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c")
 #include "includes/udo/shape.inc.csd"
 ; Needed for InArray
 #include "includes/system/udo/arrays.udo.csd"
+; Needed for FadeUI and PopUI
+#include "includes/system/gui.inc.csd"
 
 ; Name of instrument to trigger for drawing shapes
 ; Has to be a unique string, not numeric, no quotes
@@ -230,7 +232,6 @@ opcode FlexShaperMon,0,SSi[]o
   ; show customize popup if button is pushed
   if changed(kPop)==1 && kPop==1 then
     chnset sprintfk("visible(%d) text(\"%s\")",1,STitle), strcat(SChanPrefix,"plant-c") ;"cc-popup"
-    chnset sprintfk("visible(%d)",1), strcat(SChanPrefix,"tint")
   endif
 
   ; ; set graph to active if manual breakpoints is on
@@ -252,8 +253,8 @@ opcode FlexShaperMon,0,SSi[]o
     chnset k(0), strcat(SChanPrefix,"pop")
     chnset k(0), strcat(SChanPrefix,"done")
     chnset strcpyk("visible(0)"), strcat(SChanPrefix,"plant-c") ; "cc-popup"
-    chnset strcpyk("visible(0)"), strcat(SChanPrefix,"tint")
   endif
+  FadeUI strcat(SChanPrefix,"tint"),kPop&~kDone
 endop
 
 ; this opcode reads widgets and draws a table
