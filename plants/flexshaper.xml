@@ -168,8 +168,6 @@ opcode FlexShaperMon,0,SSi[]o
     if(changed(kMidiReset)==1) then
         chnset kMidiReset, strcat(SChanPrefix,"reset")  
     endif
-
-
   #endif
 
 
@@ -219,9 +217,6 @@ opcode FlexShaperMon,0,SSi[]o
   if metro($INSTR_TICKS)==1 then
     if changed(kShape, kVal1, kVal2, kVal3, kVal4, kVal5, kVal6, kVal7, kVal8, kNorm, kScale, kPostScale, kMod, kModMode, kMin, kMax, kReset, kMorphShape1, kMorphShape2)==1 then
       scoreline sprintfk("i\"%s\" 0 .001 %d %d \"%s\"", "$FLEXSHAPER_INSTR", kShape, iTable, SChanPrefix), k(1)
-
-; TODO investigate getting rid of instr here and just using UDO like:
-;      DrawTable i(kShape), iTable, SChanPrefix
     endif
   endif
 
@@ -466,19 +461,14 @@ elseif (i3Seg>=1) then
   ; DECIDE WHAT TO DO WITH THIS!
   chnset 1, strcat(SChanPrefix,"HasChanged")
 endif
-
-
 endop
-
 
 ; redraws waveforms based on pfields & channels, sets visible sliders for them, and updates graph
 instr $FLEXSHAPER_INSTR
   ; have to copy this or opcode call doesn't work, can't typecast a string!
   SVar = p6
-;  chnset sprintfk("text(blah %d %s %d)", p5, SVar,p6), "debug"
   DrawTable p4, p5, SVar
 endin
-
 
 </csoundcode>
 <help>
