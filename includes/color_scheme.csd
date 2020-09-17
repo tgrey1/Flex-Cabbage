@@ -148,4 +148,5 @@ Look at the default color config file for documentation
 ; https://forum.cabbageaudio.com/t/idea-allow-macro-expansion-tokenization-of-csoptions/2098
 #define CSOPTS -d -+rtmidi=NULL -M0
 #define CSMIDIOPTS -d -+rtmidi=NULL -M0 --midi-key-cps=4 --midi-velocity-amp=5
-
+#define FLEX_PATH ../
+; #define FLEX_PATH /Users/tgrey/Documents/GitHub/Flex-Cabbage/
