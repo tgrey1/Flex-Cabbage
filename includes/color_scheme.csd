@@ -49,7 +49,8 @@ Look at the default color config file for documentation
 
 ; SHADER and BYPASS_SHADER style
 ; SHADER and BYPASS_SHADER keep image widget calls, so they "disappear" if the color file hasn't defined them
-#define SHADER image colour(5,0,20,200), visible(0)
+#define OLDSHADER image colour(5,0,20,200), visible(0)
+#define SHADER image colour(5,0,20,200), mouseinteraction(0), alpha(0), pos(0,0)
 ; mouseinteraction(0) allows control of widgets underneath when bypass is enabled!
 #define BYPASS_SHADER image colour(5,0,20,200), mouseinteraction(0), identchannel("bypass-shader"), pos(0,0), alpha(0)
 
