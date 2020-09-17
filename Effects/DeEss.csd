@@ -30,7 +30,7 @@ groupbox $BOX bounds(10, 94, 360, 180), text("DeEss") {
   rslider $GREEN_KNOB bounds(255, 30, 90, 90), range(-120,0,-30,1,.01), channel("thresh"), text("Thresh"), popupprefix("Threshold:\n"), popuppostfix(" dB")
 }
 
-$SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("filt-tint")
+$SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("filt-tint")
 image $INVIS bounds(10,124,175,130), identchannel("filt-controls") {
   rslider $YELLOW_KNOB bounds(0,0,90,90), range(20,20000,6000,.5,.01), channel("center"), text("Center"), popupprefix("Center Freq:\n"), popuppostfix(" Hz")
   rslider $YELLOW_KNOB bounds(85,0,90,90), range(.1,100,10,1,.1), channel("bw"), text("Width"), popupprefix("Filter Width:\n"), popuppostfix(" %")
@@ -106,6 +106,8 @@ instr Effect
   kDryWet = $BI_TO_UNI(kDryWet)
   kListen chnget "listen"
 
+  FadeUI "filt-tint", kListen
+
   aSigL, aSigR FlexEffectIns
   aSigL, aSigR MonoCollapse aSigL, aSigR
 
@@ -125,10 +127,6 @@ instr Effect
   aSigR = ntrpol(aDryR,aSigR,kDryWet)
 
   FlexEffectOuts aSigL, aSigR
-endin
-
-instr Gui
-  VisPop "filt-tint", "listen"
 endin
 
 </CsInstruments>  
