@@ -224,9 +224,10 @@ opcode FlexShaperMon,0,SSi[]o
     chnset sprintfk("visible(%d)",kModMode==1 ? 0 : 1), strcat(SChanPrefix,"mod-c")
   endif
 
-  ; show customize popup if button is pushed
-  if changed(kPop)==1 && kPop==1 then
-    chnset sprintfk("visible(%d) text(\"%s\")",1,STitle), strcat(SChanPrefix,"plant-c") ;"cc-popup"
+  ; show/hide customize popup if button changes state
+  ; also sets title *EACH TIME*... not ideal, but it works
+  if changed(kPop)==1 then
+    chnset sprintfk("visible(%d) text(\"%s\")",kPop,STitle), strcat(SChanPrefix,"plant-c") ;"cc-popup"
   endif
 
   ; ; set graph to active if manual breakpoints is on
@@ -243,12 +244,12 @@ opcode FlexShaperMon,0,SSi[]o
     chnset sprintfk("visible(%d)",kNorm==0 || kModMode==1 ? 0 : 1), strcat(SChanPrefix,"mod-c")
   endif
 
-  ; hide GUI popup if either kDone changes to 1 or kPop changes to 0
-  if (changed(kDone)==1 && kDone==1) || (changed(kPop)==1 && kPop==0) then
+  ; if Done is pushed, pop and done can both be unpushed
+  if (kDone==1) then
     chnset k(0), strcat(SChanPrefix,"pop")
     chnset k(0), strcat(SChanPrefix,"done")
-    chnset strcpyk("visible(0)"), strcat(SChanPrefix,"plant-c") ; "cc-popup"
   endif
+  ; PopUI strcat(SChanPrefix,"plant-c"),kPop&~kDone
   FadeUI strcat(SChanPrefix,"tint"),kPop&~kDone
 endop
 
