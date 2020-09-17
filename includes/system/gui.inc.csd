@@ -78,7 +78,7 @@ opcode TextSwap,0,SSSk
 endop
 
 ; opcode to change visiblility of a chan based on another chan's status
-opcode VisPop,0,SS
+opcode PopUI,0,SS
   SIdentChanName, SBoolChanName xin
 
   kBool chnget SBoolChanName
@@ -90,7 +90,7 @@ opcode VisPop,0,SS
 endop
 
 ; krate version
-opcode VisPop,0,Sk
+opcode PopUI,0,Sk
   SIdentChanName, kBool xin
 
   if $ON_UI_TICK then
