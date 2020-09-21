@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flexfilt</namespace>
+<name>FlexFiltReset</name>
+<cabbagecode>
+groupbox $POPUP_BOX bounds(0, 0, 258, 170), text("Filter Reset Controls"), identchannel("mfreset"), visible(0)
+{
+  label $TEXT pos(10, 25), size(238, 12), text("Select which controls will be reset")
+  label $TEXT pos(10, 37), size(238, 12), text("when the filter mode changes.")
+  checkbox $GREEN_CC pos(30, 55), size(70, 15), channel("mf_reset_freq"), value(0), text("Freq")
+  checkbox $GREEN_CC pos(30, 74), size(70, 15), channel("mf_reset_q"), value(0), text("Q/Res")
+  checkbox $GREEN_CC pos(30, 93), size(70, 15), channel("mf_reset_gain"), value(0),  text("EQ Gain")
+  checkbox $GREEN_CC pos(30, 112), size(70, 15), channel("mf_reset_d"), value(0), text("Dist")
+  checkbox $GREEN_CC pos(140, 55), size(70, 15), channel("mf_reset_seq"), value(0), text("Seq/Par")
+  checkbox $GREEN_CC pos(140, 74), size(70, 15), channel("mf_reset_bal"), value(0), text("Balance")
+  checkbox $GREEN_CC pos(140, 93), size(70, 15), channel("mf_reset_outgain"), value(0), text("Out Gain")
+  checkbox $GREEN_CC pos(140, 112), size(70, 15), channel("mf_reset_depth"), value(0), text("Depth")
+  button $BTN pos(10, 145), size(50, 20), text("All"), channel("mf_sel-all"), latched(0)
+  button $BTN pos(60, 145), size(50, 20), text("None"), channel("mf_sel-none"), latched(0)
+  button $BTN pos(110, 145), size(50, 20), text("Toggle"), channel("mf_sel-toggle"), latched(0)
+  button $BTN pos(200, 145), size(50, 20), text("Done"), channel("mf_resets_done"), latched(0)
+}
+</cabbagecode>
+<csoundcode>
+
+; TODO: mix isn't included here yet!!!
+
+#include "includes/system/gui.inc.csd"
+
+; Monitor will always be on and processing, waiting to popup reset menu
+instr FlexFiltResetMon
+ ; show/hide reset menu based on popup button
+  kResets chnget "mf_showresets"
+  FadeUI "reset-tint", kResets
+  PopUI "mfreset", kResets
+  ; start Listener instrument when triggered
+  schedkwhen kResets, 0, 1, "FlexFiltResetListener", 0, -1
+
+  ; These are the defaults for the filter reset panel.
+  ; Unless changed by the user, these values will reset with filter mode change
+  chnset 1, "mf_reset_bal"
+  chnset 1, "mf_reset_outgain"
+  chnset 1, "mf_reset_depth"
+endin
+
+alwayson "FlexFiltResetMon"
+
+
+; Listener instrument, only processes changes when the window is spawned.
+instr FlexFiltResetListener
+  ; dismiss reset window when done button pressed
+  ; it would have already been dismissed if show button is re-pressed in above block
+  kResetsDone chnget "mf_resets_done"
+  kResets chnget "mf_showresets"
+  if ((changed2(kResetsDone)==1 && kResetsDone==1) || kResets==0) then
+    chnset k(0), "mf_showresets"
+    chnset k(0), "mf_resets_done"
+    turnoff
+  endif
+
+  ; process reset menu
+  kAll chnget "mf_sel-all"
+  kNone chnget "mf_sel-none"
+  kToggle chnget "mf_sel-toggle"
+
+  ; set all or none
+  if (changed(kAll,kNone)==1 && (kAll==1 || kNone==1)) then
+    ; sends 1 if kAll is 1, 0 if not... so works for none too!
+    chnset kAll, "mf_reset_freq"
+    chnset kAll, "mf_reset_q"
+    chnset kAll, "mf_reset_gain"
+    chnset kAll, "mf_reset_d"
+    chnset kAll, "mf_reset_bal"
+    chnset kAll, "mf_reset_outgain"
+    chnset kAll, "mf_reset_depth"
+    chnset kAll, "mf_reset_seq"
+  ; toggle all
+  elseif (changed(kToggle)==1 && kToggle==1) then
+    chnset (chnget:k("mf_reset_freq")==1) ? k(0) : k(1), "mf_reset_freq"
+    chnset (chnget:k("mf_reset_q")==1) ? k(0) : k(1), "mf_reset_q"
+    chnset (chnget:k("mf_reset_gain")==1) ? k(0) : k(1), "mf_reset_gain"
+    chnset (chnget:k("mf_reset_d")==1) ? k(0) : k(1), "mf_reset_d"
+    chnset (chnget:k("mf_reset_bal")==1) ? k(0) : k(1), "mf_reset_bal"
+    chnset (chnget:k("mf_reset_outgain")==1) ? k(0) : k(1), "mf_reset_outgain"
+    chnset (chnget:k("mf_reset_depth")==1) ? k(0) : k(1), "mf_reset_depth"
+    chnset (chnget:k("mf_reset_seq")==1) ? k(0) : k(1), "mf_reset_seq"
+  endif 
+endin
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
