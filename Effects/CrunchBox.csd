@@ -26,7 +26,7 @@ Filter Controls in I/O section sets which filter variables get reset when filter
 ***************
 ***************/
 <Cabbage>
-form size(380, 638), caption("CrunchBox 2"), pluginID("tcr2"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml","plants/flexfilt.xml", "plants/flexfilt_reset.xml", "plants/flexfilt_warn.xml"), $ROOT
+form size(380, 638), caption("CrunchBox 2"), pluginID("tcr2"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml","plants/flexfilt.xml", "plants/flexfilt_reset.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {
   FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
@@ -70,9 +70,6 @@ groupbox $BOX bounds(10, 268, 360, 190), text("Crunchbox") {
 $SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("reset-tint")
 FlexFiltReset bounds(61,87,258,170), namespace("flexfilt")
 
-$SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("fwarn-tint")
-FlexFiltWarn bounds(15,87,350,130), namespace("flexfilt")
-
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
 TestButtons bounds(56,12,126,18), namespace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
@@ -103,13 +100,9 @@ instr Effect
   aDryL = aSigL
   aDryR = aSigR
 
-; temporarily disable filters until they're completed and added
-; ; run filter
-;   aF1L, aF1R, aSeqL, aSeqR FlexFilt aSigL, aSigR, "band1-"
-;   aF2L, aF2R, aSeqL, aSeqR FlexFilt aSigL, aSigR, aSeqL, aSeqR, "band2-"
-
-;   aSigL = aSeqL + aF1L + aF2L
-;   aSigR = aSeqR + aF1R + aF2R
+  ; run filter
+  aFiltL, aFiltR FlexFilt aSigL, aSigR, "band1-"
+  aSigL, aSigR FlexFilt aFiltL, aFiltR, aSigL, aSigR, "band2-"
 
   aSigL *= kPreGainDb
   aSigR *= kPreGainDb
@@ -129,12 +122,9 @@ instr Effect
   aSigL *= kPostGainDb
   aSigR *= kPostGainDb
 
-; temporarily disable filters until they're completed and added
-; ; run filter
-;   aF3L, aF3R, aSeqL, aSeqR FlexFilt aSigL, aSigR, "band3-"
-;   aF4L, aF4R, aSeqL, aSeqR FlexFilt aSigL, aSigR, aSeqL, aSeqR, "band4-"
-;   aSigL = aSeqL + aF3L + aF4L
-;   aSigR = aSeqR + aF3R + aF4R
+  ; run filter
+  aFiltL, aFiltR FlexFilt aSigL, aSigR, "band3-"
+  aSigL, aSigR FlexFilt aFiltL, aFiltR, aSigL, aSigR, "band4-"
 
   aSigL = ntrpol(aDryL,aSigL,kDryWet)
   aSigR = ntrpol(aDryR,aSigR,kDryWet)
