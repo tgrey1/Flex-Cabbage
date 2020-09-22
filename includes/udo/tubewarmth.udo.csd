@@ -14,6 +14,8 @@ THERE ARE NO USER EDITABLE CONFIGS OR DATA IN THIS FILE
 
 This is a file to include Steven Yi's tap_tubewarmth UDO into Flex
 
+original: http://www.csounds.com/udo/displayOpcode.php?opcode_id=80
+
 Tom Szilagyi's descriptions of drive and blend:
     drive - Values between 2 and 5 are a good starting point
     for a variety of source materials. Since audio tracks can
