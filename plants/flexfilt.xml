@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plant>
+<namespace>flexfilt</namespace>
+<name>FlexFilt</name>
+<cabbagecode>
+image $INVIS bounds(0, 0, 178, 168)
+{
+  ; NOTE: mode *ONLY* needs an identchannel for ColorPicker
+  combobox $COMBO pos(10, 30), size(120, 20), channel("mf-mode"), channeltype("number"), value(1), identchannel("mf-mode_c"), $FILT_MENU, $REINIT_TEXT
+  label pos(70, 5), size(35, 10), text("---"), identchannel("mf-debug"), colour("red"), fontcolour("white"), visible(0)
+}
+image $INVIS bounds(0,0,178,168), identchannel("mf-common"), alpha(0)
+{
+  button $HR_BTN pos(10, 4), size(30, 12), text("Seq","Par"), channel("mf-seq"), popuptext("Sequential / Parallel"), visible(0), identchannel("mf-seq_c")
+  button $HG_BTN pos(138, 30), size(30, 20), text("Bal"), channel("mf-bal"), popuptext("Balance levels")
+  rslider $CYAN_KNOB pos(10, 115), size(50, 50), channel("mf-depth"), range(0, 8, 1, 1, 1), text("Depth"), $REINIT_TEXT, popupprefix("Recursion:\n"), popuppostfix(" pass")
+  rslider $RED_KNOB $GAIN_RANGE pos(118, 115), size(50, 50), channel("mf-outgain"), text("Gain"), popupprefix("Output Gain:\n"), popuppostfix(" dB")  
+  rslider $BLUE_KNOB pos(64, 115), size(50, 50), channel("mf-mix"), range(-100, 100, 100, 1, 0.01), text("Mix"), popupprefix("Dry/Wet\n"), popuppostfix(" %")  
+
+  rslider $YELLOW_KNOB pos(10, 60), size(50, 50), channel("mf-freq"), range(10, 20000, 7500, .5, 0.01), text("Freq"), identchannel("mf-f_c"), visible(0), popupprefix("Frequency:\n") popuppostfix(" Hz")
+  rslider $GREEN_KNOB pos(118, 60), size(50, 50), channel("mf-g"), range(-10, 10, 0, 1, 0.01), text("Gain"), identchannel("mf-g_c"), visible(0), popupprefix("EQ Gain:\n"), popuppostfix(" dB")
+  rslider $GREEN_KNOB pos(118, 60), size(50, 50), channel("mf-d"), range(0, 100, 0, 1, 0.01), text("Distort"), identchannel("mf-d_c"), visible(0), popupprefix("Distortion:\n"), popuppostfix(" %")
+  rslider $YELLOW_KNOB pos(64, 60), size(50, 50), channel("mf-q"), range(0.01, 100, 0.5, 1, 0.01), text("Q/Res"), identchannel("mf-q_c"), visible(0), popupprefix("Q/Res:\n"), popuppostfix(" %")
+}
+</cabbagecode>
+<csoundcode>
+
+#include "includes/settings.inc.csd"
+#include "includes/udo/multifilt.udo.csd"
+#include "includes/system/udo/arrays.udo.csd"
+#include "includes/system/gui.inc.csd"
+
+; Default setting definitions
+; this is what widgets get set to after filter reset
+; unless filter reset widget settings disable the field's reset
+#define F_LPF_DEF_FREQ #13000#
+#define F_HPF_DEF_FREQ #500#
+#define F_DEF_FREQ #7500#
+#define F_DEF_Q #.5#
+#define F_DEF_GAIN #0#
+#define F_DEF_DIST #0#
+#define F_DEF_BAL #0#
+#define F_DEF_OGAIN #0#
+#define F_DEF_DEPTH #1#
+#define F_DEF_SEQ #0#
+
+; the order of this array should match the menu order of the combobox
+; with an extra bypass, since comboboxes start at 1 not 0
+gifilt_menu_default[] fillarray $F_BYPASS, $F_BYPASS, \
+  $F_ATONE, $F_BQR_HP, $F_BUTTHP, $F_MVC_HP, $F_REZZYHP, $F_SVAR_HP, $F_K35_HPF, $F_K35_HPF_NL, \
+  $F_LSHELF, $F_HSHELF, $F_PEAK, $F_BQR_BP, $F_BUTTBP, $F_RESON, $F_RESONR, $F_RESONZ, $F_SVAR_BP, \
+  $F_BQR_BR, $F_BUTTBR, $F_SVAR_BR, \
+  $F_BQR_LP, $F_BUTTLP, $F_LOWRESX, $F_LPF18, $F_MOOGLADDER, $F_MOOGLADDER2, $F_MOOGVCF2, \
+  $F_BOB, $F_MVC_1, $F_MVC_2, $F_MVC_3, $F_REZZYLP, $F_SVAR_LP, $F_TONE, $F_K35_LPF, $F_K35_LPF_NL, \
+  $F_DIODELADDER, $F_DIODELADDER1, $F_DIODELADDER2
+
+
+; These arrays define which filters show which UI elements (other than freq which always shows)
+; Show Q/Res
+gishowres[] fillarray $F_LSHELF, $F_HSHELF, $F_PEAK, $F_BUTTBP, $F_BUTTBR, $F_REZZYLP, \
+   $F_REZZYHP, $F_MOOGLADDER, $F_MOOGLADDER2, $F_LPF18, $F_RESON, $F_RESONR, $F_RESONZ, $F_LOWRESX, \
+   $F_BOB, $F_MVC_1, $F_MVC_2, $F_MVC_3, \
+   $F_BQR_LP, $F_BQR_HP, $F_BQR_BP, $F_BQR_BR, \
+   $F_SVAR_HP, $F_SVAR_LP, $F_SVAR_BP, $F_SVAR_BR, \
+   $F_MOOGVCF2, \
+   $F_K35_HPF, $F_K35_HPF_NL, $F_K35_LPF, $F_K35_LPF_NL, \
+   $F_DIODELADDER, $F_DIODELADDER1, $F_DIODELADDER2
+; Show Gain
+gishowgain[] fillarray $F_LSHELF, $F_HSHELF, $F_PEAK 
+; Show Dist
+gishowdist[] fillarray $F_LPF18, $F_K35_HPF_NL, $F_K35_LPF_NL, $F_DIODELADDER1, $F_DIODELADDER2, $F_BOB
+
+
+; These arrays define which filters get special treatment for resetting freq as HPF/LPF.  All others use default freq
+; (these lists have gone stale... not sure I like this behavior anyway.  will rpbably delete)
+gihpfs[] fillarray $F_ATONE, $F_BUTTHP, $F_REZZYHP, $F_LSHELF
+gilpfs[] fillarray $F_BUTTLP, $F_LPF18, $F_MOOGLADDER, $F_MOOGVCF2, $F_REZZYLP, $F_TONE, $F_HSHELF, $F_LOWRESX, $F_BOB
+
+
+; This UDO is for converting input from combobox order into actual values
+; takes in a krate mode and an array of real modes to convert input to
+; arrays should begin with an extra F_BYPASS since 0 is never used in comboboxes
+opcode FlexFiltMode,k,ki[]
+  kMode, iArray[] xin
+  xout iArray[kMode]
+endop
+
+; This UDO is for converting input from combobox order into actual values
+; takes in a irate mode and an array of real modes to convert input to
+; arrays should begin with an extra F_BYPASS since 0 is never used in comboboxes
+opcode FlexFiltMode,i,ii[]
+  iMode, iArray[] xin
+  xout iArray[iMode]
+endop
+
+; The FlexFiltVis set of UDOs is for controlling widget visibility of filters
+; call one of the versions manually for instruments
+; otherwise called automatically as part of easyfilt for effects
+;
+; Overloaded version of for effects with default menu
+opcode FlexFiltVis,0,S
+  SChanPrefix xin
+  FlexFiltVis 0, SChanPrefix, gifilt_menu_default
+endop
+
+; Overloaded version for instruments with default menu
+opcode FlexFiltVis,0,iS
+  iIsInstr, SChanPrefix xin
+  FlexFiltVis iIsInstr, SChanPrefix, gifilt_menu_default
+endop
+
+; Overloaded version for effects with custom array
+opcode FlexFiltVis,0,Si[]
+  SChanPrefix,iMenuArray[] xin
+  FlexFiltVis 0, SChanPrefix, iMenuArray
+endop
+
+; Overloaded version for instruments with custom array
+opcode FlexFiltVis,0,iSi[]
+  iIsInstr, SChanPrefix,iMenuArray[] xin
+  FlexFiltVis iIsInstr, SChanPrefix, iMenuArray
+endop
+
+; Full version of FlexFiltVis called by all other versions
+; sets visibility of all controls for filters
+opcode FlexFiltVis,0,iSi[]
+  iIsInstr,SChanPrefix,iMenuArray[] xin
+
+  kLastMode chnget strcat(SChanPrefix,"mf-lastmode")
+  kMode = iMenuArray[chnget:k(strcat(SChanPrefix,"mf-mode"))]
+
+  if $ON_UI_TICK then
+    ; check if this band is initialized to have par/seq option
+    kMulti chnget strcat(SChanPrefix,"mf-is-multi")
+ 
+    ; if not in instrument mode, show frequency controls (only needs to happen once at init, not with each mode change)
+    if(iIsInstr!=1) then
+      chnset "visible(1)", strcat(SChanPrefix,"mf-f_c")
+    endif
+
+    ; only change vis of individual widgets when mode changes and isn't bypass
+    if (changed(kMode)==1 && kMode!=$F_BYPASS) then
+      ; if not the first filter, show sequence button
+      chnset sprintfk("visible(%d)",kMulti==1 ? 1 : 0), strcat(SChanPrefix,"mf-seq_c")
+
+      ; show q/res
+      chnset sprintfk("visible(%d)", (InArray(kMode,gishowres)>=1 || kMode==$F_BYPASS) ? 1 : 0), strcat(SChanPrefix,"mf-q_c")
+
+      ; show gain
+      chnset sprintfk("visible(%d)", (InArray(kMode,gishowgain)>=1 || kMode==$F_BYPASS) ? 1 : 0), strcat(SChanPrefix,"mf-g_c")
+
+      ; show distortion
+      chnset sprintfk("visible(%d)", (InArray(kMode,gishowdist)>=1 || kMode==$F_BYPASS) ? 1 : 0), strcat(SChanPrefix,"mf-d_c")
+
+      ; reset default values that aren't mode dependent, if mode doesn't match previous mode
+      if (kMode!=kLastMode) then
+        if (chnget:k("mf_reset_outgain")==1) then
+          chnset k($F_DEF_OGAIN), strcat(SChanPrefix,"mf-outgain")
+        endif
+        if (chnget:k("mf_reset_depth")==1) then
+          chnset k($F_DEF_DEPTH), strcat(SChanPrefix,"mf-depth")
+        endif
+        if (chnget:k("mf_reset_bal")==1) then
+          chnset k($F_DEF_BAL), strcat(SChanPrefix,"mf-bal")
+        endif
+        if (chnget:k("mf_reset_seq")==1) then
+          chnset k($F_DEF_SEQ), strcat(SChanPrefix,"mf-seq")
+        endif
+        if (chnget:k("mf_reset_q")==1) then
+          chnset k($F_DEF_Q), strcat(SChanPrefix,"mf-q")
+        endif
+        if (chnget:k("mf_reset_gain")==1) then
+          chnset k($F_DEF_GAIN), strcat(SChanPrefix,"mf-g")
+        endif
+        if (chnget:k("mf_reset_d")==1) then
+          chnset k($F_DEF_DIST), strcat(SChanPrefix,"mf-d")
+        endif
+
+        ; special handling to reset freqs if needed
+        if (chnget:k("mf_reset_freq")==1) then
+          if (InArray(kMode,gihpfs)>=1) then
+            kTmp=$F_HPF_DEF_FREQ
+          else
+            if (InArray(kMode,gilpfs)>=1) then
+              kTmp=$F_LPF_DEF_FREQ
+            else
+              kTmp=$F_DEF_FREQ
+            endif
+          endif
+            chnset kTmp, strcat(SChanPrefix,"mf-freq")
+        endif
+
+        ; store last mode to know when settings should be reset
+        chnset kMode, strcat(SChanPrefix,"mf-lastmode")
+      endif
+    endif
+
+    FadeUI strcat(SChanPrefix,"mf-common"), (kMode!=$F_BYPASS ? k(1) : k(0))
+    ; TODO: why doesn't bitwise non equiv version work right here?  causes flashes with mode changes...?
+    ; FadeUI strcat(SChanPrefix,"mf-common"), kMode#$F_BYPASS
+  endif
+endop
+
+; Full version of FlexFilt, called by all other versions of FlexFilt
+opcode FlexFiltFull,aa,aaaaSi[]
+  aInL,aInR,aAltL,aAltR,SChanPrefix,iMenuArray[] xin
+
+  ; set widgets visibility based off mode
+  FlexFiltVis SChanPrefix, iMenuArray
+
+  ; translate mode out of provided array
+  kMode chnget strcatk(SChanPrefix,"mf-mode")
+  kTmp = iMenuArray[kMode]
+
+  ; get variable for lastmode to prevent resets when re-selecting same mode from bypass!
+  kLastMode chnget strcat(SChanPrefix,"mf-lastmode")
+
+  kMode = kTmp
+
+  kFreq chnget strcat(SChanPrefix,"mf-freq")
+  kGain chnget strcat(SChanPrefix,"mf-g")
+  kDist = .01*chnget:k(strcat(SChanPrefix,"mf-d"))
+  kGain ampdb kGain
+  kQ = .01*chnget:k(strcat(SChanPrefix,"mf-q"))
+  kDepth chnget strcat(SChanPrefix,"mf-depth")
+  kSeq chnget strcat(SChanPrefix,"mf-seq")
+  kSeq = -kSeq+1
+  ; kSeq will be 1 to stay in chain
+  ; kSeq == 0 will use alternate inputs to act parallel
+
+  kBal chnget strcat(SChanPrefix,"mf-bal")
+  kOutGainDb = ampdb(chnget:k(strcat(SChanPrefix,"mf-outgain")))
+
+  ; if out of sequence, change inputs
+  if(kSeq==0) then
+    aSrcL = aAltL
+    aSrcR = aAltR
+  else
+    aSrcL = aInL
+    aSrcR = aInR
+  endif
+
+  ; copy dist to gain for any that show gain
+  if (InArray(kMode,gishowdist)==1) then
+    kGain = kDist
+  endif
+
+  if (changed(kDepth,kMode)==1) then
+    reinit MyReInit
+  endif
+  MyReInit:
+  iDepth=i(kDepth)
+  iMode=i(kMode)
+
+  ; this ugly hack is so bypassing ignores sequence/parallel setting
+  kSeq = (kMode==$F_BYPASS) ? 1 : kSeq
+
+  aSigL, aSigR MultiFilt aSrcL, aSrcR, kMode, kFreq, kQ, kGain, iDepth
+
+  if (kMode!=$F_BYPASS) then
+    if(kBal==1) then
+      #ifdef USE_BALANCE2 then
+        aSigL balance2 aSigL, aSrcL
+        aSigR balance2 aSigR, aSrcR
+      #else
+        aSigL balance aSigL, aSrcL
+        aSigR balance aSigR, aSrcR
+      #endif
+    endif
+
+    ; This is mix handling encapsulated
+    kMix chnget strcat(SChanPrefix,"mf-mix")
+    aSigL ntrpol aSrcL, aSigL, kMix, -100, 100
+    aSigR ntrpol aSrcR, aSigR, kMix, -100, 100
+
+    aSigL *= kOutGainDb
+    aSigR *= kOutGainDb
+  endif
+
+ xout aSigL+(aInL*(1-kSeq)), aSigR+(aInR*(1-kSeq))
+endop
+
+
+opcode FlexFilt,aa,aaS
+  aInL,aInR,SChanPrefix xin
+  aSigL, aSigR FlexFiltFull aInL, aInR, aInL, aInR, SChanPrefix, gifilt_menu_default
+  xout aSigL, aSigR
+endop
+
+opcode FlexFilt,aa,aaSi[]
+  aInL,aInR,SChanPrefix,iMenuArray[] xin
+  aSigL, aSigR FlexFiltFull aInL, aInR, aInL, aInR, SChanPrefix, iMenuArray
+  xout aSigL, aSigR
+endop
+
+; overload for all sequential inputs and no array, passes default array
+; the 4 input versions mark it as in a sequence, which in turn
+; makes the sequence/parallel control visible and functional
+opcode FlexFilt,aa,aaaaS
+  aInL,aInR,aAltL,aAltR,SChanPrefix xin
+  chnset 1, strcat(SChanPrefix,"mf-is-multi")
+  aSigL, aSigR FlexFiltFull aInL, aInR, aAltL, aAltR, SChanPrefix, gifilt_menu_default
+  xout aSigL, aSigR
+endop
+
+; overload for all sequential inputs and custom array
+; the 4 input versions mark it as in a sequence, which in turn
+; makes the sequence/parallel control visible and functional
+opcode FlexFilt,aa,aaaaSi[]
+  aInL,aInR,aAltL,aAltR,SChanPrefix,iMenuArray[] xin
+  chnset 1, strcat(SChanPrefix,"mf-is-multi")
+  aSigL, aSigR FlexFiltFull aInL, aInR, aAltL, aAltR, SChanPrefix, iMenuArray
+  xout aSigL, aSigR
+endop
+
+</csoundcode>
+<help>
+	This is temporary text... where does this get used?
+</help>
+</plant>
+
