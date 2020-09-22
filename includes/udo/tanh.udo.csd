@@ -32,9 +32,8 @@ This is a file to include a simple tanh wrapper
 opcode TanH,aa,aak
   aSigL, aSigR, kTanDrive xin
 
-    ; get drive val, calculate pre/post from it
+    ; calculate pre/post from drive val
     ; "0" gives a 3db cut at pre, and a 3db boost at post to reduce chance of clipping
-    ; kTanDrive = .01*chnget:k(strcat(SChanPrefix,"dist-tanh"))
     kTanPreDb = ampdb(ntrpol($TANH_PRE_MIN, $TANH_PRE_MAX, kTanDrive))
     kTanPostDb = ampdb(ntrpol($TANH_POST_MIN, $TANH_POST_MAX, kTanDrive))
 
@@ -55,9 +54,8 @@ endop
 opcode TanH,a,ak
   aSig, kTanDrive xin
 
-    ; get drive val, calculate pre/post from it
+    ; calculate pre/post from drive val
     ; "0" gives a 3db cut at pre, and a 3db boost at post to reduce chance of clipping
-    ; kTanDrive = .01*chnget:k(strcat(SChanPrefix,"dist-tanh"))
     kTanPreDb = ampdb(ntrpol($TANH_PRE_MIN, $TANH_PRE_MAX, kTanDrive))
     kTanPostDb = ampdb(ntrpol($TANH_POST_MIN, $TANH_POST_MAX, kTanDrive))
 
