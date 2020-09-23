@@ -78,6 +78,15 @@ Look at the default color config file for documentation
 #define CYAN_KNOB colour(100,100,100,255), trackercolour(120,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,255,255)
 #define WHITE_KNOB colour(100,100,100,255), trackercolour(255,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,255,255)
 
+; experimental knob styles for testing with filmstrip knobs
+; #define RED_KNOB colour(100,100,100,255), trackercolour(255,80,80,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,80,80,255), filmstrip("includes/images/knob1_red.png",120)
+; #define YELLOW_KNOB colour(100,100,100,255), trackercolour(255,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,120,255), filmstrip("includes/images/knob1_yellow.png",120)
+; #define GREEN_KNOB colour(100,100,100,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,120,255), filmstrip("includes/images/knob1_green.png",120)
+; #define BLUE_KNOB colour(100,100,100,255), trackercolour(0,150,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(0,150,255,255), filmstrip("includes/images/knob1_blue.png",120)
+; #define CYAN_KNOB colour(100,100,100,255), trackercolour(120,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,255,255), filmstrip("includes/images/knob1_cyan.png",120)
+; #define WHITE_KNOB colour(100,100,100,255), trackercolour(255,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,255,255), filmstrip("includes/images/knob1_grey.png",120)
+
+
 ; slider and range styles
 #define SLIDER colour(180,180,180,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
 #define BLANK_SLIDER colour(180,180,180,255), trackercolour(0,0,0,0), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
