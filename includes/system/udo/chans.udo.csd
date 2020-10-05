@@ -19,8 +19,38 @@ These are UDOs related to dealing with channels
 ***************/
 
 
+; opcode to toggle a list of channels
+; one version takes in a channel name to watch for triggers to toggle
+; the other version takes in a krate signal to trigger toggle
+; both versions take in an array of channel names to toggle when triggered
+
+opcode ToggleChans,0,SS[]
+  SToggleChan, SChanList[] xin
+
+  kToggle chnget SToggleChan
+  if (changed(kToggle)==1 && kToggle==1) then
+    kCount=0
+    LoopLbl:
+    chnset 1-chnget:k(SChanList[kCount]), SChanList[kCount]
+    loop_le kCount, 1, lenarray(SChanList)-1, LoopLbl
+  endif
+endop
+
+opcode ToggleChans,0,kS[]
+  kToggle, SChanList[] xin
+
+  if (changed(kToggle)==1 && kToggle==1) then
+    kCount=0
+    LoopLbl:
+    chnset 1-chnget:k(SChanList[kCount]), SChanList[kCount]
+    loop_le kCount, 1, lenarray(SChanList)-1, LoopLbl
+  endif
+endop
+
 ; opcode to set multiple channels at once, pass in array of chan names
 ; optional arg defaults to 0, means start at the top of the array, and recurse down
+; opted for recursion rather than loops for slightly better speed at krate... i think?  need to confirm!
+
 ; opcode MultiSetKS,0,kS[]o
 ;  kVal, Schnls[], iCnt xin
 ;  chnsetks kVal, Schnls[iCnt]
