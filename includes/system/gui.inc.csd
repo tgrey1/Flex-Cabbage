@@ -127,12 +127,9 @@ endop
 
 opcode FadeUI,0,Sk
   SChanName, kPop xin
-
-  if (changed(kPop)==1) then
-    if (kPop==1) then
-      scoreline sprintfk("i\"%s\" 0 1 \"%s\" %d", "FadeInstr", SChanName,kPop), k(1)
-    else
-      scoreline sprintfk("i\"%s\" 0 1 \"%s\" %d", "FadeInstr", SChanName,kPop), k(1)
+  if ($ON_UI_TICK) then
+    if (changed(kPop)==1) then
+        scoreline sprintfk("i\"%s\" 0 1 \"%s\" %d", "FadeInstr", SChanName,kPop==0 ? 0 : 1), k(1)
     endif
   endif
 endop
@@ -141,11 +138,9 @@ opcode FadeUI,0,SS
   SChanName, SPopChanName xin
 
   kPop chnget SPopChanName
-  if (changed(kPop)==1) then
-    if (kPop==1) then
-      scoreline sprintfk("i\"%s\" 0 1 \"%s\" %d", "FadeInstr", SChanName,kPop), k(1)
-    else
-      scoreline sprintfk("i\"%s\" 0 1 \"%s\" %d", "FadeInstr", SChanName,kPop), k(1)
+  if ($ON_UI_TICK) then
+    if (changed(kPop)==1) then
+        scoreline sprintfk("i\"%s\" 0 1 \"%s\" %d", "FadeInstr", SChanName,kPop==0 ? 0 : 1), k(1)
     endif
   endif
 endop
@@ -177,9 +172,10 @@ instr FadeInstr
 
   #ifdef USE_ANIMATION
     kAlpha linseg 1-iOnOff, iDur, iOnOff, 1, iOnOff
-    chnset sprintfk("alpha\(%f\)",kAlpha), strcpyk(SChanName) 
+    kVis lastcycle
+    chnset sprintfk("alpha\(%f\) visible(%d)",kAlpha, kAlpha==0 ? 0 : 1), strcpyk(SChanName) 
   #else
-    chnset sprintf("alpha\(%d\)",iOnOff), strcpy(SChanName) 
+    chnset sprintf("alpha\(%d\) visible(%d)",iOnOff, iOnOff), strcpy(SChanName) 
   #endif
 endin
 

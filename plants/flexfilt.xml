@@ -9,18 +9,18 @@ image $INVIS bounds(0, 0, 178, 168)
   combobox $COMBO pos(10, 30), size(120, 20), channel("mf-mode"), channeltype("number"), value(1), identchannel("mf-mode_c"), $FILT_MENU, $REINIT_TEXT
   label pos(70, 5), size(35, 10), text("---"), identchannel("mf-debug"), colour("red"), fontcolour("white"), visible(0)
 }
-image $INVIS bounds(0,0,178,168), identchannel("mf-common"), alpha(0)
+image $INVIS bounds(0,0,178,168), identchannel("mf-common"), alpha(0), visible(0)
 {
   button $HR_BTN pos(10, 4), size(30, 12), text("Seq","Par"), channel("mf-seq"), popuptext("Sequential / Parallel"), visible(0), identchannel("mf-seq_c")
   button $HG_BTN pos(138, 30), size(30, 20), text("Bal"), channel("mf-bal"), popuptext("Balance levels")
-  rslider $CYAN_KNOB pos(10, 115), size(50, 50), channel("mf-depth"), range(0, 8, 1, 1, 1), text("Depth"), $REINIT_TEXT, popupprefix("Recursion:\n"), popuppostfix(" pass")
+  rslider $WHITE_KNOB pos(10, 115), size(50, 50), channel("mf-depth"), range(0, 8, 1, 1, 1), text("Depth"), $REINIT_TEXT, popupprefix("Recursion:\n"), popuppostfix(" pass")
   rslider $RED_KNOB $GAIN_RANGE pos(118, 115), size(50, 50), channel("mf-outgain"), text("Gain"), popupprefix("Output Gain:\n"), popuppostfix(" dB")  
   rslider $BLUE_KNOB pos(64, 115), size(50, 50), channel("mf-mix"), range(-100, 100, 100, 1, 0.01), text("Mix"), popupprefix("Dry/Wet\n"), popuppostfix(" %")  
 
-  rslider $YELLOW_KNOB pos(10, 60), size(50, 50), channel("mf-freq"), range(10, 20000, 7500, .5, 0.01), text("Freq"), identchannel("mf-f_c"), visible(0), popupprefix("Frequency:\n") popuppostfix(" Hz")
-  rslider $GREEN_KNOB pos(118, 60), size(50, 50), channel("mf-g"), range(-10, 10, 0, 1, 0.01), text("Gain"), identchannel("mf-g_c"), visible(0), popupprefix("EQ Gain:\n"), popuppostfix(" dB")
-  rslider $GREEN_KNOB pos(118, 60), size(50, 50), channel("mf-d"), range(0, 100, 0, 1, 0.01), text("Distort"), identchannel("mf-d_c"), visible(0), popupprefix("Distortion:\n"), popuppostfix(" %")
-  rslider $YELLOW_KNOB pos(64, 60), size(50, 50), channel("mf-q"), range(0.01, 100, 0.5, 1, 0.01), text("Q/Res"), identchannel("mf-q_c"), visible(0), popupprefix("Q/Res:\n"), popuppostfix(" %")
+  rslider $CYAN_KNOB pos(10, 60), size(50, 50), channel("mf-freq"), range(10, 20000, 7500, .5, 0.01), text("Freq"), identchannel("mf-f_c"), visible(0), popupprefix("Frequency:\n") popuppostfix(" Hz")
+  rslider $YELLOW_KNOB pos(118, 60), size(50, 50), channel("mf-g"), range(-10, 10, 0, 1, 0.01), text("Gain"), identchannel("mf-g_c"), visible(0), popupprefix("EQ Gain:\n"), popuppostfix(" dB")
+  rslider $YELLOW_KNOB pos(118, 60), size(50, 50), channel("mf-d"), range(0, 100, 0, 1, 0.01), text("Distort"), identchannel("mf-d_c"), visible(0), popupprefix("Distortion:\n"), popuppostfix(" %")
+  rslider $GREEN_KNOB pos(64, 60), size(50, 50), channel("mf-q"), range(0.01, 100, 0.5, 1, 0.01), text("Q/Res"), identchannel("mf-q_c"), visible(0), popupprefix("Q/Res:\n"), popuppostfix(" %")
 }
 </cabbagecode>
 <csoundcode>
