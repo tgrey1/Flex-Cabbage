@@ -10,28 +10,37 @@ image $INVIS pos(0,0), size(224,256)
   label $GRAPH_TEXT pos(8,83), size(215,11), fontcolour(255,0,0,100), text("-- uninitialized --"), align("left"), identchannel("lentext")
   label $GRAPH_TEXT pos(8, 93), size(215, 11), text("-- uninitialized --"), align("left"), identchannel("text")
 
-    image $INVIS bounds(0,150,175,106), identchannel("fullcontrols")
+    ; decay and sus controls, optionally toggled on and off
+    image $INVIS bounds(0,155,175,106), identchannel("fullcontrols")
     {
-      rslider $CYAN_KNOB pos(56, 10), size(50, 50), channel("Dec"), range(.01, 100, 35, .5, 0.01), text("Decay"), popupprefix("Decay Length:\n"), popuppostfix(" % of Scale")
-      rslider $CYAN_KNOB pos(118, 60), size(50, 50), channel("Sus"), range(0, 100, 50, .5, 0.01), text("S-Lev"), popupprefix("Sustain Level:\n"), popuppostfix(" %")
-      rslider $CYAN_KNOB pos(56, 60), size(50, 50), channel("DecShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Decay Shape:\n")      
+      rslider $PURPLE_KNOB pos(56, 0), size(50, 50), channel("Dec"), range(.01, 100, 35, .5, 0.01), text("Decay"), popupprefix("Decay Length:\n"), popuppostfix(" % of Scale")
+      rslider $PURPLE_KNOB pos(118, 50), size(50, 50), channel("Sus"), range(0, 100, 50, .5, 0.01), text("S-Lev"), popupprefix("Sustain Level:\n"), popuppostfix(" %")
+      rslider $PURPLE_KNOB pos(56, 50), size(50, 50), channel("DecShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Decay Shape:\n")      
     }
 
-    button $HG_BTN pos(0,115), size(84,16), channel("EnvADSR"), text("ADSR"), radiogroup("EnvTypeRadiogroup"), popuptext("ADSR Shape envelope"), value(1)
-    button $HG_BTN pos(84,115), size(84,16), channel("EnvAD"), text("AD"), radiogroup("EnvTypeRadiogroup"), popuptext("AD Shape envelope")
+    image $INVIS bounds(0,155,224,270)
+    {
+      rslider $PURPLE_KNOB pos(0, 0), size(50, 50), channel("Att"), range(.01, 100, .01, .5, 0.01), text("Attack"), popupprefix("Attack Length:\n"), popuppostfix(" % of Scale")
+      rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Rel"), range(.01, 100, 10, .5, 0.01), text("Release"), popupprefix("Release Length:\n"), popuppostfix(" % of Scale")
 
-    button $HG_BTN pos(0,135), size(56,16), channel("EnvHold"), text("Hold"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold (infinite)"), value(1)
-    button $HY_BTN pos(56,135), size(56,16), channel("EnvMax"), text("Max"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold until max length")
-    button $HR_BTN pos(112,135), size(56,16), channel("EnvTrig"), text("Trig"), radiogroup("EnvModeRadiogroup"), popuptext("Trigger (one shot) length")
+      rslider $PURPLE_KNOB pos(0, 50), size(50, 50), channel("AttShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Attack Shape:\n")
+      rslider $PURPLE_KNOB pos(118, 0), size(50, 50), channel("SusLen"), range(0, 100, 100, 1, 0.01), text("S-Len"), popupprefix("Sustain Length:\n"), popuppostfix(" % of Scale"), identchannel("SusLenCC")
+      rslider $PURPLE_KNOB pos(174, 50), size(50, 50), channel("RelShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Release Shape:\n")
+    }
 
-    rslider $CYAN_KNOB pos(174, 110), size(50, 50), channel("Scale"), range(.1, 10, 1, 1, .1), text("Scale"), popupprefix("Segment Scale:\n"), popuppostfix(" Sec")
+    ; buttons and scale controls
+    image $INVIS bounds(0,105,224,50)
+    {
+      button $HG_BTN pos(0,5), size(84,16), channel("EnvADSR"), text("ADSR"), radiogroup("EnvTypeRadiogroup"), popuptext("ADSR Shape envelope"), value(1)
+      button $HG_BTN pos(84,5), size(84,16), channel("EnvAD"), text("AD"), radiogroup("EnvTypeRadiogroup"), popuptext("AD Shape envelope")
 
-    rslider $CYAN_KNOB pos(0, 160), size(50, 50), channel("Att"), range(.01, 100, .01, .5, 0.01), text("Attack"), popupprefix("Attack Length:\n"), popuppostfix(" % of Scale")
-    rslider $CYAN_KNOB pos(174, 160), size(50, 50), channel("Rel"), range(.01, 100, 10, .5, 0.01), text("Release"), popupprefix("Release Length:\n"), popuppostfix(" % of Scale")
+      button $HG_BTN pos(0,25), size(56,16), channel("EnvHold"), text("Hold"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold (infinite)"), value(1)
+      button $HY_BTN pos(56,25), size(56,16), channel("EnvMax"), text("Max"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold until max length")
+      button $HR_BTN pos(112,25), size(56,16), channel("EnvTrig"), text("Trig"), radiogroup("EnvModeRadiogroup"), popuptext("Trigger (one shot) length")
 
-    rslider $CYAN_KNOB pos(0, 210), size(50, 50), channel("AttShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Attack Shape:\n")
-    rslider $CYAN_KNOB pos(118, 160), size(50, 50), channel("SusLen"), range(0, 100, 100, 1, 0.01), text("S-Len"), popupprefix("Sustain Length:\n"), popuppostfix(" % of Scale"), identchannel("SusLenCC")
-    rslider $CYAN_KNOB pos(174, 210), size(50, 50), channel("RelShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Release Shape:\n")
+      rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Scale"), range(.1, 10, 1, 1, .1), text("Scale"), popupprefix("Segment Scale:\n"), popuppostfix(" Sec")
+    }
+
 }
 </cabbagecode>
 <csoundcode>
