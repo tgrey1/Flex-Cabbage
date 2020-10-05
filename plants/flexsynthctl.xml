@@ -8,9 +8,9 @@ image $INVIS pos(0, 0), size(180, 464)
   image $INVIS bounds(0, 30, 210, 95)
   {  
     label $HEADER pos(10,0), size(160,14), text("Global Tuning")
-    rslider $GREEN_KNOB pos(-5, 12), size(80, 80), range(-3, 3, 0, 1, 1), channel("octaves"), text("Octaves"), popupprefix("Tuning Octaves: "), popuppostfix(" Oct"), valuetextbox(1)
-    rslider $GREEN_KNOB pos(50, 12), size(80, 80), range(-12, 12, 0, 1, 1), channel("semitones"), text("Semitones"), popupprefix("Tune Coarse: "), popuppostfix(" semitones"), valuetextbox(1)
-    rslider $GREEN_KNOB pos(105, 12), size(80, 80), range(-100, 100, 0, 1, 1), channel("cents"), text("Cents"), popupprefix("Tune Fine: "), popuppostfix(" cents"), valuetextbox(1)
+    rslider $BIG_CYAN_KNOB pos(-5, 12), size(80, 80), range(-3, 3, 0, 1, 1), channel("octaves"), text("Octaves"), popupprefix("Tuning Octaves: "), popuppostfix(" Oct"), valuetextbox(1)
+    rslider $BIG_CYAN_KNOB pos(50, 12), size(80, 80), range(-12, 12, 0, 1, 1), channel("semitones"), text("Semitones"), popupprefix("Tune Coarse: "), popuppostfix(" semitones"), valuetextbox(1)
+    rslider $BIG_CYAN_KNOB pos(105, 12), size(80, 80), range(-100, 100, 0, 1, 1), channel("cents"), text("Cents"), popupprefix("Tune Fine: "), popuppostfix(" cents"), valuetextbox(1)
   }
 
   image $INVIS bounds(0,130,210,200)
@@ -26,7 +26,7 @@ image $INVIS pos(0, 0), size(180, 464)
     
     label $TEXT pos(105,74), size(80,12), text("Shape:")
     combobox $COMBO pos(110,89), size(60,14), channel("LFOShape"), items("Sine","Triangle", "Square (uni-pole)", "Square (bi-polar)", "Saw (up)", "Saw (down)")
-    rslider $CYAN_KNOB pos(105,110), size(80,80), range(.01,20,5,1,.01), channel("LFORate"), valuetextbox(1), text("Rate"), popupprefix("LFO Rate: "), popuppostfix(" Hz")
+    rslider $PURPLE_KNOB pos(105,110), size(80,80), range(.01,20,5,1,.01), channel("LFORate"), valuetextbox(1), text("Rate"), popupprefix("LFO Rate: "), popuppostfix(" Hz")
   }
 
   image $INVIS bounds(0,332,210,51)

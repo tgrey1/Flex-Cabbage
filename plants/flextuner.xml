@@ -5,9 +5,9 @@
 <cabbagecode>
 image $INVIS bounds(0, 0, 110, 50)
 {  
-  rslider $GREEN_KNOB pos(-10, 0), size(50, 50), range(-3, 3, 0, 1, 1), channel("octave"), text("Oct"), popupprefix("Tuning Octaves: "), popuppostfix(" Oct")
-  rslider $GREEN_KNOB pos(30, 0), size(50, 50), range(-12, 12, 0, 1, 1), channel("coarse"), text("Coarse"), popupprefix("Tune Coarse: "), popuppostfix(" semitones")
-  rslider $GREEN_KNOB pos(70, 0), size(50, 50), range(-100, 100, 0, 1, 1), channel("fine"), text("Fine"), popupprefix("Tune Fine: "), popuppostfix(" cents")
+  rslider $CYAN_KNOB pos(-10, 0), size(50, 50), range(-3, 3, 0, 1, 1), channel("octave"), text("Oct"), popupprefix("Tuning Octaves: "), popuppostfix(" Oct")
+  rslider $CYAN_KNOB pos(30, 0), size(50, 50), range(-12, 12, 0, 1, 1), channel("coarse"), text("Coarse"), popupprefix("Tune Coarse: "), popuppostfix(" semitones")
+  rslider $CYAN_KNOB pos(70, 0), size(50, 50), range(-100, 100, 0, 1, 1), channel("fine"), text("Fine"), popupprefix("Tune Fine: "), popuppostfix(" cents")
 }
 </cabbagecode>
 <csoundcode>
