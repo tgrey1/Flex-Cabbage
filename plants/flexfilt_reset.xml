@@ -26,6 +26,7 @@ groupbox $POPUP_BOX bounds(0, 0, 258, 170), text("Filter Reset Controls"), ident
 ; TODO: mix isn't included here yet!!!
 
 #include "includes/system/gui.inc.csd"
+#include "includes/system/udo/chans.udo.csd"
 
 ; Monitor will always be on and processing, waiting to popup reset menu
 instr FlexFiltResetMon
@@ -38,9 +39,7 @@ instr FlexFiltResetMon
 
   ; These are the defaults for the filter reset panel.
   ; Unless changed by the user, these values will reset with filter mode change
-  chnset 1, "mf_reset_bal"
-  chnset 1, "mf_reset_outgain"
-  chnset 1, "mf_reset_depth"
+  MultiSet 1, fillarray("mf_reset_bal", "mf_reset_outgain", "mf_reset_depth")
 endin
 
 alwayson "FlexFiltResetMon"
@@ -53,8 +52,7 @@ instr FlexFiltResetListener
   kResetsDone chnget "mf_resets_done"
   kResets chnget "mf_showresets"
   if ((changed2(kResetsDone)==1 && kResetsDone==1) || kResets==0) then
-    chnset k(0), "mf_showresets"
-    chnset k(0), "mf_resets_done"
+    MultiSet k(0), fillarray("mf_showresets","mf_resets_done")
     turnoff
   endif
 
@@ -66,25 +64,9 @@ instr FlexFiltResetListener
   ; set all or none
   if (changed(kAll,kNone)==1 && (kAll==1 || kNone==1)) then
     ; sends 1 if kAll is 1, 0 if not... so works for none too!
-    chnset kAll, "mf_reset_freq"
-    chnset kAll, "mf_reset_q"
-    chnset kAll, "mf_reset_gain"
-    chnset kAll, "mf_reset_d"
-    chnset kAll, "mf_reset_bal"
-    chnset kAll, "mf_reset_outgain"
-    chnset kAll, "mf_reset_depth"
-    chnset kAll, "mf_reset_seq"
-  ; toggle all
-  elseif (changed(kToggle)==1 && kToggle==1) then
-    chnset (chnget:k("mf_reset_freq")==1) ? k(0) : k(1), "mf_reset_freq"
-    chnset (chnget:k("mf_reset_q")==1) ? k(0) : k(1), "mf_reset_q"
-    chnset (chnget:k("mf_reset_gain")==1) ? k(0) : k(1), "mf_reset_gain"
-    chnset (chnget:k("mf_reset_d")==1) ? k(0) : k(1), "mf_reset_d"
-    chnset (chnget:k("mf_reset_bal")==1) ? k(0) : k(1), "mf_reset_bal"
-    chnset (chnget:k("mf_reset_outgain")==1) ? k(0) : k(1), "mf_reset_outgain"
-    chnset (chnget:k("mf_reset_depth")==1) ? k(0) : k(1), "mf_reset_depth"
-    chnset (chnget:k("mf_reset_seq")==1) ? k(0) : k(1), "mf_reset_seq"
-  endif 
+    MultiSet kAll, fillarray("mf_reset_freq", "mf_reset_q", "mf_reset_gain", "mf_reset_d", "mf_reset_bal", "mf_reset_outgain", "mf_reset_depth", "mf_reset_seq")
+  endif
+  ToggleChans kToggle, fillarray("mf_reset_freq", "mf_reset_q", "mf_reset_gain", "mf_reset_d", "mf_reset_bal", "mf_reset_outgain", "mf_reset_depth",  "mf_reset_seq")
 endin
 
 </csoundcode>
