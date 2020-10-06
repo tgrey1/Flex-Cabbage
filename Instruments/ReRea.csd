@@ -108,7 +108,7 @@ instr Gui
   kFXPop chnget "FXCtlPop"
   SlideUI "synthctl", kSynthPop, -220,10,0,10
   SlideUI "fxctl", kFXPop, 579,10,324,10
-  ChanOR "SynthCtlPop", "FXCtlPop"
+  ChanXOR "SynthCtlPop", "FXCtlPop"
   FadeUI "button-tint", kSynthPop | kFXPop
 endin
 </CsInstruments>

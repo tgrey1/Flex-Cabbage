@@ -185,7 +185,7 @@ opcode RevLinkChans,0,SSk
 endop
 
 ; link two binary channels in a radio fashion, but channels can still be off.
-opcode ChanOR,0,SS
+opcode ChanXOR,0,SS
   SChanName1, SChanName2 xin
 
   kChan1 chnget SChanName1
