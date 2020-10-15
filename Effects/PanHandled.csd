@@ -31,15 +31,17 @@ groupbox $BOX bounds(10, 94, 210, 526), text("Pan Handling") {
   label $TEXT bounds(10,25,90,18) text("Left")
   label $TEXT bounds(110,25,90,18) text("Right")
 
-  button $HR_BTN bounds(10, 45, 90, 22), channel("left-mute"), text("Mute","Muted"), popuptext("Mute")
-  button $HY_BTN bounds(10, 70, 90, 22), channel("left-phase"), text("Phase","Inverted"), popuptext("Invert Phase")
+  button $HR_BTN bounds(10, 45, 80, 22), channel("left-mute"), text("Mute","Muted"), popuptext("Mute")
+  button $HY_BTN bounds(10, 70, 80, 22), channel("left-phase"), text("Phase","Inverted"), popuptext("Invert Phase")
 
-  button $HR_BTN bounds(110, 45, 90, 22), channel("right-mute"), text("Mute","Muted"), popuptext("Mute")
-  button $HY_BTN bounds(110, 70, 90, 22), channel("right-phase"), text("Phase","Inverted"), popuptext("Invert Phase")
+  button $HR_BTN bounds(93, 45, 24, 22), channel("toggle-mute"), text("X"), popuptext("Toggle Mutes"), latched(0)
+  button $HY_BTN bounds(93, 70, 24, 22), channel("toggle-phase"), text("X"), popuptext("Toggle Phases"), latched(0)
 
   rslider $RED_KNOB $GAIN_RANGE bounds(15, 100, 80, 100), channel("left-gain"), text("L Gain"), popupprefix("Left Gain:\n"), popuppostfix(" dB"), valuetextbox(1)
   rslider $RED_KNOB $GAIN_RANGE bounds(115, 100, 80, 100), channel("right-gain"), text("R Gain"), popupprefix("Right Gain:\n"), popuppostfix(" dB"), valuetextbox(1)
   button $HG_BTN bounds(10, 210, 190, 22), channel("link-gain"), text("Link Gain","Linked Gain"), popuptext("Link Gain")
+  button $HR_BTN bounds(120, 45, 80, 22), channel("right-mute"), text("Mute","Muted"), popuptext("Mute")
+  button $HY_BTN bounds(120, 70, 80, 22), channel("right-phase"), text("Phase","Inverted"), popuptext("Invert Phase")
 
   rslider $WHITE_KNOB bounds(15, 240, 80, 100), channel("left-pan"), range(-100, 100, -100, 1, .01), text("L Pan"), popupprefix("Left Pan:\n"), popuppostfix(" %"), valuetextbox(1)
   rslider $WHITE_KNOB bounds(115, 240, 80, 100), channel("right-pan"), range(-100, 100, 100, 1, .01), text("R Pan"), popupprefix("Right Pan:\n"), popuppostfix(" %"), valuetextbox(1)
@@ -113,6 +115,8 @@ endin
 instr Gui
   LinkChans "left-gain", "right-gain", "link-gain"
   RevLinkChans "left-pan", "right-pan", "link-pan"
+  ToggleChans "toggle-mute", fillarray("left-mute","right-mute")
+  ToggleChans "toggle-phase", fillarray("left-phase","right-phase")
 endin
 
 </CsInstruments>
