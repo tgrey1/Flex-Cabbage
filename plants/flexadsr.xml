@@ -15,7 +15,7 @@ image $INVIS pos(0,0), size(224,256)
     {
       rslider $PURPLE_KNOB pos(56, 0), size(50, 50), channel("Dec"), range(.01, 100, 35, .5, 0.01), text("Decay"), popupprefix("Decay Length:\n"), popuppostfix(" % of Scale")
       rslider $PURPLE_KNOB pos(118, 50), size(50, 50), channel("Sus"), range(0, 100, 50, .5, 0.01), text("S-Lev"), popupprefix("Sustain Level:\n"), popuppostfix(" %")
-      rslider $PURPLE_KNOB pos(56, 50), size(50, 50), channel("DecShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Decay Shape:\n")      
+      rslider $PURPLE_KNOB pos(56, 50), size(50, 50), channel("DecShape"), range(-5, 5, 0, 1, 0.01), text("Shape"), popupprefix("Decay Shape:\n")      
     }
 
     image $INVIS bounds(0,155,224,270)
@@ -23,9 +23,9 @@ image $INVIS pos(0,0), size(224,256)
       rslider $PURPLE_KNOB pos(0, 0), size(50, 50), channel("Att"), range(.01, 100, .01, .5, 0.01), text("Attack"), popupprefix("Attack Length:\n"), popuppostfix(" % of Scale")
       rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Rel"), range(.01, 100, 10, .5, 0.01), text("Release"), popupprefix("Release Length:\n"), popuppostfix(" % of Scale")
 
-      rslider $PURPLE_KNOB pos(0, 50), size(50, 50), channel("AttShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Attack Shape:\n")
+      rslider $PURPLE_KNOB pos(0, 50), size(50, 50), channel("AttShape"), range(-5, 5, 0, 1, 0.01), text("Shape"), popupprefix("Attack Shape:\n")
       rslider $PURPLE_KNOB pos(118, 0), size(50, 50), channel("SusLen"), range(0, 100, 100, 1, 0.01), text("S-Len"), popupprefix("Sustain Length:\n"), popuppostfix(" % of Scale"), identchannel("SusLenCC")
-      rslider $PURPLE_KNOB pos(174, 50), size(50, 50), channel("RelShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Release Shape:\n")
+      rslider $PURPLE_KNOB pos(174, 50), size(50, 50), channel("RelShape"), range(-5, 5, 0, 1, 0.01), text("Shape"), popupprefix("Release Shape:\n")
     }
 
     ; buttons and scale controls
