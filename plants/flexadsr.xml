@@ -81,11 +81,12 @@ opcode FlexADSRText,0,Sk
 
     iScale chnget strcat(SChanPrefix,"Scale")
 
-    iAttLen = .01*chnget:i(strcat(SChanPrefix,"Att"))*iScale
-    iDecLen = .01*chnget:i(strcat(SChanPrefix,"Dec"))*iScale
-    iRelLen = .01*chnget:i(strcat(SChanPrefix,"Rel"))*iScale
+    iAttLen = min(1,.01*chnget:i(strcat(SChanPrefix,"Att")))*iScale
+    iDecLen = min(1,.01*chnget:i(strcat(SChanPrefix,"Dec")))*iScale
+    iRelLen = min(1,.01*chnget:i(strcat(SChanPrefix,"Rel")))*iScale
+
     ; SusLen changes to 1 (100%) when mode is $FLEXADSR_MODE_HOLD
-    iSusLen = ((iType!=$FLEXADSR_MODE_HOLD) ? .01*chnget:i(strcat(SChanPrefix,"SusLen")) : 1)*iScale
+    iSusLen = ((iType!=$FLEXADSR_MODE_HOLD) ? min(1,.01*chnget:i(strcat(SChanPrefix,"SusLen"))) : 1)*iScale
 
     if(iType==$FLEXADSR_MODE_HOLD) then
       SSusMsg="S: ----"
