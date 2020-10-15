@@ -104,7 +104,7 @@ opcode FlexADSRText,0,Sk
         Smsg2 = sprintf("text(Trigger: %2.3fs)",iAttLen+iDecLen+iSusLen+iRelLen)
       endif
     else
-      Smsg1 = sprintf("text(A: %2.3fs  %s  R: %2.2fs)",iAttLen,SSusMsg,iRelLen)
+      Smsg1 = sprintf("text(A: %2.3fs  %s  R: %2.3fs)",iAttLen,SSusMsg,iRelLen)
       if(iType==$FLEXADSR_MODE_HOLD) then
         Smsg2 = "text(Midi Hold)"
       elseif(iType==$FLEXADSR_MODE_MAX) then
