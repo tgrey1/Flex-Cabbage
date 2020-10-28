@@ -20,16 +20,16 @@ groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c")
   label $TEXT pos(5, 230), size(46, 12), text("Mod"), identchannel("modlabel1")
   label $TEXT pos(5, 242), size(46, 12), text("Mode:"), identchannel("modlabel2")
   combobox $COMBO pos(50, 232), size(70, 20), channel("modmode"), items("Bypass","Mirror","Wrap"), identchannel("modmode-c")
-  rslider $GREEN_KNOB pos(119, 205), size(50, 50), channel("mod"), range(0, 99.99, 0, 1, .01), identchannel("mod-c"), text("Mod"), visible(0), popupprefix("Mod amount:\n"), popuppostfix(" %")
+  rslider $PURPLE_KNOB pos(119, 205), size(50, 50), channel("mod"), range(0, 99.99, 0, 1, .01), identchannel("mod-c"), text("Mod"), visible(0), popupprefix("Mod amount:\n"), popuppostfix(" %")
 
 
-  rslider $GREEN_KNOB pos(119, 205), size(50, 50), channel("prescale"), range(1, 10, 1, 1, .01), identchannel("scale-c"), text("Scale"), popupprefix("Pre-scale: x")
+  rslider $RED_KNOB pos(119, 205), size(50, 50), channel("prescale"), range(1, 10, 1, 1, .01), identchannel("scale-c"), text("Scale"), popupprefix("Pre-scale: x")
   rslider $GREEN_KNOB pos(156, 205), size(50, 50), channel("min"), range(-100, 100, -100, 1, .01), text("Min"), popupprefix("Min Lev:\n"), popuppostfix(" %")
   rslider $GREEN_KNOB pos(192, 205), size(50, 50), channel("max"), range(-100, 100, 100, 1, .01), text("Max"), popupprefix("Max Lev:\n"), popuppostfix(" %")
-  rslider $GREEN_KNOB pos(230, 205), size(50, 50), channel("postscale"), range(1, 10, 1, 1, .01), text("Scale"), popupprefix("Post-Scale:\nx")
+  rslider $RED_KNOB pos(230, 205), size(50, 50), channel("postscale"), range(1, 10, 1, 1, .01), text("Scale"), popupprefix("Post-Scale:\nx")
 
-  button $BTN pos(290, 210), size(80, 20), channel("reset"), latched(0), text("Reset"), value(0)
-  button $BTN pos(290, 235), size(80, 20), channel("done"), identchannel("done-c"), latched(0), text("Done"), value(0)
+  button $BTN pos(320, 210), size(50, 20), channel("reset"), latched(0), text("Reset"), value(0)
+  button $BTN pos(320, 235), size(50, 20), channel("done"), identchannel("done-c"), latched(0), text("Done"), value(0)
 }
 
 </cabbagecode>
@@ -38,6 +38,8 @@ groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c")
 
 ; Needed for InitTable, TableNorm, TableLimit, TableMod, TableCopy, TableUniToBi
 #include "includes/udo/shape.inc.csd"
+#include "includes/udo/table.udo.csd"
+
 ; Needed for InArray
 #include "includes/system/udo/arrays.udo.csd"
 ; Needed for FadeUI and PopUI
@@ -48,6 +50,45 @@ groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c")
 #ifndef FLEXSHAPER_INSTR
   #define FLEXSHAPER_INSTR #FlexShaperInstr#
 #endif
+
+; Shape values, these should match the order of combobox options
+#define W_SINE      #1#
+#define W_LINE      #2#
+#define W_PYRAMID   #3#
+#define W_TRIANGLE  #4#
+#define W_PULSE     #5#
+#define W_SAW       #6#
+#define W_RSAW      #7#
+#define W_SINEEXT   #8#
+#define W_G13POLY   #9#
+#define W_G14POLY   #10#
+#define W_EVEN      #11#
+#define W_ODD       #12#
+#define W_808       #13#
+#define W_808EXT    #14#
+#define W_SQUARE    #15#
+#define W_NOISE     #16#
+#define W_MORPH     #17#
+
+gishape_menu_default[]  fillarray 0, $W_SINE, $W_LINE, $W_PYRAMID, $W_TRIANGLE, $W_SQUARE, \
+  $W_PULSE, $W_SAW, $W_RSAW, $W_EVEN, $W_ODD, $W_SINEEXT, $W_G13POLY, $W_G14POLY, $W_NOISE, \
+  $W_MORPH
+
+
+; matrix array of tables used for morphing
+giMorph1    ftgen   0, 0, 8, -2, giSine, giSine, giSine, giTriangle, giSine, giSaw, giSine, giSquare
+giMorph2    ftgen   0, 0, 8, -2, giTriangle, giSine, giTriangle, giTriangle, giTriangle, giSaw, giTriangle, giSquare
+giMorph3    ftgen   0, 0, 8, -2, giSaw, giSine, giSaw, giTriangle, giSaw, giSaw, giSaw, giSquare
+giMorph4    ftgen   0, 0, 8, -2, giSquare, giSine, giSquare, giTriangle, giSquare, giSaw, giSquare, giSquare
+giMorphTmp  ftgen   0, 0, $TABLE_SIZE, 10, 1
+
+
+; These are used to figure out which shape choices get which slider options
+gigen10shapes[]         fillarray $W_SINE, $W_808
+gi1segshapes[]          fillarray $W_LINE
+gi2segshapes[]          fillarray $W_PYRAMID
+gi3segshapes[]          fillarray $W_TRIANGLE, $W_SQUARE, $W_SAW, $W_RSAW
+
 
 ; Text arrays used to set widget labels in FlexShaperSetSliders
 #define SHAPER_LBL_ERR #fillarray("err", "err", "err", "err", "err", "err", "err", "err")#
@@ -387,25 +428,34 @@ elseif (i3Seg>=1) then
   elseif (iShape==$W_MORPH) then
     iMorph = $BI_TO_UNI(iVal4)
     iMorph += (iMorphShape2*2)-1
-    
-    iMorphTable = $SHAPE_FTNUM_OFFSET+$W_MORPHLIST+iMorphShape1
+
+    if (iMorphShape1==1) then
+      iMorphTable = giMorph1
+    elseif (iMorphShape1==2) then
+      iMorphTable = giMorph2
+    elseif (iMorphShape1==3) then
+      iMorphTable = giMorph3
+    elseif (iMorphShape1==4) then
+      iMorphTable = giMorph4
+    endif
 
     ; TODO!!!! this doesn't work with min/max/mod/etc
     ; ftmorf iMorph, iMorphTable, iTable
     ; TODO: also, pregain doens't work here either
-    ftmorf iMorph, iMorphTable, giTempTable
-    TableCopy giTempTable, iTable
+    ftmorf iMorph, iMorphTable, giMorphTmp
+    TableCopy giMorphTmp, iTable
 
-    if(iNorm==1) then
-      TableNorm iTable
-    endif
+    ; TODO: i think this was here to "normalize" non additive tables, which are all generated as normalized anyway?  confirm and delete!
+    ; if(iNorm==1) then
+    ;   TableNorm iTable
+    ; endif
   endif
 
+
+    TableLimit iTable, iMin, iMax, iPostScale
     if(iNorm==1 && (iMod!=0 && iModMode!=1)) then
       TableMod iTable, iModMode, iMod
     endif
-    TableLimit iTable, iMin, iMax, iPostScale
-
 
 ; set slider text and values for known tables shapes
   if (iShape!=iLastShape) || (iReset==1) then
