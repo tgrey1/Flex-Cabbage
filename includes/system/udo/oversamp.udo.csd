@@ -18,9 +18,6 @@ while still allowing it to be controlled at a krate
 ***************
 ***************/
 
-; this is the order files are included:
-#include "includes/settings.inc.csd"
-
 ; Read in a channel at oversampled krate
 ; Alternate method for a-rate channels without having to pre-declare
 ; The idea here is to allow reading channels
