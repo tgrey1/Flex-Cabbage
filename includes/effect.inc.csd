@@ -39,7 +39,7 @@ This is the effect file with specialzed functions for effects
 
 ; This is needed because FlexEffectOut[s] uses FlexPan opcode
 ; TODO: move FlexPan code into global udo so it always works
-#include "../plants/flexfx/pan.inc.csd"
+#include "plants/flexfx/pan.inc.csd"
 
 
 alwayson "Init"
