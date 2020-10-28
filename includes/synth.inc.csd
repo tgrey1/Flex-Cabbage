@@ -20,6 +20,9 @@ This is the synth file with specialzed functions for synths
 ; This tells FlexFX to use the synth out instrument accumulator
 #define USE_SYNTH_OUT ##
 
+; Make sure standards are already included
+#include "includes/standards.inc.csd"
+
 ; commonly used and available UDOs
 #include "includes/system/udo/arrays.udo.csd"
 #include "includes/system/udo/chans.udo.csd"
@@ -27,9 +30,6 @@ This is the synth file with specialzed functions for synths
 
 ; todo: part these out appropriately to effects and isntr
 #include "includes/system/udo/clip.udo.csd"
-
-; Make sure standards are already included
-#include "includes/standards.inc.csd"
 
 #include "includes/system/gui.inc.csd"
 #include "includes/system/udo/ledtrig.udo.csd"

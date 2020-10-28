@@ -23,6 +23,9 @@ This is the effect file with specialzed functions for effects
 ;
 ;
 
+; Make sure standards are already included
+#include "includes/standards.inc.csd"
+
 ; commonly used and available UDOs
 #include "includes/system/udo/arrays.udo.csd"
 #include "includes/system/udo/chans.udo.csd"
@@ -33,9 +36,6 @@ This is the effect file with specialzed functions for effects
 #include "includes/system/udo/testaudio.udo.csd"
 #include "includes/system/udo/collapse.udo.csd"
 #include "includes/system/udo/clip.udo.csd"
-
-; Make sure standards are already included
-#include "includes/standards.inc.csd"
 
 ; This is needed because FlexEffectOut[s] uses FlexPan opcode
 ; TODO: move FlexPan code into global udo so it always works
