@@ -70,7 +70,6 @@ instr Effect
   UpdateLabel kDel, "delay-label-c"
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aDryL = aSigL
   aDryR = aSigR

@@ -85,7 +85,6 @@ instr Effect
   kRand2 portk kRand2, kPortTime
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aRand interp kRand
   aRand2 interp kRand2

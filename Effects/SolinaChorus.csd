@@ -67,7 +67,6 @@ instr Effect
   kAmp2 = .01*chnget:k("amp2")*kAScale
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aDryL = aSigL
   aDryR = aSigR

@@ -89,7 +89,6 @@ instr Effect
   kDist = .01*chnget:k("dist")
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aDryL = aSigL
   aDryR = aSigR

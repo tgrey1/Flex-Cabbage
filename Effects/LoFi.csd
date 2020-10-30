@@ -86,7 +86,6 @@ instr Effect
   kOffset = sr/kOffset
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aDryL = aSigL
   aDryR = aSigR

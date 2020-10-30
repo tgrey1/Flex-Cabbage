@@ -67,7 +67,6 @@ instr Effect
   endif
 
   aDryL, aDryR FlexEffectIns
-  aDryL, aDryR MonoCollapse aDryL, aDryR
 
   aDryL, aDryR Bypass aDryL, aDryR
   aSigL, aSigR DelaySamp aDryL, aDryR, kSamples

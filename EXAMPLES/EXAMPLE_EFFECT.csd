@@ -53,6 +53,7 @@ instr Effect
   ; mutes audio input for safety if DISABLE_AUDIO_INPUT is set
   ; This macro expands to empty text unless disabling audio input is on in settings
   ; Automatically disabled for exported plugins, no need to change 
+  ; collapses to mono options based off buttons
   aInL, aInR FlexEffectIns
 
   ; TODO: THIS NEEDS TO BE MOVED INTO COMMET ABOVE
@@ -60,9 +61,6 @@ instr Effect
   ; then generates test audio if triggered with buttons
 
 
-  ; collapses to mono options based off buttons
-  ; UDO is in audio.udo.csd
-  aSigL, aSigR MonoCollapse aInL, aInR
 
   ; these dry backups are used for wet/dry mix
   ; so it will be clipped/collapsed test audio rather than pure input

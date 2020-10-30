@@ -55,7 +55,6 @@ instr Effect
   aRight = ampdb(aRight)
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aSigL *= aLeft
   aSigR *= aRight

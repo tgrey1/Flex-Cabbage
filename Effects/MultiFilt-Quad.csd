@@ -63,7 +63,6 @@ instr Effect
   kDryWet = $BI_TO_UNI(kDryWet)
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aDryL = aSigL
   aDryR = aSigR

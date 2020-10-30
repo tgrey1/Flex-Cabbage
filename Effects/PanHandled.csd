@@ -78,7 +78,6 @@ instr Effect
   kRightPhase chnget "right-phase"
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
 ; phase invert
   ; TODO: URGENT: BUG: this doesn't work anymore? (6.14)

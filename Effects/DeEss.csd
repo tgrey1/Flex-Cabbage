@@ -109,7 +109,6 @@ instr Effect
   FadeUI "filt-tint", kListen
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aDryL = aSigL
   aDryR = aSigR

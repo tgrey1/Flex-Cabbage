@@ -139,7 +139,6 @@ instr Effect
   endif
 
   aSigL, aSigR FlexEffectIns
-  aSigL, aSigR MonoCollapse aSigL, aSigR
 
   aSigL, aSigR FreezeDel aSigL, aSigR, ""
   
