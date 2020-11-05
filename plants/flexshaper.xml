@@ -29,7 +29,7 @@ groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c")
   rslider $RED_KNOB pos(230, 205), size(50, 50), channel("postscale"), range(1, 10, 1, 1, .01), text("Scale"), popupprefix("Post-Scale:\nx")
 
   button $BTN pos(320, 210), size(50, 20), channel("reset"), latched(0), text("Reset"), value(0)
-  button $BTN pos(320, 235), size(50, 20), channel("done"), identchannel("done-c"), latched(0), text("Done"), value(0)
+  button $BTN pos(320, 235), size(50, 20), channel("done"), identchannel("done-c"), latched(0), text("Done"), value(0), automatable(0)
 }
 
 </cabbagecode>

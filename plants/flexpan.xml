@@ -6,7 +6,7 @@
 image $INVIS bounds(0, 0, 50, 50)
 {
   rslider $WHITE_KNOB pos(0, 0), size(50, 50), range(-100, 100, 0, 1, 0.01), channel("pan-val"), identchannel("pan-val-c"), text("---"), textcolour(0,0,0,0), popuppostfix(" %")
-  button $BTN pos(6,39), size(38,11), channel("pan-mode"), identchannel("pan-mode-c"), text("---"), latched(0), popuptext("Change Pan Mode")
+  button $BTN pos(6,39), size(38,11), channel("pan-mode"), identchannel("pan-mode-c"), text("---"), latched(0), automatable(0), popuptext("Change Pan Mode")
 }
 </cabbagecode>
 <csoundcode>

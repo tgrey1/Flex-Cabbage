@@ -39,7 +39,7 @@ Look at the default color config file for documentation
 #define WET text("Wet"), popupprefix("Wet:\n"), popuppostfix(" dB")
 #define SEND text("Send"), popupprefix("Send:\n"), popuppostfix(" dB")
 #define MAIN_BYPASS channel("bypass"), text("Bypass","Bypassed")
-#define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popuptext("Toggle the filter reset control panel"), identchannel("show-c")
+#define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popuptext("Toggle the filter reset control panel"), identchannel("show-c"), automatable(0)
 #define GAIN_RANGE range(-90, 90, 0, 1, 0.01)
 #define SYNTHCTL_BTN channel("SynthCtlPop"), text(">"), popuptext("Toggle Synth Control Panel")
 #define FXCTL_BTN channel("FXCtlPop"), text("<"), popuptext("Toggle FX Control Panel")

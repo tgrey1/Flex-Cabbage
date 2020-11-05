@@ -5,11 +5,11 @@
 <cabbagecode>
 image $INVIS bounds(0, 0, 148, 20), identchannel("testmidi_box"), visible(0)
 {
-  button $HR_BTN pos(0,0), size(40, 18), channel("testmidi_on"), text("OFF","ON"), latched("1"), value(0), popuptext("Generate MIDI Notes")
-  rslider $CYAN_KNOB pos(42,-6), size(30,30), range(.1,10,1,1,.01), channel("testmidi_rate"), popupprefix("Note rate: "), popuppostfix("Hz")
-  rslider $CYAN_KNOB pos(64,-6), size(30,30), range(1,100,50,1,1), channel("testmidi_duty"), popupprefix("Duty cycle: "), popuppostfix(" %")
-  rslider $GREEN_KNOB pos(86,-6), size(30,30), range(0,12,8,1,1), channel("testmidi_octave"), popupprefix("PCH Octave Num: ")
-  rslider $GREEN_KNOB pos(108,-6), size(30,30), range(0,12,0,1,1) channel("testmidi_note"), popupprefix("PCH Note Num: ")
+  button $HR_BTN pos(0,0), size(40, 18), channel("testmidi_on"), text("OFF","ON"), latched("1"), value(0), popuptext("Generate MIDI Notes"), automatable(0)
+  rslider $CYAN_KNOB pos(42,-6), size(30,30), range(.1,10,1,1,.01), channel("testmidi_rate"), popupprefix("Note rate: "), popuppostfix("Hz"), automatable(0)
+  rslider $CYAN_KNOB pos(64,-6), size(30,30), range(1,100,50,1,1), channel("testmidi_duty"), popupprefix("Duty cycle: "), popuppostfix(" %"), automatable(0)
+  rslider $GREEN_KNOB pos(86,-6), size(30,30), range(0,12,8,1,1), channel("testmidi_octave"), popupprefix("PCH Octave Num: "), automatable(0)
+  rslider $GREEN_KNOB pos(108,-6), size(30,30), range(0,12,0,1,1) channel("testmidi_note"), popupprefix("PCH Note Num: "), automatable(0)
 }
 </cabbagecode>
 <csoundcode>
