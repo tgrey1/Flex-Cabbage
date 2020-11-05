@@ -63,6 +63,12 @@ default being set elsewhere.
 		; automatically disabled in an exported plugin
 		#define DEBUG ## ; COMMENT LINE TO UNSET VARIABLE
 
+		; these define which device input channels csound will use for left and right inputs
+		; this are the equivalent of:
+		; aSigL inch 1
+		; aSigR inch 2
+		#define INPUT_DEVICE_LEFT #1#
+		#define INPUT_DEVICE_RIGHT #2#
 
 		; This is the channel MIDI data will be read from
 		#define MIDI_INPUT_CHAN #1#

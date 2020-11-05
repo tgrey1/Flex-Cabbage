@@ -79,19 +79,22 @@ opcode FlexEffectOuts,0,aa
   outs aOutL, aOutR
 endop
 
+; For effects that require stereo input
+; this guarantees collapse by default, or selection via widget
 opcode FlexEffectIns,aa,0
   #ifdef DISABLE_AUDIO_INPUT
     aSigL = a(0)
     aSigR = a(0)
   #else
-    aSigL inch 1
-    aSigR inch 2
+    aSigL inch $INPUT_DEVICE_LEFT
+    aSigR inch $INPUT_DEVICE_RIGHT
   #endif
 
   #ifdef TEST_AUDIO
     aSigL, aSigR TestAudio aSigL, aSigR
   #endif
 
+  aSigL, aSigR FlexCollapse aSigL, aSigR, ""
   aSigL, aSigR FlexClip aSigL, aSigR, "inOL-"
 
   chnset  aSigL, "DryLeft"
@@ -99,25 +102,50 @@ opcode FlexEffectIns,aa,0
   xout aSigL,aSigR
 endop
 
+; For effects that require mono input
+; this guarantees collapse by default, or selection via widget
 opcode FlexEffectIn,a,0
   #ifdef DISABLE_AUDIO_INPUT
     aSigL = a(0)
+    aSigR = a(0)
   #else
-    aSigL inch 1
+    aSigL inch $INPUT_DEVICE_LEFT
+    aSigR inch $INPUT_DEVICE_RIGHT
   #endif
-  aSigR = aSigL
 
   #ifdef TEST_AUDIO
     aSigL, aSigR TestAudio aSigL, aSigR
   #endif
 
-  aSigL += aSigR
+  aSig FlexCollapse aSigL, aSigR, ""
+  aSig FlexClip aSig, "inOL-"
 
-  aSigL FlexClip aSigL, "inOL-"
+  chnset  aSig, "DryLeft"
+  chnset  aSig, "DryRight"
+  xout aSig
+endop
 
-  chnset  aSigL, "DryLeft"
-  chnset  aSigL, "DryRight"
-  xout aSigL
+; For effects that require mono input, but will end up stereo
+; this guarantees collapse by default, or selection via widget
+opcode FlexEffectIn,aa,0
+  #ifdef DISABLE_AUDIO_INPUT
+    aSigL = a(0)
+    aSigR = a(0)
+  #else
+    aSigL inch $INPUT_DEVICE_LEFT
+    aSigR inch $INPUT_DEVICE_RIGHT
+  #endif
+
+  #ifdef TEST_AUDIO
+    aSigL, aSigR TestAudio aSigL, aSigR
+  #endif
+
+  aSig FlexCollapse aSigL, aSigR, ""
+  aSig FlexClip aSig, "inOL-"
+
+  chnset  aSig, "DryLeft"
+  chnset  aSig, "DryRight"
+  xout aSig, aSig
 endop
 
 #endif
