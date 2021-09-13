@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flexpulse</namespace>
+<nameSpace>flexpulse</nameSpace>
 <name>FlexPulse</name>
 <cabbagecode>
 image $INVIS bounds(0, 0, 155, 50)
 {
-  button $HG_BTN pos(0, 5), size(50, 14), channel("pulse-on"), text("Uni"), popuptext("Unison Pulses")
-  button $HG_BTN pos(0, 26), size(50, 14), channel("alt-on"), text("Alt"), popuptext("Alternating Pulses")
-  rslider $CYAN_KNOB pos(55,0), size(50,50), range(0,100,15,1,.01), channel("pulse-width"), text("Duty %"), popupprefix("Duty: "), popuppostfix(" %")
-  rslider $CYAN_KNOB pos(105,0), size(50,50), range(.125,10,.5,1,.01), channel("pulse-cps"), text("Rate"), popupprefix("Rate: "), popuppostfix(" Hz")
+  button $HG_BTN pos(0, 5), size(50, 14), channel("pulse-on"), text("Uni"), popupText("Unison Pulses")
+  button $HG_BTN pos(0, 26), size(50, 14), channel("alt-on"), text("Alt"), popupText("Alternating Pulses")
+  rslider $CYAN_KNOB pos(55,0), size(50,50), range(0,100,15,1,.01), channel("pulse-width"), text("Duty %"), popupPrefix("Duty: "), popupPostfix(" %")
+  rslider $CYAN_KNOB pos(105,0), size(50,50), range(.125,10,.5,1,.01), channel("pulse-cps"), text("Rate"), popupPrefix("Rate: "), popupPostfix(" Hz")
 }
 </cabbagecode>
 <csoundcode>

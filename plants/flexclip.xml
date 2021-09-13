@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flexclip</namespace>
+<nameSpace>flexclip</nameSpace>
 <name>FlexClip</name>
 <cabbagecode>
 image $INVIS bounds(0, 0, 25, 10)
 {
 	label $TEXT pos(0, 0), size(15, 10), text("OL"), align("left")
 	image $R_LED_OFF pos(15, 0), size(10, 10)
-	image $R_LED_ON pos(15, 0), size(10, 10), visible(0), identchannel("clip-c")
+	image $R_LED_ON pos(15, 0), size(10, 10), visible(0), identChannel("clip-c")
 }
 </cabbagecode>
 <csoundcode>

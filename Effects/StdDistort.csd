@@ -22,45 +22,45 @@ Filter Controls in I/O section sets which filter variables get reset when filter
 form size(380, 638), caption("StdDistort"), pluginID("tsd1"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml","plants/flexfilt.xml", "plants/flexfilt_reset.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In/Out") {
-  FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
-  FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-  StereoCollapse bounds(8,55,100,18), namespace("collapse")
-  FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
+  FlexClip bounds(10,5,25,10), nameSpace("flexclip"), $IN_OL
+  FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
+  StereoCollapse bounds(8,55,100,18), nameSpace("collapse")
+  FlexPan bounds(304,25,50,50), nameSpace("flexpan"), $MAIN_PAN
 
   button $BTN bounds(102,25,50,20), $FILT_RESET
 
-  rslider $RED_KNOB $GAIN_RANGE bounds(157, 25, 50, 50), channel("pregain"), text("Pre"), popupprefix("PreGain:\n") popuppostfix(" dB")
+  rslider $RED_KNOB $GAIN_RANGE bounds(157, 25, 50, 50), channel("pregain"), text("Pre"), popupPrefix("PreGain:\n") popupPostfix(" dB")
   rslider $RED_KNOB bounds(200, 25, 50, 50), $MAIN_GAIN
   rslider $BLUE_KNOB bounds(256, 25, 50, 50), channel("drywet"), range(-100, 100, 100, 1, 0.01), $DRYWET
  }
 
 groupbox $BOX bounds(10, 268, 360, 186), text("Distort") {
-  rslider $GREEN_KNOB bounds(0, 35, 130, 130), channel("NegShape"), range(0, 100, 0, 1, 0.1), text("Neg Shape"), popupprefix("Negative Shape:\n"), popuppostfix(" %"), valuetextbox(1)
-  rslider $GREEN_KNOB bounds(115, 35, 130, 130), channel("PosShape"), range(0, 100, 0, 1, 0.1), text("Pos Shape"), popupprefix("Positive Shape:\n"), popuppostfix(" %"), valuetextbox(1)
-  rslider $BLUE_KNOB bounds(230, 35, 130, 130), channel("mix"), range(0, 100, 100, 1, 0.01), text("Mix"), popupprefix("Mix: "), popuppostfix(" %"), valuetextbox(1)
+  rslider $GREEN_KNOB bounds(0, 35, 130, 130), channel("NegShape"), range(0, 100, 0, 1, 0.1), text("Neg Shape"), popupPrefix("Negative Shape:\n"), popupPostfix(" %"), valueTextBox(1)
+  rslider $GREEN_KNOB bounds(115, 35, 130, 130), channel("PosShape"), range(0, 100, 0, 1, 0.1), text("Pos Shape"), popupPrefix("Positive Shape:\n"), popupPostfix(" %"), valueTextBox(1)
+  rslider $BLUE_KNOB bounds(230, 35, 130, 130), channel("mix"), range(0, 100, 100, 1, 0.01), text("Mix"), popupPrefix("Mix: "), popupPostfix(" %"), valueTextBox(1)
 }
 
 groupbox $BOX bounds(10, 94, 178, 170), text("Pre-Filt 1") {
-  FlexFilt bounds(0,0,178,168), channel("band1-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band1-"), nameSpace("flexfilt")
 }
 
 groupbox $BOX bounds(193, 94, 178, 170), text("Pre-Filt 2") {
-  FlexFilt bounds(0,0,178,168), channel("band2-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band2-"), nameSpace("flexfilt")
 }
 
 groupbox $BOX bounds(10, 458, 178, 170), text("Post-Filt 1") {
-  FlexFilt bounds(0,0,178,168), channel("band3-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band3-"), nameSpace("flexfilt")
 }
 
 groupbox $BOX bounds(193, 458, 178, 170), text("Post-Filt 2") {
-  FlexFilt bounds(0,0,178,168), channel("band4-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band4-"), nameSpace("flexfilt")
 }
 
-$SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("reset-tint")
-FlexFiltReset bounds(61,87,258,170), namespace("flexfilt")
+$SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identChannel("reset-tint")
+FlexFiltReset bounds(61,87,258,170), nameSpace("flexfilt")
 
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

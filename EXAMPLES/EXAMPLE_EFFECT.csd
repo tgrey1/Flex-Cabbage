@@ -24,18 +24,18 @@ This can also be the good basis for a new instrument.
 form caption("Example") size(380,294), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml"), $ROOT
 
   groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {  
-    FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
-    FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-    StereoCollapse bounds(8,55,100,18), namespace("collapse")
+    FlexClip bounds(10,5,25,10), nameSpace("flexclip"), $IN_OL
+    FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
+    StereoCollapse bounds(8,55,100,18), nameSpace("collapse")
     rslider $RED_KNOB bounds(254, 25, 50, 50), $MAIN_GAIN
-    FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
+    FlexPan bounds(304,25,50,50), nameSpace("flexpan"), $MAIN_PAN
   }
 
   groupbox $BOX bounds(10, 94, 360, 190), text("GUI") {
 
   }
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flexshaper</namespace>
+<nameSpace>flexshaper</nameSpace>
 <name>FlexShaper</name>
 <cabbagecode>
-groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identchannel("plant-c"), visible(0) {
-  vslider $SLIDER pos(0, 25), size(56, 175), channel("val1"), identchannel("val1-c"), range(-100, 100, 100, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(46, 25), size(56, 175), channel("val2"), identchannel("val2-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(92, 25), size(56, 175), channel("val3"), identchannel("val3-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(138, 25), size(56, 175), channel("val4"), identchannel("val4-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(184, 25), size(56, 175), channel("val5"), identchannel("val5-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(230, 25), size(56, 175), channel("val6"), identchannel("val6-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(276, 25), size(56, 175), channel("val7"), identchannel("val7-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
-  vslider $SLIDER pos(322, 25), size(56, 175), channel("val8"), identchannel("val8-c"), range(-100, 100, 0, 1, 1), valuetextbox(1), text("---"), popuppostfix(" %")
+groupbox $POPUP_BOX bounds(0, 0, 374, 260), text("---"), identChannel("plant-c"), visible(0) {
+  vslider $SLIDER pos(0, 25), size(56, 175), channel("val1"), identChannel("val1-c"), range(-100, 100, 100, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(46, 25), size(56, 175), channel("val2"), identChannel("val2-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(92, 25), size(56, 175), channel("val3"), identChannel("val3-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(138, 25), size(56, 175), channel("val4"), identChannel("val4-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(184, 25), size(56, 175), channel("val5"), identChannel("val5-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(230, 25), size(56, 175), channel("val6"), identChannel("val6-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(276, 25), size(56, 175), channel("val7"), identChannel("val7-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
+  vslider $SLIDER pos(322, 25), size(56, 175), channel("val8"), identChannel("val8-c"), range(-100, 100, 0, 1, 1), valueTextBox(1), text("---"), popupPostfix(" %"), $VFADER_BI_FULL
 
-  combobox $COMBO pos(50, 50), size(70, 20), channel("morphshape1"), items("Sine","Triangle","Saw","Square"), identchannel("morph1-c"), visible(0)
-  combobox $COMBO pos(50, 150), size(70, 20), channel("morphshape2"), items("Sine","Triangle","Saw","Square"), identchannel("morph2-c"), value(3), visible(0)
+  combobox $COMBO pos(50, 50), size(70, 20), channel("morphshape1"), items("Sine","Triangle","Saw","Square"), identChannel("morph1-c"), visible(0)
+  combobox $COMBO pos(50, 150), size(70, 20), channel("morphshape2"), items("Sine","Triangle","Saw","Square"), identChannel("morph2-c"), value(3), visible(0)
 
-  checkbox $GREEN_CC pos(35, 207), size(85, 14), channel("normalize"), value(1), text("Normalize"), identchannel("normalize-c")
-  label $TEXT pos(5, 230), size(46, 12), text("Mod"), identchannel("modlabel1")
-  label $TEXT pos(5, 242), size(46, 12), text("Mode:"), identchannel("modlabel2")
-  combobox $COMBO pos(50, 232), size(70, 20), channel("modmode"), items("Bypass","Mirror","Wrap"), identchannel("modmode-c")
-  rslider $PURPLE_KNOB pos(119, 205), size(50, 50), channel("mod"), range(0, 99.99, 0, 1, .01), identchannel("mod-c"), text("Mod"), visible(0), popupprefix("Mod amount:\n"), popuppostfix(" %")
+  checkbox $GREEN_CC pos(35, 207), size(85, 14), channel("normalize"), value(1), text("Normalize"), identChannel("normalize-c")
+  label $TEXT pos(5, 230), size(46, 12), text("Mod"), identChannel("modlabel1")
+  label $TEXT pos(5, 242), size(46, 12), text("Mode:"), identChannel("modlabel2")
+  combobox $COMBO pos(50, 232), size(70, 20), channel("modmode"), items("Bypass","Mirror","Wrap"), identChannel("modmode-c")
+  rslider $PURPLE_KNOB pos(119, 205), size(50, 50), channel("mod"), range(0, 99.99, 0, 1, .01), identChannel("mod-c"), text("Mod"), visible(0), popupPrefix("Mod amount:\n"), popupPostfix(" %")
 
 
-  rslider $RED_KNOB pos(119, 205), size(50, 50), channel("prescale"), range(1, 10, 1, 1, .01), identchannel("scale-c"), text("Scale"), popupprefix("Pre-scale: x")
-  rslider $GREEN_KNOB pos(156, 205), size(50, 50), channel("min"), range(-100, 100, -100, 1, .01), text("Min"), popupprefix("Min Lev:\n"), popuppostfix(" %")
-  rslider $GREEN_KNOB pos(192, 205), size(50, 50), channel("max"), range(-100, 100, 100, 1, .01), text("Max"), popupprefix("Max Lev:\n"), popuppostfix(" %")
-  rslider $RED_KNOB pos(230, 205), size(50, 50), channel("postscale"), range(1, 10, 1, 1, .01), text("Scale"), popupprefix("Post-Scale:\nx")
+  rslider $RED_KNOB pos(119, 205), size(50, 50), channel("preScale"), range(1, 10, 1, 1, .01), identChannel("scale-c"), text("Scale"), popupPrefix("Pre-scale: x")
+  rslider $GREEN_KNOB pos(156, 205), size(50, 50), channel("min"), range(-100, 100, -100, 1, .01), text("Min"), popupPrefix("Min Lev:\n"), popupPostfix(" %")
+  rslider $GREEN_KNOB pos(192, 205), size(50, 50), channel("max"), range(-100, 100, 100, 1, .01), text("Max"), popupPrefix("Max Lev:\n"), popupPostfix(" %")
+  rslider $RED_KNOB pos(230, 205), size(50, 50), channel("postscale"), range(1, 10, 1, 1, .01), text("Scale"), popupPrefix("Post-Scale:\nx")
 
   button $BTN pos(320, 210), size(50, 20), channel("reset"), latched(0), text("Reset"), value(0)
-  button $BTN pos(320, 235), size(50, 20), channel("done"), identchannel("done-c"), latched(0), text("Done"), value(0), automatable(0)
+  button $BTN pos(320, 235), size(50, 20), channel("done"), identChannel("done-c"), latched(0), text("Done"), value(0), automatable(0)
 }
 
 </cabbagecode>
@@ -232,7 +232,7 @@ opcode FlexShaperMon,0,SSi[]o
   kVal6 = .01*chnget:k(strcat(SChanPrefix,"val6"))
   kVal7 = .01*chnget:k(strcat(SChanPrefix,"val7"))
   kVal8 = .01*chnget:k(strcat(SChanPrefix,"val8"))
-  kScale chnget strcat(SChanPrefix,"prescale")
+  kScale chnget strcat(SChanPrefix,"preScale")
   kPostScale chnget strcat(SChanPrefix,"postscale")
   kReset chnget strcat(SChanPrefix,"reset")
   kNorm chnget strcat(SChanPrefix,"normalize")
@@ -311,7 +311,7 @@ opcode DrawTable,0,iiS
   iMorphShape2 chnget strcat(SChanPrefix,"morphshape2")
 
   iNorm = (chnget(strcat(SChanPrefix,"normalize"))*2)-1
-  iScale chnget strcat(SChanPrefix,"prescale")
+  iScale chnget strcat(SChanPrefix,"preScale")
   iPostScale chnget strcat(SChanPrefix,"postscale")
   iMod chnget strcat(SChanPrefix,"mod")
   iModMode chnget strcat(SChanPrefix,"modmode")
@@ -461,7 +461,7 @@ elseif (i3Seg>=1) then
   if (iShape!=iLastShape) || (iReset==1) then
     ; chnset sprintfk("visible(%d)", iShape==$W_SINE ? 0 : 1), "breakpoints-c"
     ;chnset k(1), "distgain" ; UNUSED?!?!?!?
-    chnset k(1), strcat(SChanPrefix,"prescale")
+    chnset k(1), strcat(SChanPrefix,"preScale")
     chnset k(1), strcat(SChanPrefix,"postscale")
     chnset k(-100), strcat(SChanPrefix,"min")
     chnset k(100), strcat(SChanPrefix,"max")
@@ -508,7 +508,7 @@ elseif (i3Seg>=1) then
     endif
 	chnset iShape, strcat(SChanPrefix,"lastshape")
   endif
-  chnset sprintfk("tablenumber(%d)",iTable), strcat(SChanPrefix,"graph")
+  chnset sprintfk("tableNumber(%d)",iTable), strcat(SChanPrefix,"graph")
   ; DECIDE WHAT TO DO WITH THIS!
   chnset 1, strcat(SChanPrefix,"HasChanged")
 endif

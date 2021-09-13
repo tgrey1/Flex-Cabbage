@@ -17,24 +17,24 @@ Has separate but linkable controls for each channel.
 form caption("Big Gainz") size(380,394), pluginID("tbg1"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml", "plants/collapse.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {
-  FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
-  FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-  StereoCollapse bounds(8,55,100,18), namespace("collapse")
+  FlexClip bounds(10,5,25,10), nameSpace("flexclip"), $IN_OL
+  FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
+  StereoCollapse bounds(8,55,100,18), nameSpace("collapse")
   rslider $RED_KNOB bounds(304, 25, 50, 50), $MAIN_GAIN
 }
 
 groupbox $BOX bounds(10, 94, 360, 290), text("Gainz") {
   label $TEXT bounds(64,30,60,20), text("Left")
   label $TEXT bounds(234,30,60,20), text("Right")
-  rslider $GREEN_KNOB bounds(4, 55, 180, 180), channel("left"), range(-90, 90, 0, 1, 0.001), popupprefix("Left Gain:\n"), popuppostfix(" dB"), valuetextbox(1)
-  rslider $GREEN_KNOB bounds(176, 55, 180, 180), channel("right"), range(-90, 90, 0, 1, 0.001), popupprefix("Right Gain:\n"), popuppostfix(" dB"), valuetextbox(1)
+  rslider $GREEN_KNOB bounds(4, 55, 180, 180), channel("left"), range(-90, 90, 0, 1, 0.001), popupPrefix("Left Gain:\n"), popupPostfix(" dB"), valueTextBox(1)
+  rslider $GREEN_KNOB bounds(176, 55, 180, 180), channel("right"), range(-90, 90, 0, 1, 0.001), popupPrefix("Right Gain:\n"), popupPostfix(" dB"), valueTextBox(1)
   label $TEXT bounds(64,250,60,20), text("Left")
   label $TEXT bounds(234,250,60,20), text("Right")
-  button $HG_BTN bounds(140, 240, 80, 25), channel("link"), latched(1), text("Un-Linked","Linked"), value(1), popuptext("Link L+R")
+  button $HG_BTN bounds(140, 240, 80, 25), channel("link"), latched(1), text("Un-Linked","Linked"), value(1), popupText("Link L+R")
 }
 
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

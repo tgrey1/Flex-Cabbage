@@ -47,7 +47,7 @@ opcode TableNorm,0,i
   loop_lt iIndex2, 1, iLen, loop_start2
 endop
 
-; opcode to limit min and max of a table, and rescale it afterwards
+; opcode to limit min and max of a table, and reScale it afterwards
 opcode TableCopy,0,ii
   iFtSrc, iFtDest xin
   iLen ftlen iFtSrc
@@ -71,7 +71,7 @@ opcode TableUniToBi,0,i
   loop_lt iIndex, 1, iLen, loop_start
 endop
 
-; opcode to limit min and max of a table, and apply post-rescale
+; opcode to limit min and max of a table, and apply post-reScale
 opcode TableLimit,0,iiii
   iFT, iMin, iMax, iScale xin
   iLen ftlen iFT

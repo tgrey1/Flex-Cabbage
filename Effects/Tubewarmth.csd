@@ -19,25 +19,25 @@ See includes/udo/tubewarmth.udo.csd for more information.
 form size(380, 304), caption("Tubewarmth"), pluginID("ttb2"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In/Out") {
-  FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
-  FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-  StereoCollapse bounds(8,55,100,18), namespace("collapse")
-  FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
+  FlexClip bounds(10,5,25,10), nameSpace("flexclip"), $IN_OL
+  FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
+  StereoCollapse bounds(8,55,100,18), nameSpace("collapse")
+  FlexPan bounds(304,25,50,50), nameSpace("flexpan"), $MAIN_PAN
 
-  rslider $RED_KNOB $GAIN_RANGE bounds(160, 25, 50, 50), channel("pregain"), text("Pre"), popupprefix("PreGain:\n"), popuppostfix(" dB")
+  rslider $RED_KNOB $GAIN_RANGE bounds(160, 25, 50, 50), channel("pregain"), text("Pre"), popupPrefix("PreGain:\n"), popupPostfix(" dB")
   rslider $RED_KNOB bounds(208, 25, 50, 50), $MAIN_GAIN
   rslider $BLUE_KNOB bounds(256, 25, 50, 50), channel("drywet"), range(-100, 100, 100, 1, 0.01), $DRYWET
 }
 
 groupbox $BOX bounds(10, 94, 360, 200), text("Tubewarmth") {
-  rslider $GREEN_KNOB bounds(15, 30, 150, 150), channel("drive"), range(0, 11, 0, 1, .01), text("Drive"), popupprefix("Drive:\n")
-  rslider $GREEN_KNOB bounds(195, 30, 150, 150), channel("blend"), range(-100, 100, 0, 1, .01), text("Blend"), popupprefix("Blend:\n"), popuppostfix(" %")
+  rslider $GREEN_KNOB bounds(15, 30, 150, 150), channel("drive"), range(0, 11, 0, 1, .01), text("Drive"), popupPrefix("Drive:\n")
+  rslider $GREEN_KNOB bounds(195, 30, 150, 150), channel("blend"), range(-100, 100, 0, 1, .01), text("Blend"), popupPrefix("Blend:\n"), popupPostfix(" %")
   label $TEXT bounds(190,140,23,10), text("Tape")
   label $TEXT bounds(330,140,23,10), text("Tube")
 }
 
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

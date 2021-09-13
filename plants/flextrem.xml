@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flextrem</namespace>
+<nameSpace>flextrem</nameSpace>
 <name>FlexTrem</name>
 <cabbagecode>
 image $INVIS bounds(0, 0, 120, 55)
 {  
-	rslider $GREEN_KNOB pos(-5, 5), size(50, 50), range(0, 5, 0, 1, .01), channel("trem_attack"), text("Attack"), popupprefix("Tremolo Attack Time:\n"), popuppostfix(" Sec")
-	rslider $GREEN_KNOB pos(35, 5), size(50, 50), range(0, 100, 0, 1, .01), channel("trem_depth"), text("Depth"), popupprefix("Tremolo Depth:\n"), popuppostfix("%")
-	rslider $GREEN_KNOB pos(75, 5), size(50, 50), range(.1, 10, 2, 1, .01), channel("trem_freq"), text("Freq"), popupprefix("Tremolo Frequency:\n"), popuppostfix(" Hz")
+	rslider $GREEN_KNOB pos(-5, 5), size(50, 50), range(0, 5, 0, 1, .01), channel("trem_attack"), text("Attack"), popupPrefix("Tremolo Attack Time:\n"), popupPostfix(" Sec")
+	rslider $GREEN_KNOB pos(35, 5), size(50, 50), range(0, 100, 0, 1, .01), channel("trem_depth"), text("Depth"), popupPrefix("Tremolo Depth:\n"), popupPostfix("%")
+	rslider $GREEN_KNOB pos(75, 5), size(50, 50), range(.1, 10, 2, 1, .01), channel("trem_freq"), text("Freq"), popupPrefix("Tremolo Frequency:\n"), popupPostfix(" Hz")
 }
 </cabbagecode>
 <csoundcode>

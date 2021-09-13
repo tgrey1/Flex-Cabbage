@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>collapse</namespace>
+<nameSpace>collapse</nameSpace>
 <name>StereoCollapse</name>
 <cabbagecode>
 image $INVIS bounds(0, 0, 100, 18)
 {
-  button $HG_BTN pos(0, 2), size(20, 14), channel("mono-st"), radiogroup("Collapse"),value(1), text("St", "St"), popuptext("Stereo Input")
-  button $HG_BTN pos(20, 2), size(22, 14), channel("mono-inv"), radiogroup("Collapse"), text("Inv", "Inv"), popuptext("Inverted Stereo Input")
-  button $HR_BTN pos(42, 2), size(20, 14), channel("mono-lr"), radiogroup("Collapse"), text("LR", "LR"), popuptext("Mono Input: LR+LR")
-  button $HR_BTN pos(61, 2), size(19, 14), channel("mono-l"), radiogroup("Collapse"), text("L", "L"), popuptext("Mono Input: L+L")
-  button $HR_BTN pos(80, 2), size(19, 14), channel("mono-r"), radiogroup("Collapse"), text("R", "R"), popuptext("Mono Input: R+R")
+  button $HG_BTN pos(0, 2), size(20, 14), channel("mono-st"), radioGroup("Collapse"),value(1), text("St", "St"), popupText("Stereo Input")
+  button $HG_BTN pos(20, 2), size(22, 14), channel("mono-inv"), radioGroup("Collapse"), text("Inv", "Inv"), popupText("Inverted Stereo Input")
+  button $HR_BTN pos(42, 2), size(20, 14), channel("mono-lr"), radioGroup("Collapse"), text("LR", "LR"), popupText("Mono Input: LR+LR")
+  button $HR_BTN pos(61, 2), size(19, 14), channel("mono-l"), radioGroup("Collapse"), text("L", "L"), popupText("Mono Input: L+L")
+  button $HR_BTN pos(80, 2), size(19, 14), channel("mono-r"), radioGroup("Collapse"), text("R", "R"), popupText("Mono Input: R+R")
 }
 </cabbagecode>
 <csoundcode>

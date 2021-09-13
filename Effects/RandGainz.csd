@@ -23,22 +23,22 @@ with the speed of interpolation between values
 form caption("Rand Gainz") size(380,434), pluginID("tbg1"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {
-  FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
-  FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-  StereoCollapse bounds(8,55,100,18), namespace("collapse")
+  FlexClip bounds(10,5,25,10), nameSpace("flexclip"), $IN_OL
+  FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
+  StereoCollapse bounds(8,55,100,18), nameSpace("collapse")
   rslider $RED_KNOB bounds(304, 25, 50, 50), $MAIN_GAIN
-  FlexPan bounds(225,25,50,50), namespace("flexpan"), $MAIN_PAN
+  FlexPan bounds(225,25,50,50), nameSpace("flexpan"), $MAIN_PAN
 }
 
 groupbox $BOX bounds(10, 94, 360, 330), text("Rand Gainz") {
-  rslider $GREEN_KNOB pos(24, 25), size(140, 140), channel("rate"), range(.01, 40, 10, 1, 0.01), text("Rate"), popupprefix("Rate:\n"), popuppostfix(" Hz"), valuetextbox(1)
-  rslider $GREEN_KNOB pos(196, 25), size(140, 140), channel("depth"), range(0, 100, 0, 1, 1), text("Depth"), popupprefix("Depth:\n"), popuppostfix(" %"), valuetextbox(1)
-  rslider $CYAN_KNOB pos(24, 180), size(140, 140), channel("time"), range(.001, .1, .025, 1, 0.001), text("Port Time"), popupprefix("Port Time:\n"), popuppostfix(" sec"), valuetextbox(1)
-  rslider $RED_KNOB pos(196, 180), size(140, 140), channel("steps"), range(2, 256, 80, 1, 1), text("Quantization Steps") popupprefix("Steps:\n"), valuetextbox(1)
+  rslider $GREEN_KNOB pos(24, 25), size(140, 140), channel("rate"), range(.01, 40, 10, 1, 0.01), text("Rate"), popupPrefix("Rate:\n"), popupPostfix(" Hz"), valueTextBox(1)
+  rslider $GREEN_KNOB pos(196, 25), size(140, 140), channel("depth"), range(0, 100, 0, 1, 1), text("Depth"), popupPrefix("Depth:\n"), popupPostfix(" %"), valueTextBox(1)
+  rslider $CYAN_KNOB pos(24, 180), size(140, 140), channel("time"), range(.001, .1, .025, 1, 0.001), text("Port Time"), popupPrefix("Port Time:\n"), popupPostfix(" sec"), valueTextBox(1)
+  rslider $RED_KNOB pos(196, 180), size(140, 140), channel("steps"), range(2, 256, 80, 1, 1), text("Quantization Steps") popupPrefix("Steps:\n"), valueTextBox(1)
 }
 
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>test_audio</namespace>
+<nameSpace>test_audio</nameSpace>
 <name>TestButtons</name>
 <cabbagecode>
-image $INVIS bounds(0, 0, 140, 20), identchannel("testaudio_box"), visible(0)
+image $INVIS bounds(0, 0, 140, 20), identChannel("testaudio_box"), visible(0)
 {
-  button $HY_BTN pos(0, 3), size(20, 16), channel("testaudio_L"), text("L","ON"), latched("0"), value(0), popuptext("Test Noise: Left"), automatable(0)
-  button $HR_BTN pos(20, 3), size(40, 16), channel("testaudio_Mono"), text("Mono","ON"), latched("1"), value(0), popuptext("Test Wav: Mono"), automatable(0)
-  button $HY_BTN pos(60, 3), size(20, 16), channel("testaudio_C"), text("C","ON"), latched("0"), value(0), popuptext("Test Noise: Center"), automatable(0)
-  button $HR_BTN pos(80, 3), size(40, 16), channel("testaudio_Stereo"), text("Stereo","ON"), latched("1"), value(0), popuptext("Test Wav: Stereo"), automatable(0)
-  button $HY_BTN pos(120, 3), size(20, 16), channel("testaudio_R"), text("R","ON"), latched("0"), value(0), popuptext("Test Noise: Right"), automatable(0)
+  button $HY_BTN pos(0, 3), size(20, 16), channel("testaudio_L"), text("L","ON"), latched("0"), value(0), popupText("Test Noise: Left"), automatable(0)
+  button $HR_BTN pos(20, 3), size(40, 16), channel("testaudio_Mono"), text("Mono","ON"), latched("1"), value(0), popupText("Test Wav: Mono"), automatable(0)
+  button $HY_BTN pos(60, 3), size(20, 16), channel("testaudio_C"), text("C","ON"), latched("0"), value(0), popupText("Test Noise: Center"), automatable(0)
+  button $HR_BTN pos(80, 3), size(40, 16), channel("testaudio_Stereo"), text("Stereo","ON"), latched("1"), value(0), popupText("Test Wav: Stereo"), automatable(0)
+  button $HY_BTN pos(120, 3), size(20, 16), channel("testaudio_R"), text("R","ON"), latched("0"), value(0), popupText("Test Noise: Right"), automatable(0)
 }
 </cabbagecode>
 <csoundcode>

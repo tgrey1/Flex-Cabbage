@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flexpan</namespace>
+<nameSpace>flexpan</nameSpace>
 <name>FlexPan</name>
 <cabbagecode>
 image $INVIS bounds(0, 0, 50, 50)
 {
-  rslider $WHITE_KNOB pos(0, 0), size(50, 50), range(-100, 100, 0, 1, 0.01), channel("pan-val"), identchannel("pan-val-c"), text("---"), textcolour(0,0,0,0), popuppostfix(" %")
-  button $BTN pos(6,39), size(38,11), channel("pan-mode"), identchannel("pan-mode-c"), text("---"), latched(0), automatable(0), popuptext("Change Pan Mode")
+  rslider $WHITE_KNOB pos(0, 0), size(50, 50), range(-100, 100, 0, 1, 0.01), channel("pan-val"), identChannel("pan-val-c"), text("---"), textColour(0,0,0,0), popupPostfix(" %")
+  button $BTN pos(6,39), size(38,11), channel("pan-mode"), identChannel("pan-mode-c"), text("---"), latched(0), automatable(0), popupText("Change Pan Mode")
 }
 </cabbagecode>
 <csoundcode>

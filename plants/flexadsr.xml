@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flexadsr</namespace>
+<nameSpace>flexadsr</nameSpace>
 <name>FlexADSR</name>
 <cabbagecode>
 image $INVIS pos(0,0), size(224,256)
 {
   image pos(0,0), size(224,105), colour(0,0,0,255)
-  gentable $GRAPH pos(5, 5), size(214, 100), tablenumber(1), amprange(0, 1), identchannel("graph"), visible(1)
-  label $GRAPH_TEXT pos(8,83), size(215,11), fontcolour(255,0,0,100), text("-- uninitialized --"), align("left"), identchannel("lentext")
-  label $GRAPH_TEXT pos(8, 93), size(215, 11), text("-- uninitialized --"), align("left"), identchannel("text")
+  gentable $GRAPH pos(5, 5), size(214, 100), tableNumber(1), ampRange(0, 1), identChannel("graph"), visible(1)
+  label $GRAPH_TEXT pos(8,83), size(215,11), fontColour(255,0,0,100), text("-- uninitialized --"), align("left"), identChannel("lentext")
+  label $GRAPH_TEXT pos(8, 93), size(215, 11), text("-- uninitialized --"), align("left"), identChannel("text")
 
     ; decay and sus controls, optionally toggled on and off
-    image $INVIS bounds(0,155,175,106), identchannel("fullcontrols")
+    image $INVIS bounds(0,155,175,106), identChannel("fullcontrols")
     {
-      rslider $PURPLE_KNOB pos(56, 0), size(50, 50), channel("Dec"), range(.01, 100, 35, .5, 0.01), text("Decay"), popupprefix("Decay Length:\n"), popuppostfix(" % of Scale")
-      rslider $PURPLE_KNOB pos(118, 50), size(50, 50), channel("Sus"), range(0, 100, 50, .5, 0.01), text("S-Lev"), popupprefix("Sustain Level:\n"), popuppostfix(" %")
-      rslider $PURPLE_KNOB pos(56, 50), size(50, 50), channel("DecShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Decay Shape:\n")      
+      rslider $PURPLE_KNOB pos(56, 0), size(50, 50), channel("Dec"), range(.01, 100, 35, .5, 0.01), text("Decay"), popupPrefix("Decay Length:\n"), popupPostfix(" % of Scale")
+      rslider $PURPLE_KNOB pos(118, 50), size(50, 50), channel("Sus"), range(0, 100, 50, .5, 0.01), text("S-Lev"), popupPrefix("Sustain Level:\n"), popupPostfix(" %")
+      rslider $PURPLE_KNOB pos(56, 50), size(50, 50), channel("DecShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupPrefix("Decay Shape:\n")      
     }
 
     image $INVIS bounds(0,155,224,270)
     {
-      rslider $PURPLE_KNOB pos(0, 0), size(50, 50), channel("Att"), range(.01, 100, .01, .5, 0.01), text("Attack"), popupprefix("Attack Length:\n"), popuppostfix(" % of Scale")
-      rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Rel"), range(.01, 100, 10, .5, 0.01), text("Release"), popupprefix("Release Length:\n"), popuppostfix(" % of Scale")
+      rslider $PURPLE_KNOB pos(0, 0), size(50, 50), channel("Att"), range(.01, 100, .01, .5, 0.01), text("Attack"), popupPrefix("Attack Length:\n"), popupPostfix(" % of Scale")
+      rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Rel"), range(.01, 100, 10, .5, 0.01), text("Release"), popupPrefix("Release Length:\n"), popupPostfix(" % of Scale")
 
-      rslider $PURPLE_KNOB pos(0, 50), size(50, 50), channel("AttShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Attack Shape:\n")
-      rslider $PURPLE_KNOB pos(118, 0), size(50, 50), channel("SusLen"), range(0, 100, 100, 1, 0.01), text("S-Len"), popupprefix("Sustain Length:\n"), popuppostfix(" % of Scale"), identchannel("SusLenCC")
-      rslider $PURPLE_KNOB pos(174, 50), size(50, 50), channel("RelShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupprefix("Release Shape:\n")
+      rslider $PURPLE_KNOB pos(0, 50), size(50, 50), channel("AttShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupPrefix("Attack Shape:\n")
+      rslider $PURPLE_KNOB pos(118, 0), size(50, 50), channel("SusLen"), range(0, 100, 100, 1, 0.01), text("S-Len"), popupPrefix("Sustain Length:\n"), popupPostfix(" % of Scale"), identChannel("SusLenCC")
+      rslider $PURPLE_KNOB pos(174, 50), size(50, 50), channel("RelShape"), range(-10, 10, 0, 1, 0.01), text("Shape"), popupPrefix("Release Shape:\n")
     }
 
     ; buttons and scale controls
     image $INVIS bounds(0,105,224,50)
     {
-      button $HG_BTN pos(0,5), size(84,16), channel("EnvADSR"), text("ADSR"), radiogroup("EnvTypeRadiogroup"), popuptext("ADSR Shape envelope"), value(1)
-      button $HG_BTN pos(84,5), size(84,16), channel("EnvAD"), text("AD"), radiogroup("EnvTypeRadiogroup"), popuptext("AD Shape envelope")
+      button $HG_BTN pos(0,5), size(84,16), channel("EnvADSR"), text("ADSR"), radioGroup("EnvTypeRadiogroup"), popupText("ADSR Shape envelope"), value(1)
+      button $HG_BTN pos(84,5), size(84,16), channel("EnvAD"), text("AD"), radioGroup("EnvTypeRadiogroup"), popupText("AD Shape envelope")
 
-      button $HG_BTN pos(0,25), size(56,16), channel("EnvHold"), text("Hold"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold (infinite)"), value(1)
-      button $HY_BTN pos(56,25), size(56,16), channel("EnvMax"), text("Max"), radiogroup("EnvModeRadiogroup"), popuptext("MIDI Hold until max length")
-      button $HR_BTN pos(112,25), size(56,16), channel("EnvTrig"), text("Trig"), radiogroup("EnvModeRadiogroup"), popuptext("Trigger (one shot) length")
+      button $HG_BTN pos(0,25), size(56,16), channel("EnvHold"), text("Hold"), radioGroup("EnvModeRadiogroup"), popupText("MIDI Hold (infinite)"), value(1)
+      button $HY_BTN pos(56,25), size(56,16), channel("EnvMax"), text("Max"), radioGroup("EnvModeRadiogroup"), popupText("MIDI Hold until max length")
+      button $HR_BTN pos(112,25), size(56,16), channel("EnvTrig"), text("Trig"), radioGroup("EnvModeRadiogroup"), popupText("Trigger (one shot) length")
 
-      rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Scale"), range(.1, 10, 1, 1, .1), text("Scale"), popupprefix("Segment Scale:\n"), popuppostfix(" Sec")
+      rslider $PURPLE_KNOB pos(174, 0), size(50, 50), channel("Scale"), range(.1, 10, 1, 1, .1), text("Scale"), popupPrefix("Segment Scale:\n"), popupPostfix(" Sec")
     }
 
 }
@@ -359,7 +359,7 @@ instr $FLEXADSR_INSTR
   endif
 
   ; this bumps the graph, forcing an update
-  chnset sprintfk("tablenumber(%d)",iTable), strcat(SChanPrefix,"graph")
+  chnset sprintfk("tableNumber(%d)",iTable), strcat(SChanPrefix,"graph")
 endin
 
 </csoundcode>

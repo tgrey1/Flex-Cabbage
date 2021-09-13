@@ -19,29 +19,29 @@ Ratios .5:1 to 20:1
 form size(380, 284), caption("DeEss"), pluginID("tds1"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In/Out") {
-  FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
+  FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
   rslider $RED_KNOB bounds(208, 25, 50, 50), $MAIN_GAIN
   rslider $BLUE_KNOB bounds(256, 25, 50, 50), channel("drywet"), range(-100, 100, 100, 1, 0.01), $DRYWET
-  FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
+  FlexPan bounds(304,25,50,50), nameSpace("flexpan"), $MAIN_PAN
 }
 
 groupbox $BOX bounds(10, 94, 360, 180), text("DeEss") {
-  rslider $GREEN_KNOB bounds(170,30,90,90), range(.5,20,1,1,.01), channel("ratio"), text("Ratio"), popupprefix("Compression:\n"), popuppostfix(":1")
-  rslider $GREEN_KNOB bounds(255, 30, 90, 90), range(-120,0,-30,1,.01), channel("thresh"), text("Thresh"), popupprefix("Threshold:\n"), popuppostfix(" dB")
+  rslider $GREEN_KNOB bounds(170,30,90,90), range(.5,20,1,1,.01), channel("ratio"), text("Ratio"), popupPrefix("Compression:\n"), popupPostfix(":1")
+  rslider $GREEN_KNOB bounds(255, 30, 90, 90), range(-120,0,-30,1,.01), channel("thresh"), text("Thresh"), popupPrefix("Threshold:\n"), popupPostfix(" dB")
 }
 
-$SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("filt-tint")
-image $INVIS bounds(10,124,175,130), identchannel("filt-controls") {
-  rslider $YELLOW_KNOB bounds(0,0,90,90), range(20,20000,6000,.5,.01), channel("center"), text("Center"), popupprefix("Center Freq:\n"), popuppostfix(" Hz")
-  rslider $YELLOW_KNOB bounds(85,0,90,90), range(.1,100,10,1,.1), channel("bw"), text("Width"), popupprefix("Filter Width:\n"), popuppostfix(" %")
-  button $HR_BTN bounds(60,100,50,30), text("Listen"), channel("listen"), popuptext("Monitor Filter Sidechain")
+$SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT), identChannel("filt-tint")
+image $INVIS bounds(10,124,175,130), identChannel("filt-controls") {
+  rslider $YELLOW_KNOB bounds(0,0,90,90), range(20,20000,6000,.5,.01), channel("center"), text("Center"), popupPrefix("Center Freq:\n"), popupPostfix(" Hz")
+  rslider $YELLOW_KNOB bounds(85,0,90,90), range(.1,100,10,1,.1), channel("bw"), text("Width"), popupPrefix("Filter Width:\n"), popupPostfix(" %")
+  button $HR_BTN bounds(60,100,50,30), text("Listen"), channel("listen"), popupText("Monitor Filter Sidechain")
 }
 
-FlexClip bounds(20,15,25,10), namespace("flexclip"), $IN_OL
-StereoCollapse bounds(18,65,100,18), namespace("collapse")
+FlexClip bounds(20,15,25,10), nameSpace("flexclip"), $IN_OL
+StereoCollapse bounds(18,65,100,18), nameSpace("collapse")
 
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

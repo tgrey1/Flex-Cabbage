@@ -28,102 +28,102 @@ Look at the default color config file for documentation
 
 ; These utility macros allow the common global controls to be accessed without having to remember channel name or having to reset up the range or popup styles
 ; Also allows easy changing/renaming across all instances if needed!
-#define MAIN_GAIN range(-90,90,0,1,.01), channel("MainGain"), text("Gain") popupprefix("Main Gain:\n"), popuppostfix(" dB")
-#define MAIN_VEL channel("MainVelCurve"), range(-100, 100, 25, 1, 0.01), text("Vel"), popupprefix("Velocity Offset:\n"), popuppostfix(" %")
+#define MAIN_GAIN range(-90,90,0,1,.01), channel("MainGain"), text("Gain") popupPrefix("Main Gain:\n"), popupPostfix(" dB")
+#define MAIN_VEL channel("MainVelCurve"), range(-100, 100, 25, 1, 0.01), text("Vel"), popupPrefix("Velocity Offset:\n"), popupPostfix(" %")
 #define MAIN_PAN channel("MainPan")
 #define IN_OL channel("inOL-")
 #define OUT_OL channel("outOL-")
-#define MAIN_DRYWET channel("MainDryWet"), text("Dry/Wet"), popupprefix("Dry/Wet:\n"), popuppostfix(" %")
-#define DRYWET text("Dry/Wet"), popupprefix("Dry/Wet:\n"), popuppostfix(" %")
-#define DRY text("Dry"), popupprefix("Dry:\n"), popuppostfix(" dB")
-#define WET text("Wet"), popupprefix("Wet:\n"), popuppostfix(" dB")
-#define SEND text("Send"), popupprefix("Send:\n"), popuppostfix(" dB")
+#define MAIN_DRYWET channel("MainDryWet"), text("Dry/Wet"), popupPrefix("Dry/Wet:\n"), popupPostfix(" %")
+#define DRYWET text("Dry/Wet"), popupPrefix("Dry/Wet:\n"), popupPostfix(" %")
+#define DRY text("Dry"), popupPrefix("Dry:\n"), popupPostfix(" dB")
+#define WET text("Wet"), popupPrefix("Wet:\n"), popupPostfix(" dB")
+#define SEND text("Send"), popupPrefix("Send:\n"), popupPostfix(" dB")
 #define MAIN_BYPASS channel("bypass"), text("Bypass","Bypassed")
-#define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popuptext("Toggle the filter reset control panel"), identchannel("show-c"), automatable(0)
+#define FILT_RESET text("Filt.Ctl","Hide"), channel("mf_showresets"), popupText("Toggle the filter reset control panel"), identChannel("show-c"), automatable(0)
 #define GAIN_RANGE range(-90, 90, 0, 1, 0.01)
-#define SYNTHCTL_BTN channel("SynthCtlPop"), text(">"), popuptext("Toggle Synth Control Panel")
-#define FXCTL_BTN channel("FXCtlPop"), text("<"), popuptext("Toggle FX Control Panel")
+#define SYNTHCTL_BTN channel("SynthCtlPop"), text(">"), popupText("Toggle Synth Control Panel")
+#define FXCTL_BTN channel("FXCtlPop"), text("<"), popupText("Toggle FX Control Panel")
 
 ; meant for use with image widgets to create invisible containers for other widgets
-#define INVIS colour(0,0,0,0), mouseinteraction(0)
+#define INVIS colour(0,0,0,0), mouseInteraction(0)
 
 ; SHADER and BYPASS_SHADER style
 ; SHADER and BYPASS_SHADER keep image widget calls, so they "disappear" if the color file hasn't defined them
 #define OLDSHADER image colour(5,0,20,200), visible(0)
-#define SHADER image colour(5,0,20,200), mouseinteraction(0), alpha(0), pos(0,0)
-; mouseinteraction(0) allows control of widgets underneath when bypass is enabled!
-#define BYPASS_SHADER image colour(5,0,20,200), mouseinteraction(0), identchannel("bypass-shader"), pos(0,0), alpha(0)
+#define SHADER image colour(5,0,20,200), mouseInteraction(0), alpha(0), pos(0,0)
+; mouseInteraction(0) allows control of widgets underneath when bypass is enabled!
+#define BYPASS_SHADER image colour(5,0,20,200), mouseInteraction(0), identChannel("bypass-shader"), pos(0,0), alpha(0)
 
 
 ; This defines the color for the main window
 #define ROOT colour(30,20,40,255)
 
 ; these ones are experimental, not really complete yet
-#define ENCODER colour(100,100,100,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,120,255)
-#define VMETER overlaycolour(20, 0, 50, 255) metercolour:0(200, 0, 170, 255) metercolour:1(100, 0, 100, 255) metercolour:2(40, 0, 40, 255) outlinethickness(2), outlinecolour(80,80,80,255)
+#define ENCODER colour(100,100,100,255), trackerColour(120,255,120,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(120,255,120,255)
+#define VMETER overlayColour(20, 0, 50, 255) meterColour:0(200, 0, 170, 255) meterColour:1(100, 0, 100, 255) meterColour:2(40, 0, 40, 255) outlineThickness(2), outlineColour(80,80,80,255)
 
 ; all container styles
-#define BOX colour(40,40,40,255), fontcolour(180,180,180,255), outlinecolour(80,80,80,255)
-#define BYPASSED_BOX colour(30,30,30,255), fontcolour(120,120,120,255), outlinecolour(80,80,80,255)
-; TODO: these two with mouseinteraction(0) still pass mouse underneath, but they shouldn't?  test more.
-#define POPUP_BOX colour(40,40,40,200), fontcolour(180,180,180,255), outlinecolour(80,80,80,255), mouseinteraction(0)
-#define WARN_BOX colour(40,0,0,220), fontcolour(255,140,140,255), outlinecolour(80,80,80,255), mouseinteraction(0)
+#define BOX colour(40,40,40,255), fontColour(180,180,180,255), outlineColour(80,80,80,255)
+#define BYPASSED_BOX colour(30,30,30,255), fontColour(120,120,120,255), outlineColour(80,80,80,255)
+; TODO: these two with mouseInteraction(0) still pass mouse underneath, but they shouldn't?  test more.
+#define POPUP_BOX colour(40,40,40,200), fontColour(180,180,180,255), outlineColour(80,80,80,255), mouseInteraction(0)
+#define WARN_BOX colour(40,0,0,220), fontColour(255,140,140,255), outlineColour(80,80,80,255), mouseInteraction(0)
 #define PANEL colour(50,50,50,255), corners(5)
 
 ; knob styles
-#define RED_KNOB colour(70,70,70,255), trackercolour(255,80,80,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(255,80,80,255)
-#define YELLOW_KNOB colour(70,70,70,255), trackercolour(255,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(255,255,120,255)
-#define GREEN_KNOB colour(70,70,70,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(120,255,120,255)
-#define BLUE_KNOB colour(70,70,70,255), trackercolour(0,150,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(0,150,255,255)
-#define CYAN_KNOB colour(70,70,70,255), trackercolour(120,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(120,255,255,255)
-#define WHITE_KNOB colour(70,70,70,255), trackercolour(255,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(255,255,255,255)
-#define PURPLE_KNOB colour(70,70,70,255), trackercolour(150,0,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(50,50,50,255), markercolour(150,0,255,255)
+#define RED_KNOB colour(70,70,70,255), trackerColour(255,80,80,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(255,80,80,255)
+#define YELLOW_KNOB colour(70,70,70,255), trackerColour(255,255,120,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(255,255,120,255)
+#define GREEN_KNOB colour(70,70,70,255), trackerColour(120,255,120,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(120,255,120,255)
+#define BLUE_KNOB colour(70,70,70,255), trackerColour(0,150,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(0,150,255,255)
+#define CYAN_KNOB colour(70,70,70,255), trackerColour(120,255,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(120,255,255,255)
+#define WHITE_KNOB colour(70,70,70,255), trackerColour(255,255,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(255,255,255,255)
+#define PURPLE_KNOB colour(70,70,70,255), trackerColour(150,0,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(50,50,50,255), markerColour(150,0,255,255)
 
-; experimental knob styles for testing with filmstrip knobs
-; #define RED_KNOB colour(100,100,100,255), trackercolour(255,80,80,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,80,80,255), filmstrip("includes/images/knob1_red.png",120)
-; #define YELLOW_KNOB colour(100,100,100,255), trackercolour(255,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,120,255), filmstrip("includes/images/knob1_yellow.png",120)
-; #define GREEN_KNOB colour(100,100,100,255), trackercolour(120,255,120,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,120,255), filmstrip("includes/images/knob1_green.png",120)
-; #define BLUE_KNOB colour(100,100,100,255), trackercolour(0,150,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(0,150,255,255), filmstrip("includes/images/knob1_blue.png",120)
-; #define CYAN_KNOB colour(100,100,100,255), trackercolour(120,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(120,255,255,255), filmstrip("includes/images/knob1_cyan.png",120)
-; #define WHITE_KNOB colour(100,100,100,255), trackercolour(255,255,255,255), fontcolour(180,180,180,255), textcolour(180,180,180,255), trackerinsideradius(0.850), trackeroutsideradius(1.000), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255), markercolour(255,255,255,255), filmstrip("includes/images/knob1_grey.png",120)
+; experimental knob styles for testing with filmStrip knobs
+; #define RED_KNOB colour(100,100,100,255), trackerColour(255,80,80,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(255,80,80,255), filmStrip("includes/images/knob1_red.png",120)
+; #define YELLOW_KNOB colour(100,100,100,255), trackerColour(255,255,120,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(255,255,120,255), filmStrip("includes/images/knob1_yellow.png",120)
+; #define GREEN_KNOB colour(100,100,100,255), trackerColour(120,255,120,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(120,255,120,255), filmStrip("includes/images/knob1_green.png",120)
+; #define BLUE_KNOB colour(100,100,100,255), trackerColour(0,150,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(0,150,255,255), filmStrip("includes/images/knob1_blue.png",120)
+; #define CYAN_KNOB colour(100,100,100,255), trackerColour(120,255,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(120,255,255,255), filmStrip("includes/images/knob1_cyan.png",120)
+; #define WHITE_KNOB colour(100,100,100,255), trackerColour(255,255,255,255), fontColour(180,180,180,255), textColour(180,180,180,255), trackerInsideRadius(0.850), trackerOutsideRadius(1.000), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255), markerColour(255,255,255,255), filmStrip("includes/images/knob1_grey.png",120)
 
 
 ; slider and range styles
-#define SLIDER colour(80,80,80,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
-#define BLANK_SLIDER colour(80,80,80,255), trackercolour(0,0,0,0), fontcolour(180,180,180,255), textboxoutlinecolour(80,80,80,255), textboxcolour(70,70,70,255)
-#define NSLIDER colour(50,50,50,255), outlinecolour(80,80,80,255), fontcolour(180,180,180,255)
-#define RANGE colour(80,80,80,255), trackercolour(140,0,240,255), fontcolour(180,180,180,255)
+#define SLIDER colour(80,80,80,255), trackerColour(140,0,240,255), fontColour(180,180,180,255), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255)
+#define BLANK_SLIDER colour(80,80,80,255), trackerColour(0,0,0,0), fontColour(180,180,180,255), textBoxOutlineColour(80,80,80,255), textBoxColour(70,70,70,255)
+#define NSLIDER colour(50,50,50,255), outlineColour(80,80,80,255), fontColour(180,180,180,255)
+#define RANGE colour(80,80,80,255), trackerColour(140,0,240,255), fontColour(180,180,180,255)
 
 ; meant to be used with nslider to create invisible settings...
 ; TODO: find a better way to do this
 #define INVIS_NUM bounds(1,1,1,1), active(0), visible(0), colour(255,0,0,255)
 
 ; combobox style
-#define COMBO colour(50,50,50,255), fontcolour(180,180,180,255), outlinecolour(90,90,90,255), outlinethickness(4)
+#define COMBO colour(50,50,50,255), fontColour(180,180,180,255), outlineColour(90,90,90,255), outlineThickness(4)
 
 ; checkbox and checkcircle styles
-#define GREEN_CC colour:0(40,10,40,255), colour:1(150,0,255,255), fontcolour(180,180,180,255), shape("circle")
-#define GREEN_CB colour:0(40,10,40,255), colour:1(150,0,255,255), fontcolour(180,180,180,255), shape("square")
-#define RED_CC colour:0(40,10,10,255), colour:1(255,0,0,255), fontcolour(180,180,180,255), shape("circle")
-#define RED_CB colour:0(40,10,10,255), colour:1(255,0,0,255), fontcolour(180,180,180,255), shape("square")
+#define GREEN_CC colour:0(40,10,40,255), colour:1(150,0,255,255), fontColour(180,180,180,255), shape("circle")
+#define GREEN_CB colour:0(40,10,40,255), colour:1(150,0,255,255), fontColour(180,180,180,255), shape("square")
+#define RED_CC colour:0(40,10,10,255), colour:1(255,0,0,255), fontColour(180,180,180,255), shape("circle")
+#define RED_CB colour:0(40,10,10,255), colour:1(255,0,0,255), fontColour(180,180,180,255), shape("square")
 
 ; button styles
-#define BTN colour:0(60,60,60,255), colour:1(130,130,130,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(90,90,90,255), outlinethickness(2)
-#define HG_BTN colour:0(60,60,60,255), colour:1(80,200,80,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(60,100,60,255), outlinethickness(2)
-#define HY_BTN colour:0(60,60,60,255), colour:1(160,160,60,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(120,120,60,255), outlinethickness(2)
-#define HR_BTN colour:0(60,60,60,255), colour:1(200,80,80,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(100,60,60,255), outlinethickness(2)
-#define FG_BTN colour:0(0,60,0,255), colour:1(80,200,80,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(60,100,60,255), outlinethickness(2)
-#define FY_BTN colour:0(80,80,0,255), colour:1(160,160,60,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(120,120,60,255), outlinethickness(2)
-#define FR_BTN colour:0(80,0,0,255), colour:1(200,80,80,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(100,60,60,255), outlinethickness(2)
-#define TAB_BTN colour:0(50,50,50,255), colour:1(70,70,70,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255)
-#define FILE_BTN colour:0(60,60,60,255), colour:1(160,160,160,255), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(90,90,90,255), outlinethickness(4)
-#define GFILE_BTN colour:0(80,80,80,55), colour:1(150,0,255,100), fontcolour:1(180,180,180,255), fontcolour:0(180,180,180,255), outlinecolour(150,0,255,100), outlinethickness(2)
+#define BTN colour:0(60,60,60,255), colour:1(130,130,130,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(90,90,90,255), outlineThickness(2)
+#define HG_BTN colour:0(60,60,60,255), colour:1(80,200,80,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(60,100,60,255), outlineThickness(2)
+#define HY_BTN colour:0(60,60,60,255), colour:1(160,160,60,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(120,120,60,255), outlineThickness(2)
+#define HR_BTN colour:0(60,60,60,255), colour:1(200,80,80,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(100,60,60,255), outlineThickness(2)
+#define FG_BTN colour:0(0,60,0,255), colour:1(80,200,80,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(60,100,60,255), outlineThickness(2)
+#define FY_BTN colour:0(80,80,0,255), colour:1(160,160,60,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(120,120,60,255), outlineThickness(2)
+#define FR_BTN colour:0(80,0,0,255), colour:1(200,80,80,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(100,60,60,255), outlineThickness(2)
+#define TAB_BTN colour:0(50,50,50,255), colour:1(70,70,70,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255)
+#define FILE_BTN colour:0(60,60,60,255), colour:1(160,160,160,255), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(90,90,90,255), outlineThickness(4)
+#define GFILE_BTN colour:0(80,80,80,55), colour:1(150,0,255,100), fontColour:1(180,180,180,255), fontColour:0(180,180,180,255), outlineColour(150,0,255,100), outlineThickness(2)
 
 ; graph, graph text, soudfiles, and scrubbers
 ; the graph file button is above with the buttons!
-#define GRAPH tablecolour(100,0,200,95), tablebackgroundcolour(0,0,0,255), tablegridcolour(30,0,60,240), zoom(-1)
-#define GRAPH_TEXT colour(0,0,0,0), fontcolour(150,0,255,100) align("right")
-#define SOUNDFILE colour(100,0,200,95), tablebackgroundcolour(0,0,0,255)
+#define GRAPH tableColour(100,0,200,95), tableBackgroundColour(0,0,0,255), tableGridColour(30,0,60,240), zoom(-1)
+#define GRAPH_TEXT colour(0,0,0,0), fontColour(150,0,255,100) align("right")
+#define SOUNDFILE colour(100,0,200,95), tableBackgroundColour(0,0,0,255)
 #define SCRUBBER colour(150,0,255,255)
 #define PHASE_SCRUBBER colour(255,0,0,255)
 
@@ -137,20 +137,20 @@ Look at the default color config file for documentation
 #define Y_LED_ON colour(220,220,120,255), corners(2)
 
 ; keyboard style
-#define KBD keydowncolour("184,114,255,255"), mouseoverkeycolour("236,180,255,195"), whitenotecolour("255,255,255,255"), blacknotecolour("0,0,0,255"), arrowcolour("130,130,130,255"), arrowbackgroundcolour("60,60,60,255"), value(36), keywidth(14)
+#define KBD keyDownColour("184,114,255,255"), mouseOverKeyColour("236,180,255,195"), whiteNoteColour("255,255,255,255"), blackNoteColour("0,0,0,255"), arrowColour("130,130,130,255"), arrowBackgroundColour("60,60,60,255"), value(36), keyWidth(14)
 
 ; text widget styles
-#define TEXT colour(0,0,0,0), fontcolour(180,180,180,255), fontstyle("normal")
-#define HEADER colour(70,70,70,255), fontcolour(180,180,180,255), fontstyle("normal")
-#define TEXTBOX colour(70,70,70,255), outlinecolour(250,80,80,255), fontcolour(180,180,180,255)
+#define TEXT colour(0,0,0,0), fontColour(180,180,180,255), fontStyle("normal")
+#define HEADER colour(70,70,70,255), fontColour(180,180,180,255), fontStyle("normal")
+#define TEXTBOX colour(70,70,70,255), outlineColour(250,80,80,255), fontColour(180,180,180,255)
 
 ; text widgets for warning windows
-#define WARN_HEAD colour(0,0,0,0), fontcolour(255,140,140,255), fontstyle("normal")
-#define WARN_TEXT colour(0,0,0,0), fontcolour(200,200,200,255), fontstyle("normal")
+#define WARN_HEAD colour(0,0,0,0), fontColour(255,140,140,255), fontStyle("normal")
+#define WARN_TEXT colour(0,0,0,0), fontColour(200,200,200,255), fontStyle("normal")
 
 ; does not set a color, use with TEXT, HEADER, or almost any other widget!
-#define HIGHLIGHT fontcolour(180,160,255,255), fontstyle("bold")
-#define REINIT_TEXT  fontcolour(255,0,0,255), textcolour(255,0,0,255)
+#define HIGHLIGHT fontColour(180,160,255,255), fontStyle("bold")
+#define REINIT_TEXT  fontColour(255,0,0,255), textColour(255,0,0,255)
 
 ;;;;;;;;;;;;;;;;;;;;;;
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>collapse</namespace>
+<nameSpace>collapse</nameSpace>
 <name>StereoCollapse</name>
 <cabbagecode>
 image $INVIS bounds(0, 0, 100, 18)
 {
-  button $HR_BTN pos(42, 2), size(20, 14), channel("mono-lr"), radiogroup(101), value(1), text("LR", "LR"), popuptext("Mono Input: LR+LR")
-  button $HR_BTN pos(61, 2), size(19, 14), channel("mono-l"), radiogroup(101), text("L", "L"), popuptext("Mono Input: L+L")
-  button $HR_BTN pos(80, 2), size(19, 14), channel("mono-r"), radiogroup(101), text("R", "R"), popuptext("Mono Input: R+R")
+  button $HR_BTN pos(42, 2), size(20, 14), channel("mono-lr"), radioGroup(101), value(1), text("LR", "LR"), popupText("Mono Input: LR+LR")
+  button $HR_BTN pos(61, 2), size(19, 14), channel("mono-l"), radioGroup(101), text("L", "L"), popupText("Mono Input: L+L")
+  button $HR_BTN pos(80, 2), size(19, 14), channel("mono-r"), radioGroup(101), text("R", "R"), popupText("Mono Input: R+R")
 }
 </cabbagecode>
 <csoundcode>

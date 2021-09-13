@@ -29,10 +29,10 @@ Filter Controls in I/O section sets which filter variables get reset when filter
 form size(380, 638), caption("CrunchBox 2"), pluginID("tcr2"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_audio.xml","plants/collapse.xml","plants/flexpan.xml","plants/flexfilt.xml", "plants/flexfilt_reset.xml"), $ROOT
 
 groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {
-  FlexClip bounds(10,5,25,10), namespace("flexclip"), $IN_OL
-  FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
-  StereoCollapse bounds(8,55,100,18), namespace("collapse")
-  FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
+  FlexClip bounds(10,5,25,10), nameSpace("flexclip"), $IN_OL
+  FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
+  StereoCollapse bounds(8,55,100,18), nameSpace("collapse")
+  FlexPan bounds(304,25,50,50), nameSpace("flexpan"), $MAIN_PAN
 
   button $BTN bounds(102,25,50,20), $FILT_RESET
 
@@ -41,25 +41,25 @@ groupbox $BOX bounds(10, 10, 360, 80), text("In / Out") {
 }
 
 groupbox $BOX bounds(10, 94, 178, 170), text("Pre-Filt 1") {
-  FlexFilt bounds(0,0,178,168), channel("band1-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band1-"), nameSpace("flexfilt")
 }
 groupbox $BOX bounds(193, 94, 178, 170), text("Pre-Filt 2") {
-  FlexFilt bounds(0,0,178,168), channel("band2-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band2-"), nameSpace("flexfilt")
 }
 groupbox $BOX bounds(10, 462, 178, 170), text("Post-Filt 1") {
-  FlexFilt bounds(0,0,178,168), channel("band3-"), namespace("flexfilt")
+  FlexFilt bounds(0,0,178,168), channel("band3-"), nameSpace("flexfilt")
 }
 groupbox $BOX bounds(193, 462, 178, 170), text("Post-Filt 2") {
-  FlexFilt bounds(0,0,178,168), channel("band4-"), namespace("flexfilt")  
+  FlexFilt bounds(0,0,178,168), channel("band4-"), nameSpace("flexfilt")  
 }
 
 groupbox $BOX bounds(10, 268, 360, 190), text("Crunchbox") {
   label $TEXT bounds(10,33,45,16), text("Mode:")
-	combobox $COMBO bounds(60, 30, 70, 20), channel("mode"), channeltype("number"), text("Bypass","Limit", "Mirror", "Wrap"), value(2)
+	combobox $COMBO bounds(60, 30, 70, 20), channel("mode"), channelType("number"), text("Bypass","Limit", "Mirror", "Wrap"), value(2)
 	
-  rslider $RED_KNOB $GAIN_RANGE bounds(150, 25, 70, 100), channel("pregain"), text("Pre"), popupprefix("PreGain:\n"), popuppostfix(" dB"), valuetextbox(1)
-  rslider $RED_KNOB $GAIN_RANGE bounds(220, 25, 70, 100), channel("postgain"), text("Post"), popupprefix("PostGain:\n"), popuppostfix(" dB"), valuetextbox(1)
-  rslider $BLUE_KNOB bounds(290, 25, 70, 100), channel("mix"), range(-100, 100, 100, 1, 0.01), text("Mix"), popupprefix("Mix:\n"), popuppostfix(" %"), valuetextbox(1)
+  rslider $RED_KNOB $GAIN_RANGE bounds(150, 25, 70, 100), channel("pregain"), text("Pre"), popupPrefix("PreGain:\n"), popupPostfix(" dB"), valueTextBox(1)
+  rslider $RED_KNOB $GAIN_RANGE bounds(220, 25, 70, 100), channel("postgain"), text("Post"), popupPrefix("PostGain:\n"), popupPostfix(" dB"), valueTextBox(1)
+  rslider $BLUE_KNOB bounds(290, 25, 70, 100), channel("mix"), range(-100, 100, 100, 1, 0.01), text("Mix"), popupPrefix("Mix:\n"), popupPostfix(" %"), valueTextBox(1)
 
 	hrange $RANGE bounds(10, 130, 340, 40), range(-100,100,-100:100,1,.01), channel("rmin","rmax")
   label $TEXT bounds(10, 170, 20, 10), text("Min")
@@ -67,11 +67,11 @@ groupbox $BOX bounds(10, 268, 360, 190), text("Crunchbox") {
   label $TEXT bounds(10, 165, 340, 13), text("Bounds")
 }
 
-$SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identchannel("reset-tint")
-FlexFiltReset bounds(61,87,258,170), namespace("flexfilt")
+$SHADER bounds(0, 0, $SCREEN_WIDTH, $SCREEN_HEIGHT), identChannel("reset-tint")
+FlexFiltReset bounds(61,87,258,170), nameSpace("flexfilt")
 
 $BYPASS_SHADER size( $SCREEN_WIDTH, $SCREEN_HEIGHT)
-TestButtons bounds(56,12,126,18), namespace("test_audio")
+TestButtons bounds(56,12,126,18), nameSpace("test_audio")
 checkbox $GREEN_CC bounds(20, 35, 90, 25), $MAIN_BYPASS
 
 </Cabbage>

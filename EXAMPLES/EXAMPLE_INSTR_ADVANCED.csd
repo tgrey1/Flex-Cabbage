@@ -22,26 +22,26 @@ form caption("Advanced Example") size(1047,484), pluginID("test"), import("inclu
 ; form caption("Advanced Example") size(1047,484), pluginID("test"), import("includes/color_scheme.csd","plants/flexclip.xml","plants/test_midi.xml","plants/flexpan.xml","plants/flexadsr.xml", "plants/flexfx.xml"), $ROOT
 
   groupbox $BOX bounds(10,10,180,464) text("Pitch/Mod Wheel") {
-    FlexSynthCtl bounds(0,0,180,464), namespace("flexsynthctl")
+    FlexSynthCtl bounds(0,0,180,464), nameSpace("flexsynthctl")
   }
   groupbox $BOX bounds(194, 10, 609, 80), text("In / Out") {
-    TestButtons bounds(10,2,126,18), namespace("test_midi")
+    TestButtons bounds(10,2,126,18), nameSpace("test_midi")
 
-    FlexClip bounds(325,5,25,10), namespace("flexclip"), $OUT_OL
+    FlexClip bounds(325,5,25,10), nameSpace("flexclip"), $OUT_OL
     rslider $RED_KNOB bounds(200, 25, 50, 50), $MAIN_VEL
     rslider $RED_KNOB bounds(254, 25, 50, 50), $MAIN_GAIN
-    FlexPan bounds(304,25,50,50), namespace("flexpan"), $MAIN_PAN
+    FlexPan bounds(304,25,50,50), nameSpace("flexpan"), $MAIN_PAN
   }
 
   groupbox $BOX bounds(194, 94, 360, 296), text("GUI") {
   }
 
   groupbox $BOX bounds(558, 94, 245, 296), text("Envelope Ctrl") {
-    FlexADSR bounds(10,30,225,256), channel("MainEnv"), namespace("flexadsr")
+    FlexADSR bounds(10,30,225,256), channel("MainEnv"), nameSpace("flexadsr")
   },
 
   groupbox $BOX bounds(807,10,230,464), text(" FX:") {
-    FlexFX bounds(0,0,230,464), channel("flexfx-"), namespace("flexfx")
+    FlexFX bounds(0,0,230,464), channel("flexfx-"), nameSpace("flexfx")
   }
 
   keyboard $KBD bounds(194,394,609,80)

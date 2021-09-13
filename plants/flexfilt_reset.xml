@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plant>
-<namespace>flexfilt</namespace>
+<nameSpace>flexfilt</nameSpace>
 <name>FlexFiltReset</name>
 <cabbagecode>
-groupbox $POPUP_BOX bounds(0, 0, 258, 170), text("Filter Reset Controls"), identchannel("mfreset"), visible(0)
+groupbox $POPUP_BOX bounds(0, 0, 258, 170), text("Filter Reset Controls"), identChannel("mfreset"), visible(0)
 {
   label $TEXT pos(10, 25), size(238, 12), text("Select which controls will be reset")
   label $TEXT pos(10, 37), size(238, 12), text("when the filter mode changes.")
